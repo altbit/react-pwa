@@ -1,4 +1,4 @@
-# React.js front-end #
+# React.js Progressive Web App #
 
 Webpack + React.js + REST api
 
