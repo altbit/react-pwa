@@ -1,0 +1,7 @@
+/.idea
+/build
+/node_modules
+/public
+/npm-debug.log
+/config/local.json
+/faviconData.json
