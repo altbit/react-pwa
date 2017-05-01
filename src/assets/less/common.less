@@ -1,0 +1,70 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  font-weight: @text-font-weight;
+  min-height: @min-height-page;
+  position: relative;
+
+  &.loading {
+    overflow: hidden;
+
+    .main-loader {
+      display: block;
+    }
+  }
+
+  &.loader-fade-out {
+    .main-loader {
+      opacity: 0.01;
+    }
+  }
+}
+.main {
+  height: 100%;
+  opacity: 1;
+  transition: opacity @transition-duration-loader-fade-out ease @transition-duration-loader-fade-out;
+
+  > div {
+    height: 100%;
+  }
+}
+.wrapper-outer {
+  transition: all @transition-speed;
+  height: 100%;
+
+  &.blur {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+  }
+}
+.wrapper {
+  height: auto;
+  position: relative;
+  overflow: hidden;
+
+  @media (min-width: @screen-sm-min) {
+    min-height: 100%;
+  }
+}
+.content {
+  padding-top: @navbar-height;
+  padding-bottom: 155px;
+
+  @media (min-width: @screen-sm-min) {
+    padding-bottom: 554px;
+  }
+}
+
+* {
+  outline: none !important;
+
+  &:active,
+  &:focus {
+    outline: none !important;
+  }
+}

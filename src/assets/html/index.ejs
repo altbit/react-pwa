@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="/js/modernizr.js"></script>
+</head>
+<body class="loading">
+  <!--[if lt IE 10]>
+    <div class="old-browser">
+      <h1>React Progressive Web App</h1>
+
+      <h2>Your browser is not supported</h2>
+    </div>
+  <![endif]-->
+
+  <!--[if gte IE 10]><!-->
+    <!-- loader -->
+    <div class="main-loader">
+      <h1>React Progressive Web App</h1>
+
+      <div>
+        <h2>Please wait</h2>
+        <p>System is loading</p>
+
+        <span>Loading...</span>
+      </div>
+    </div>
+    <!-- /loader -->
+
+    <div id="main" class="main"></div>
+  <!--<![endif]-->
+</body>
+</html>

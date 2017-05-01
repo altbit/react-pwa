@@ -1,0 +1,18 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true
+  },
+  "extends": "airbnb",
+  "rules": {
+    "import/no-unresolved": ["error", {
+      "ignore": ["Config"],
+    }],
+    "no-underscore-dangle": "off",
+    "max-len": [2, 100, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false,
+      "ignorePattern": "^\\s*\\.dependencies\\(\\'.*\\)\\;$"
+    }]
+  }
+}

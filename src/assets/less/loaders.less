@@ -1,0 +1,105 @@
+@keyframes loader-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-icon {
+  display: block;
+  background: url(../images/icon-loader.svg) no-repeat 0 0;
+  background-size: @loader-size;
+  text-indent: -9999px;
+  .square(@loader-size);
+  margin: 0 auto;
+  overflow: hidden;
+  animation: loader-spin @transition-duration-loader-spin linear infinite;
+}
+
+.main-loader {
+  display: none;
+  background-color: #eaf2f5;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: (@zindex-modal + 1);
+  transition: opacity @transition-duration-loader-fade-out;
+
+  h1 {
+    background-image: url('../images/logo.png');
+    .size(114px, 37px);
+    text-indent: -9999px;
+    white-space: nowrap;
+    margin: 86px auto 0;
+
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+      background-image: url('../images/logo@2x.png');
+      background-size: 114px 37px;
+    }
+  }
+
+  h2 {
+    font: 700 36px @font-family-base;
+    letter-spacing: 0.05em;
+    margin: 0 0 3px;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: 0.05em;
+    margin: 0 0 36px;
+  }
+
+  div {
+    text-align: center;
+    position: absolute;
+    height: 155px;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  span {
+    .loader-icon();
+  }
+}
+.content-loader {
+  .square(@loader-size + @loader-margin * 2);
+  margin: 0 auto;
+  overflow: hidden;
+
+  &:before {
+    display: block;
+    content: '';
+    .loader-icon();
+    margin: @loader-margin;
+  }
+}
+
+.form-group {
+  &.has-loader {
+    position: relative;
+
+    &:after {
+      content: '';
+      background: url(../images/icon-loader-sm.svg) no-repeat 0 0;
+      background-size: 14px;
+      .square(14px);
+      margin-top: -7px;
+      position: absolute;
+      top: 50%;
+      right: @form-group-loader-right;
+      animation: loader-spin @transition-duration-loader-spin linear infinite;
+    }
+  }
+}

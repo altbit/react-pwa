@@ -1,0 +1,4 @@
+{
+  "env": "dev",
+  "httpApiUrl": "https://api.react-pwa.co.uk/"
+}
