@@ -6,10 +6,11 @@
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "modernizr": "^3.5.0",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
-    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0"
@@ -25,6 +26,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "cli-real-favicon": "^0.0.6",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
@@ -45,7 +47,7 @@
     "webpack": "^2.4.1"
   },
   "scripts": {
-    "build:dev": "npm run clean && npm run assets:dev && npm run favicon",
+    "build:dev": "npm run assets:dev",
     "build:production": "npm run clean && npm run assets:production && npm run favicon",
     "clean": "rm -rf build/ && rm -rf public/",
     "assets:dev": "webpack --env=dev",

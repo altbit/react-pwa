@@ -5,6 +5,7 @@ const args = require('minimist')(process.argv.slice(2));
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModernizrWebpackPlugin = require('modernizr-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 let env = args.env ?
   args.env :
@@ -19,17 +20,28 @@ const extractLess = new ExtractTextPlugin({
 
 const globalConfig = require('./config/global.json');
 const envConfig = require(`./config/env.${env}.json`);
-const localConfig = env === 'dev' ? require('./config/local.json') : null;
+let localConfig = null;
+if (env === 'dev') {
+  try {
+    localConfig = require('./config/local.json');
+  } catch (e) {}
+}
+const appConfig = Object.assign(
+  {},
+  globalConfig,
+  envConfig,
+  localConfig
+);
 
 let webpackConfig = {
   entry: {
-    'app': ['./src/appBootstrap.js'],
+    'app': ['./src/bootstrap.js'],
     vendor: [
       'babel-polyfill',
       'react',
       'react-dom',
       'react-redux',
-      'react-router',
+      'react-router-dom',
       'redux',
       'redux-thunk'
     ]
@@ -86,12 +98,7 @@ let webpackConfig = {
   },
 
   externals: {
-    Config: JSON.stringify(Object.assign(
-      {},
-      globalConfig,
-      envConfig,
-      localConfig
-    )),
+    AppConfig: JSON.stringify(appConfig),
   },
 
   devtool: 'source-map',
@@ -99,6 +106,9 @@ let webpackConfig = {
 
 const webpackPlugins = [
   new webpack.NoEmitOnErrorsPlugin(),
+  new webpack.ProvidePlugin({
+    'React': 'react'
+  }),
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
     filename: 'js/vendor.[chunkhash].js',
@@ -107,7 +117,7 @@ const webpackPlugins = [
   new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'js/meta.[hash].js' }),
   new webpack.NamedModulesPlugin(),
   new HtmlWebpackPlugin({
-    title: 'React Progressive Web App',
+    title: appConfig.appName,
     filename: 'index.html',
     template: path.join(__dirname, '/src/assets/html/index.ejs'),
     inject: true
@@ -117,6 +127,16 @@ const webpackPlugins = [
     options: ['setClasses'],
     'feature-detects': ['svg'],
     filename: 'js/modernizr.js',
+  }),
+  new CopyWebpackPlugin([
+    {
+      from: path.join(__dirname, '/src/assets/html/.htaccess'),
+      to: path.join(__dirname, '/public/')
+    }
+  ], {
+    ignore: [
+      '*.ejs'
+    ]
   })
 ];
 

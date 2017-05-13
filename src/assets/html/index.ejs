@@ -12,7 +12,7 @@
 <body class="loading">
   <!--[if lt IE 10]>
     <div class="old-browser">
-      <h1>React Progressive Web App</h1>
+      <h1><%= htmlWebpackPlugin.options.title %></h1>
 
       <h2>Your browser is not supported</h2>
     </div>
@@ -21,13 +21,12 @@
   <!--[if gte IE 10]><!-->
     <!-- loader -->
     <div class="main-loader">
-      <h1>React Progressive Web App</h1>
+      <h1><%= htmlWebpackPlugin.options.title %></h1>
 
       <div>
-        <h2>Please wait</h2>
-        <p>System is loading</p>
+        <h2>loading...</h2>
 
-        <span>Loading...</span>
+        <span>loading...</span>
       </div>
     </div>
     <!-- /loader -->

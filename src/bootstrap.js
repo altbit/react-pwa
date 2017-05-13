@@ -1,4 +1,5 @@
-require('./assets/less/app.less');
+import ReactDom from 'react-dom';
+import AppRoutes from './app/routes';
 
 const onDOMLoaded = () => {
   window.removeEventListener('load', onDOMLoaded, false);
@@ -8,9 +9,12 @@ const onDOMLoaded = () => {
   setTimeout(() => {
     document.body.classList.remove('loader-fade-out');
     document.body.classList.remove('loading');
-  }, 1000);
 
-  console.log('Code goes here');
+    ReactDom.render(
+      <AppRoutes />,
+      document.querySelector('#main')
+    );
+  }, 500);
 };
 
 export const bootstrap = () => {

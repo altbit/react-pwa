@@ -6,7 +6,7 @@
   "extends": "airbnb",
   "rules": {
     "import/no-unresolved": ["error", {
-      "ignore": ["Config"],
+      "ignore": ["AppConfig"]
     }],
     "no-underscore-dangle": "off",
     "max-len": [2, 100, 2, {

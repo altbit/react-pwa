@@ -1,9 +1,3 @@
-@keyframes loader-spin {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 .loader-icon {
   display: block;
   background: url(../images/icon-loader.svg) no-repeat 0 0;
@@ -12,12 +6,10 @@
   .square(@loader-size);
   margin: 0 auto;
   overflow: hidden;
-  animation: loader-spin @transition-duration-loader-spin linear infinite;
 }
 
 .main-loader {
   display: none;
-  background-color: #eaf2f5;
   position: absolute;
   top: 0;
   right: 0;
@@ -93,13 +85,12 @@
     &:after {
       content: '';
       background: url(../images/icon-loader-sm.svg) no-repeat 0 0;
-      background-size: 14px;
-      .square(14px);
+      background-size: @loader-small-size;
+      .square(@loader-small-size);
       margin-top: -7px;
       position: absolute;
       top: 50%;
       right: @form-group-loader-right;
-      animation: loader-spin @transition-duration-loader-spin linear infinite;
     }
   }
 }
