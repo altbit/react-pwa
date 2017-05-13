@@ -15,7 +15,7 @@ let env = args.env ?
   );
 
 const extractLess = new ExtractTextPlugin({
-  filename: "styles/[name].[contenthash].css"
+  filename: "styles/[name].[contenthash].css",
 });
 
 const globalConfig = require('./config/global.json');
@@ -43,8 +43,8 @@ let webpackConfig = {
       'react-redux',
       'react-router-dom',
       'redux',
-      'redux-thunk'
-    ]
+      'redux-thunk',
+    ],
   },
 
   output: {
@@ -70,14 +70,14 @@ let webpackConfig = {
         use: extractLess.extract({
           use: [
             {
-              loader: "css-loader"
+              loader: "css-loader",
             },
             {
-              loader: "less-loader"
-            }
+              loader: "less-loader",
+            },
           ],
           // use style-loader in development
-          fallback: "style-loader"
+          fallback: "style-loader",
         }),
       },
       {
@@ -107,12 +107,12 @@ let webpackConfig = {
 const webpackPlugins = [
   new webpack.NoEmitOnErrorsPlugin(),
   new webpack.ProvidePlugin({
-    'React': 'react'
+    'React': 'react',
   }),
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
     filename: 'js/vendor.[chunkhash].js',
-    minChunks: Infinity
+    minChunks: Infinity,
   }),
   new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'js/meta.[hash].js' }),
   new webpack.NamedModulesPlugin(),
@@ -120,7 +120,7 @@ const webpackPlugins = [
     title: appConfig.appName,
     filename: 'index.html',
     template: path.join(__dirname, '/src/assets/html/index.ejs'),
-    inject: true
+    inject: true,
   }),
   extractLess,
   new ModernizrWebpackPlugin({
@@ -131,13 +131,13 @@ const webpackPlugins = [
   new CopyWebpackPlugin([
     {
       from: path.join(__dirname, '/src/assets/html/.htaccess'),
-      to: path.join(__dirname, '/public/')
-    }
+      to: path.join(__dirname, '/public/'),
+    },
   ], {
     ignore: [
-      '*.ejs'
-    ]
-  })
+      '*.ejs',
+    ],
+  }),
 ];
 
 switch (env) {
@@ -154,7 +154,7 @@ switch (env) {
           compress: { warnings: false },
           comments: false,
           mangle: false,
-          minimize: true
+          minimize: true,
         }),
         new webpack.optimize.AggressiveMergingPlugin(),
       ],

@@ -1,15 +1,23 @@
 {
   "parser": "babel-eslint",
   "env": {
-    "browser": true
+    "browser": true,
+    "commonjs": true,
+    "es6": true
   },
-  "extends": "airbnb",
+  "extends": ["plugin:react/recommended"],
+  "plugins": [
+    "react",
+    "import"
+  ],
   "rules": {
     "import/no-unresolved": ["error", {
       "ignore": ["AppConfig"]
     }],
+    "react/react-in-jsx-scope": "off",
+    "comma-dangle": ["error", "always-multiline"],
     "no-underscore-dangle": "off",
-    "max-len": [2, 100, 2, {
+    "max-len": [2, 120, 2, {
       "ignoreUrls": true,
       "ignoreComments": false,
       "ignorePattern": "^\\s*\\.dependencies\\(\\'.*\\)\\;$"

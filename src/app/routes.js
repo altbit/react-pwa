@@ -1,6 +1,6 @@
 import {
   BrowserRouter as Router,
-  Route
+  Route,
 } from 'react-router-dom';
 
 import Layout from './components/layout';
