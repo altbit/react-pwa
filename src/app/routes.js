@@ -2,11 +2,23 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
+import Bundle from './bundle';
 
 import Layout from './components/layout';
 import Landing from './components/landing';
-import Registration from './../user/components/registration';
-import Login from './../user/components/login';
+import RegistrationLoader from 'bundle-loader?lazy&name=[name]!./../user/components/registration';
+import LoginLoader from 'bundle-loader?lazy&name=[name]!./../user/components/login';
+
+const Registration = (props) => (
+  <Bundle loader={RegistrationLoader}>
+    {(Registration) => <Registration {...props}/>}
+  </Bundle>
+);
+const Login = (props) => (
+  <Bundle loader={LoginLoader}>
+    {(Login) => <Login {...props}/>}
+  </Bundle>
+);
 
 const AppRoutes = () => (
   <Router>
