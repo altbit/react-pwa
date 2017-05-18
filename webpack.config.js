@@ -2,16 +2,18 @@ const webpack = require('webpack');
 const path = require('path');
 const args = require('minimist')(process.argv.slice(2));
 
+const DEV_ENV = 'development';
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModernizrWebpackPlugin = require('modernizr-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-let env = args.env ?
-  args.env :
-  (process.env.NODE_ENV ?
-    process.env.NODE_ENV :
-    'dev'
+let env = args.env
+  ? args.env
+  : (process.env.NODE_ENV
+    ? process.env.NODE_ENV
+    : DEV_ENV
   );
 
 const extractLess = new ExtractTextPlugin({
@@ -21,7 +23,7 @@ const extractLess = new ExtractTextPlugin({
 const globalConfig = require('./config/global.json');
 const envConfig = require(`./config/env.${env}.json`);
 let localConfig = null;
-if (env === 'dev') {
+if (env === DEV_ENV) {
   try {
     localConfig = require('./config/local.json');
   } catch (e) {}
@@ -165,7 +167,8 @@ switch (env) {
       cache: true,
 
       devServer: {
-        contentBase: './public/',
+        contentBase: path.join(__dirname, "public"),
+        port: 9000,
         inline: true,
         historyApiFallback: true,
         noInfo: false,

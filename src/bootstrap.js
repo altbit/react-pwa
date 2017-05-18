@@ -1,6 +1,10 @@
 import ReactDom from 'react-dom';
 import AppRoutes from './app/routes';
 
+// Needed for onTouchTap - http://stackoverflow.com/a/34015469/988941
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 const onDOMLoaded = () => {
   window.removeEventListener('load', onDOMLoaded, false);
   document.removeEventListener('DOMContentLoaded', onDOMLoaded, false);

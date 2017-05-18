@@ -1,5 +1,6 @@
 {
   "env": "dev",
-  "appName": "React Progressive Web App",
-  "httpApiUrl": "https://api.react-pwa.co.uk/"
+  "appName": "React ROCKS!",
+  "ServerApi": "http://server.react-pwa.co.uk",
+  "RESTApi": "http://rest.react-pwa.co.uk"
 }
