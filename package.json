@@ -3,10 +3,10 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.1",
-    "bootstrap": "^3.3.7",
+    "babel-polyfill": "^6.23.0",
     "bundle-loader": "^0.5.5",
-    "font-awesome": "^4.7.0",
-    "material-ui": "^0.18.1",
+    "material-ui": "^1.0.0-alpha.14",
+    "material-ui-icons": "^1.0.0-alpha.3",
     "modernizr": "^3.5.0",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
@@ -24,7 +24,6 @@
     "babel-loader": "^7.0.0",
     "babel-plugin-rewire": "^1.1.0",
     "babel-plugin-transform-proto-to-assign": "^6.23.0",
-    "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
@@ -54,7 +53,7 @@
     "build:dev": "npm run assets:dev",
     "build:production": "npm run clean && npm run assets:production && npm run favicon",
     "clean": "rm -rf build/ && rm -rf public/",
-    "assets:dev": "webpack --env=dev",
+    "assets:dev": "webpack --env=development",
     "assets:production": "webpack --env=production",
     "favicon": "real-favicon generate faviconDescription.json faviconData.json public && real-favicon inject faviconData.json public public/index.html"
   }
