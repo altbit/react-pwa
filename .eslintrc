@@ -12,7 +12,7 @@
   ],
   "rules": {
     "import/no-unresolved": ["error", {
-      "ignore": ["AppConfig"]
+      "ignore": ["AppConfig", "bundle-loader"]
     }],
     "react/react-in-jsx-scope": "off",
     "comma-dangle": ["error", "always-multiline"],

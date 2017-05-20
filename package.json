@@ -50,11 +50,9 @@
     "webpack-dev-server": "^2.4.5"
   },
   "scripts": {
-    "build:dev": "npm run assets:dev",
-    "build:production": "npm run clean && npm run assets:production && npm run favicon",
+    "start": "webpack-dev-server --env=development --progress --inline --colors",
+    "build": "npm run clean && webpack --env=production && npm run favicon",
     "clean": "rm -rf build/ && rm -rf public/",
-    "assets:dev": "webpack --env=development",
-    "assets:production": "webpack --env=production",
     "favicon": "real-favicon generate faviconDescription.json faviconData.json public && real-favicon inject faviconData.json public public/index.html"
   }
 }

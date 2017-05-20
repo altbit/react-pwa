@@ -16,7 +16,7 @@ const onDOMLoaded = () => {
 
     ReactDom.render(
       <AppRoutes />,
-      document.querySelector('#main')
+      document.querySelector('#app')
     );
   }, 500);
 };

@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { CircularProgress } from 'material-ui/Progress';
 
-class Bundle extends Component {
+class BundleComponent extends Component {
   static propTypes = {
     loader: PropTypes.func.isRequired,
     children: PropTypes.func.isRequired,
@@ -35,8 +36,12 @@ class Bundle extends Component {
   render() {
     return this.state.mod
       ? this.props.children(this.state.mod)
-      : (<div>loading...</div>);
+      : (<CircularProgress />);
   }
 }
 
-export default Bundle;
+export default (BundleLoader) => (props) => (
+  <BundleComponent loader={BundleLoader}>
+    {(LoadedComponent) => <LoadedComponent {...props}/>}
+  </BundleComponent>
+);

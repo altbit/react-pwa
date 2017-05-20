@@ -2,31 +2,20 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
-import Bundle from './bundle';
+import bundle from './bundle';
 
-import Layout from './components/layout';
-import Landing from './components/landing';
-import RegistrationLoader from 'bundle-loader?lazy&name=[name]!./../user/components/registration';
-import LoginLoader from 'bundle-loader?lazy&name=[name]!./../user/components/login';
-
-const Registration = (props) => (
-  <Bundle loader={RegistrationLoader}>
-    {(Registration) => <Registration {...props}/>}
-  </Bundle>
-);
-const Login = (props) => (
-  <Bundle loader={LoginLoader}>
-    {(Login) => <Login {...props}/>}
-  </Bundle>
-);
+import App from './components/App';
+import LandingLoader from 'bundle-loader?lazy&name=[name]!./components/Landing';
+import RegistrationLoader from 'bundle-loader?lazy&name=[name]!./../user/components/Registration';
+import LoginLoader from 'bundle-loader?lazy&name=[name]!./../user/components/Login';
 
 const AppRoutes = () => (
   <Router>
-    <Layout>
-      <Route exact path="/" component={Landing} />
-      <Route path="/register" component={Registration} />
-      <Route path="/login" component={Login} />
-    </Layout>
+    <App>
+      <Route exact path="/" component={bundle(LandingLoader)} />
+      <Route path="/register" component={bundle(RegistrationLoader)} />
+      <Route path="/login" component={bundle(LoginLoader)} />
+    </App>
   </Router>
 );
 export default AppRoutes;
