@@ -1,10 +1,11 @@
 import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 
 const Login = () => (
   <div>
-    <Typography type="display2" gutterBottom>
+    <Typography type="display1" gutterBottom>
       Authorisation
     </Typography>
 
@@ -15,12 +16,17 @@ const Login = () => (
           name="email"
         />
       </Grid>
+
       <Grid item xs={12} sm={6}>
         <TextField
           type="password"
           label="Password"
           name="password"
         />
+      </Grid>
+
+      <Grid item xs={12}>
+        <Button raised primary>Log In</Button>
       </Grid>
     </Grid>
   </div>

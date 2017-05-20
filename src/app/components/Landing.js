@@ -5,7 +5,7 @@ import Grid from 'material-ui/Grid';
 
 const Landing = () => (
   <div>
-    <Typography type="display2" gutterBottom>
+    <Typography type="display1" gutterBottom>
       Welcome!
     </Typography>
 
