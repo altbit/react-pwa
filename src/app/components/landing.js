@@ -1,18 +1,22 @@
-import AppConfig from 'AppConfig';
 import { Link } from 'react-router-dom';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import Grid from 'material-ui/Grid';
 
 const Landing = () => (
   <div>
-    <h1>Welcome to {AppConfig.appName}</h1>
-    <div>
-      <Link to="/register"><
-        FlatButton label="Register" primary={true}
-      /></Link>
-      <Link to="/login"><
-        FlatButton label="Login" secondary={true}
-      /></Link>
-    </div>
+    <Typography type="display2" gutterBottom>
+      Welcome!
+    </Typography>
+
+    <Grid container gutter={24}>
+      <Grid item>
+        <Button raised component={Link} to="/register" primary>Register</Button>
+      </Grid>
+      <Grid item>
+        <Button raised component={Link} to="/login" accent>Login</Button>
+      </Grid>
+    </Grid>
   </div>
 );
 export default Landing;

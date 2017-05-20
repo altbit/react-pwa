@@ -1,20 +1,52 @@
-require('./../../assets/less/app.less');
-
-import AppConfig from 'AppConfig';
 import PropTypes from 'prop-types';
-import { MuiThemeProvider } from 'material-ui/styles';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import AppConfig from 'AppConfig';
 
-const Layout = ({ children }) => {
+const styleSheet = createStyleSheet('Layout', (theme) => ({
+  root: {
+    display: 'flex',
+    minHeight: '100vh',
+    alignItems: 'stretch',
+  },
+  content: {
+    flex: '1 1 100%',
+    margin: '0 auto',
+    maxWidth: '100%',
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    paddingTop: '80px',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: theme.breakpoints.getWidth('md') + 'px',
+    },
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: '24px',
+      paddingRight: '24px',
+    },
+  },
+}));
+
+const Layout = ({ children, classes }) => {
   return (
-    <MuiThemeProvider>
-        <AppBar title={AppConfig.appName} />
+    <div className={classes.root}>
+      <AppBar>
+        <Toolbar>
+          <Typography type="title" colorInherit>{AppConfig.appName}</Typography>
+        </Toolbar>
+      </AppBar>
+
+      <div className={classes.content}>
         {children}
-    </MuiThemeProvider>
+      </div>
+    </div>
   );
 };
+
 Layout.propTypes = {
   children: PropTypes.any.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
-export default Layout;
+export default withStyles(styleSheet)(Layout);

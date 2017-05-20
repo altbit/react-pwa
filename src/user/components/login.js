@@ -1,21 +1,28 @@
 import TextField from 'material-ui/TextField';
+import Typography from 'material-ui/Typography';
+import Grid from 'material-ui/Grid';
 
 const Login = () => (
   <div>
-    <h1>Authorisation</h1>
-    <div>
-      <TextField
-        name="email"
-        hintText="Enter your email address"
-        floatingLabelText="E-mail"
-      /><br />
-      <TextField
-        name="password"
-        hintText="Enter your password"
-        floatingLabelText="Password"
-        type="password"
-      />
-    </div>
+    <Typography type="display2" gutterBottom>
+      Authorisation
+    </Typography>
+
+    <Grid container direction='column'>
+      <Grid item xs={12} sm={6}>
+        <TextField
+          label="E-mail"
+          name="email"
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextField
+          type="password"
+          label="Password"
+          name="password"
+        />
+      </Grid>
+    </Grid>
   </div>
 );
 export default Login;
