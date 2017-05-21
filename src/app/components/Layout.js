@@ -3,6 +3,10 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
+import { Link } from 'react-router-dom';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui-icons/Menu';
 import AppConfig from 'AppConfig';
 
 const styleSheet = createStyleSheet('Layout', (theme) => ({
@@ -18,14 +22,17 @@ const styleSheet = createStyleSheet('Layout', (theme) => ({
     paddingLeft: '16px',
     paddingRight: '16px',
     paddingTop: '80px',
-    [theme.breakpoints.up('md')]: {
-      maxWidth: theme.breakpoints.getWidth('md') + 'px',
-    },
     [theme.breakpoints.up('sm')]: {
       paddingLeft: '24px',
       paddingRight: '24px',
     },
+    [theme.breakpoints.up('md')]: {
+      maxWidth: theme.breakpoints.getWidth('md') + 'px',
+    },
   },
+  title: {
+    textTransform: 'none',
+  }
 }));
 
 const Layout = ({ children, classes }) => {
@@ -33,7 +40,12 @@ const Layout = ({ children, classes }) => {
     <div className={classes.root}>
       <AppBar>
         <Toolbar>
-          <Typography type="title" colorInherit>{AppConfig.appName}</Typography>
+          <IconButton contrast>
+            <MenuIcon />
+          </IconButton>
+          <Button contrast component={Link} to="/" className={classes.title}>
+            <Typography type="title" colorInherit>{AppConfig.appName}</Typography>
+          </Button>
         </Toolbar>
       </AppBar>
 
