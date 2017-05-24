@@ -19,33 +19,6 @@
   z-index: 1000;
   transition: opacity @transition-duration-loader-fade-out;
 
-  h1 {
-    background-image: url('../images/logo.png');
-    width: 114px;
-    height: 37px;
-    text-indent: -9999px;
-    white-space: nowrap;
-    margin: 86px auto 0;
-
-    @media
-    only screen and (-webkit-min-device-pixel-ratio: 2),
-    only screen and (   min--moz-device-pixel-ratio: 2),
-    only screen and (     -o-min-device-pixel-ratio: 2/1),
-    only screen and (        min-device-pixel-ratio: 2),
-    only screen and (                min-resolution: 192dpi),
-    only screen and (                min-resolution: 2dppx) {
-      background-image: url('../images/logo@2x.png');
-      background-size: 114px 37px;
-    }
-  }
-
-  p {
-    font-weight: 400;
-    font-size: 24px;
-    letter-spacing: 0.05em;
-    margin: 0 0 36px;
-  }
-
   div {
     text-align: center;
     position: absolute;
@@ -55,6 +28,10 @@
     right: 0;
     bottom: 0;
     left: 0;
+
+    h2 {
+      font-weight: normal;
+    }
   }
 
   span {

@@ -8,6 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModernizrWebpackPlugin = require('modernizr-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 let env = args.env
   ? args.env
@@ -44,10 +45,7 @@ let webpackConfig = {
       'react-dom',
       'react-router-dom',
       'prop-types',
-      'material-ui/styles',
       'material-ui/Progress',
-      'material-ui/Button',
-      'material-ui/TextField',
     ],
   },
 
@@ -152,15 +150,31 @@ switch (env) {
       plugins: [
         ...webpackPlugins,
         new webpack.DefinePlugin({
-          'process.env.NODE_ENV': '"production"',
+          'process.env': {
+            'NODE_ENV': JSON.stringify('production'),
+          },
         }),
         new webpack.optimize.UglifyJsPlugin({
-          compress: { warnings: false },
+          beautify: false,
           comments: false,
-          mangle: false,
-          minimize: true,
+          compress: {
+            sequences     : true,
+            booleans      : true,
+            loops         : true,
+            unused      : true,
+            warnings    : false,
+            drop_console: true,
+            unsafe      : true,
+          },
         }),
         new webpack.optimize.AggressiveMergingPlugin(),
+        new CompressionPlugin({
+          asset: "[path].gz[query]",
+          algorithm: "gzip",
+          test: /\.(js|html|css)$/,
+          threshold: 10240,
+          minRatio: 0.8,
+        }),
       ],
     });
     break;
