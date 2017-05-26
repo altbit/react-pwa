@@ -4,21 +4,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var fs = require('fs');
 
 //routes
-//var users = require('./routes/users');
+var userRoutes = require('./routes/user');
 
 var app = express();
 
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-
 app.get('*.js', function (req, res, next) {
-  console.log(req.url);
   if (fs.existsSync(path.join(__dirname, '../public', req.url + '.gz'))) {
     req.url = req.url + '.gz';
     res.set('Content-Encoding', 'gzip');
@@ -35,8 +31,6 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
-
-var staticPath = path.join(__dirname, '../public');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -69,12 +63,13 @@ app.use(function(req, res, next) {
 
 });
 
-
+var staticPath = path.join(__dirname, '../public');
+app.use('/api/', userRoutes);
 app.use(express.static(staticPath));
-app.use('/', express.static(staticPath));
-app.use('/js/*', express.static(staticPath));
-app.use('/styles/*', express.static(staticPath));
 
+app.get('*', function(req, res) {
+  res.render(path.join(__dirname, '../public', 'index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -83,16 +78,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-
-// app.use(function(err, req, res, next) {
-//   console.error(err.stack);
-//   console.log(1)
-//   res.status(500).send('Uh oh! Something broke!');
-// });
-
-
 // error handlers
-// no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   console.dir(err);
   res.status(err.status || 500);
@@ -110,14 +96,11 @@ app.use(function(err, req, res, next) {
   }
 });
 
-
-//mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/posts');
-//var db = mongoose.connection;
-//db.on('error', console.error.bind(console, 'connection error:'));
-//db.once('open', function() {
-//  console.log('DB connected!');
-//});
-
-
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/posts');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('DB connected!');
+});
 
 module.exports = app;
