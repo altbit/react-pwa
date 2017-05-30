@@ -3,5 +3,6 @@
 /node_modules
 /public
 /npm-debug.log
-/config/local.json
+/config/app.local.json
+/config/server.local.json
 /faviconData.json

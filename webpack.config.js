@@ -1,8 +1,6 @@
+const config = require('./config/config');
 const webpack = require('webpack');
 const path = require('path');
-const args = require('minimist')(process.argv.slice(2));
-
-const DEV_ENV = 'development';
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -10,31 +8,9 @@ const ModernizrWebpackPlugin = require('modernizr-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
 
-let env = args.env
-  ? args.env
-  : (process.env.NODE_ENV
-    ? process.env.NODE_ENV
-    : DEV_ENV
-  );
-
 const extractLess = new ExtractTextPlugin({
   filename: "styles/[name].[contenthash].css",
 });
-
-const globalConfig = require('./config/global.json');
-const envConfig = require(`./config/env.${env}.json`);
-let localConfig = null;
-if (env === DEV_ENV) {
-  try {
-    localConfig = require('./config/local.json');
-  } catch (e) {}
-}
-const appConfig = Object.assign(
-  {},
-  globalConfig,
-  envConfig,
-  localConfig
-);
 
 let webpackConfig = {
   entry: {
@@ -100,7 +76,7 @@ let webpackConfig = {
   },
 
   externals: {
-    AppConfig: JSON.stringify(appConfig),
+    AppConfig: JSON.stringify(config.app),
   },
 
   devtool: 'source-map',
@@ -119,7 +95,7 @@ const webpackPlugins = [
   new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'js/meta.[hash].js' }),
   new webpack.NamedModulesPlugin(),
   new HtmlWebpackPlugin({
-    title: appConfig.appName,
+    title: config.app.appName,
     filename: 'index.html',
     template: path.join(__dirname, '/src/assets/html/index.ejs'),
     inject: true,
@@ -142,7 +118,7 @@ const webpackPlugins = [
   }),
 ];
 
-switch (env) {
+switch (config.env) {
   case 'production':
     webpackConfig = Object.assign({}, webpackConfig, {
       cache: false,

@@ -64,10 +64,10 @@
     "webpack-dev-server": "^2.4.5"
   },
   "scripts": {
-    "start": "node ./server/bin/web",
+    "start": "node ./server/bin/http.js",
     "dev": "webpack-dev-server --env=development --progress --inline --colors",
     "build": "npm run clean && webpack --env=production && npm run favicon",
-    "build:dev": "npm run clean && webpack --env=development && npm run favicon",
+    "build:dev": "webpack --env=development",
     "clean": "rm -rf public/js",
     "favicon": "real-favicon generate faviconDescription.json faviconData.json public && real-favicon inject faviconData.json public public/index.html"
   }

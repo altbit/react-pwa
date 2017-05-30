@@ -1,19 +1,10 @@
+const config = require('./../../config/config');
 
-if (!process.env.FROM_EMAIL) {
-  console.log('Please set: FROM_EMAIL environment variable. This is a validated email address to send emails from to other users for email verification, reset pwd etc')
-  process.exit();
-}
-
-if(!process.env.POSTMARK_API_TOKEN) {
-  console.error('Error! Please set POSTMARK_API_TOKEN from postmark email service.');
-  process.exit();
-}
-
-var postmark = require("postmark")(process.env.POSTMARK_API_TOKEN);
+var postmark = require("postmark")(config.server.postmarkApiToken);
 var async = require('async');
 var crypto = require('crypto');
 
-function sendWelcomeEmail(user, host, finalCB) {
+let sendWelcomeEmail = (user, host, finalCB) => {
   host = host.indexOf('localhost') >= 0 ? 'http://' + host : 'https://' + host;
 
   async.waterfall([
@@ -33,7 +24,7 @@ function sendWelcomeEmail(user, host, finalCB) {
       },
       function(user, done) {
         postmark.sendEmailWithTemplate({
-          "From": process.env.FROM_EMAIL,
+          "From": config.server.mailFrom,
           "To": user.email,
           "TemplateId": 111,
           "TemplateModel": {
@@ -65,9 +56,8 @@ function sendWelcomeEmail(user, host, finalCB) {
         }
       }
     });
-
-}
+};
 
 module.exports = {
-  sendWelcomeEmail: sendWelcomeEmail
+  sendWelcomeEmail,
 };

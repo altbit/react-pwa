@@ -1,6 +1,0 @@
-{
-  "env": "dev",
-  "appName": "React ROCKS!",
-  "ServerApi": "http://server.react-pwa.co.uk",
-  "RESTApi": "http://rest.react-pwa.co.uk"
-}

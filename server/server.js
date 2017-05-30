@@ -1,3 +1,5 @@
+const config = require('./../config/config');
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -49,7 +51,7 @@ app.use(function(req, res, next) {
   token = token.replace('Bearer ', '');
 
 
-  jwt.verify(token, process.env.JWT_SECRET, function(err, user) {
+  jwt.verify(token, config.server.jwtSecret, function(err, user) {
     if (err) {
       return res.status(401).json({
         success: false,

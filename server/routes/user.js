@@ -1,3 +1,5 @@
+const config = require('./../../config/config');
+
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
@@ -7,11 +9,6 @@ var jwt = require('jsonwebtoken');
 var utils = require('../utils/index');
 var email = require('../utils/email');
 var expressJwt = require('express-jwt');
-
-if (!process.env.JWT_SECRET) {
-  console.error('ERROR!: Please set JWT_SECRET before running the app. \n run: export JWT_SECRET=<some secret string> to set JWTSecret. ');
-  process.exit();
-}
 
 var userSchema = mongoose.Schema({
   firstName: String,
@@ -202,7 +199,7 @@ router.get('/me/from/token', function(req, res, next) {
   }
 
   // decode token
-  jwt.verify(token, process.env.JWT_SECRET, function(err, user) {
+  jwt.verify(token, config.server.jwtSecret, function(err, user) {
     if (err)
       throw err;
 
@@ -228,7 +225,7 @@ router.get('/me/from/token', function(req, res, next) {
 });
 
 router.get('/resendValidationEmail', expressJwt({
-  secret: process.env.JWT_SECRET
+  secret: config.server.jwtSecret,
 }), function(req, res, next) {
 
   User.findById({

@@ -1,3 +1,5 @@
+const config = require('./../../config/config');
+
 var jwt = require('jsonwebtoken');
 
 function generateToken(user) {
@@ -12,7 +14,7 @@ function generateToken(user) {
     isEmailVerified: user.isEmailVerified //used to prevent creating posts w/o verifying emails
   };
 
-  return token = jwt.sign(u, process.env.JWT_SECRET, {
+  return token = jwt.sign(u, config.server.jwtSecret, {
     expiresIn: 60 * 60 * 24 // expires in 24 hours
   });
 }
