@@ -1,6 +1,16 @@
 {
   "port": 5000,
-  "mailFrom": "Webmaster <webmaster@test.com>",
-  "postmarkApiToken": "<type-your-postmark-token-here>",
-  "jwtSecret": "react-pwa-jwt"
+  "postmark": {
+    "apiToken": "<type-your-postmark-token-here>",
+    "templateId": "<paste-your-template-id-here>",
+    "signupTokenExpireDays": 3,
+    "mailFrom": "Webmaster <webmaster@test.com>"
+  },
+  "jwt": {
+    "secret": "react-pwa-jwt",
+    "expire": "24h"
+  },
+  "mongo": {
+    "uri": "mongodb://localhost/react-pwa"
+  }
 }

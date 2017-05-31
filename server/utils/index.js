@@ -14,8 +14,8 @@ function generateToken(user) {
     isEmailVerified: user.isEmailVerified //used to prevent creating posts w/o verifying emails
   };
 
-  return token = jwt.sign(u, config.server.jwtSecret, {
-    expiresIn: 60 * 60 * 24 // expires in 24 hours
+  return token = jwt.sign(u, config.server.jwt.secret, {
+    expiresIn: config.server.jwt.expire
   });
 }
 

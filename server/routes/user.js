@@ -130,7 +130,7 @@ router.post('/users/signin', function(req, res) {
 
 router.post('/users/signup', function(req, res, next) {
   var body = req.body;
-
+  console.log(body);
 
   var errors = utils.validateSignUpForm(body);
   if (errors) {
@@ -139,7 +139,7 @@ router.post('/users/signup', function(req, res, next) {
 
   isUserUnique(body, function(err) {
     if (err) {
-      return res.status(403).json(err);
+      return res.status(403).json({ success: false, error: err });
     }
 
     var hash = bcrypt.hashSync(body.password.trim(), 10);
@@ -199,7 +199,7 @@ router.get('/me/from/token', function(req, res, next) {
   }
 
   // decode token
-  jwt.verify(token, config.server.jwtSecret, function(err, user) {
+  jwt.verify(token, config.server.jwt.secret, function(err, user) {
     if (err)
       throw err;
 
@@ -225,7 +225,7 @@ router.get('/me/from/token', function(req, res, next) {
 });
 
 router.get('/resendValidationEmail', expressJwt({
-  secret: config.server.jwtSecret,
+  secret: config.server.jwt.secret,
 }), function(req, res, next) {
 
   User.findById({

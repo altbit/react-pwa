@@ -1,6 +1,6 @@
 const config = require('./../../config/config');
 
-var postmark = require("postmark")(config.server.postmarkApiToken);
+var postmark = require("postmark")(config.server.postmark.apiToken);
 var async = require('async');
 var crypto = require('crypto');
 
@@ -16,7 +16,7 @@ let sendWelcomeEmail = (user, host, finalCB) => {
       },
       function(token, done) {
         user.verifyEmailToken = token;
-        user.verifyEmailTokenExpires = Date.now() + 3600000 * 24; // 24 hours
+        user.verifyEmailTokenExpires = Date.now() + 3600000 * 24 * config.server.postmark.signupTokenExpireDays;
         user.isEmailVerified = false; 
         user.save(function(err) {
           done(err, user);
@@ -24,19 +24,15 @@ let sendWelcomeEmail = (user, host, finalCB) => {
       },
       function(user, done) {
         postmark.sendEmailWithTemplate({
-          "From": config.server.mailFrom,
+          "From": config.server.postmark.mailFrom,
           "To": user.email,
-          "TemplateId": 111,
+          "TemplateId": config.server.postmark.templateId,
           "TemplateModel": {
-            "product_name": "React PWA",
+            "productName": config.app.appName,
             "firstName": user.firstName,
             "action_url": host + '/validateEmail/' + user.verifyEmailToken,
-            "lastName": user.lastName,
-            "sender_name": "React PWA",
-            'sender_name_Value': 'Webmaster',
-            'product_name_Value': 'React-PWA-Example',
-            "product_address_line1": "Queens Road",
-            "product_address_line2": "London"
+            "productAddressLine1": "Queens Road",
+            "productAddressLine2": "London"
           }
         }, done);
       }

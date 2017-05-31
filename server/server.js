@@ -15,6 +15,8 @@ var fs = require('fs');
 var userRoutes = require('./routes/user');
 
 var app = express();
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 app.get('*.js', function (req, res, next) {
   if (fs.existsSync(path.join(__dirname, '../public', req.url + '.gz'))) {
@@ -51,7 +53,7 @@ app.use(function(req, res, next) {
   token = token.replace('Bearer ', '');
 
 
-  jwt.verify(token, config.server.jwtSecret, function(err, user) {
+  jwt.verify(token, config.server.jwt.secret, function(err, user) {
     if (err) {
       return res.status(401).json({
         success: false,
@@ -70,6 +72,9 @@ app.use('/api/', userRoutes);
 app.use(express.static(staticPath));
 
 app.get('*', function(req, res) {
+  if (req.url.indexOf('/api/') === 0) {
+    res.status(404).json({ success: false, error: 'Not Found' });
+  }
   res.render(path.join(__dirname, '../public', 'index.html'));
 });
 
@@ -86,19 +91,15 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   if (err.status === 500) {
     console.error(err.stack);
-    res.json({
-      error: 'Internal Server Error'
-    });
+    res.json({ success: false, error: 'Internal Server Error' });
   } else if (err.status === 404) {
-    res.render('error'); //render error page
+    res.json({ success: false, error: 'Not Found' });
   } else {
-    res.json({
-      error: err.message
-    })
+    res.json({ success: false, error: err.message })
   }
 });
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/posts');
+mongoose.connect(config.server.mongo.uri);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
