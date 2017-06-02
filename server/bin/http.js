@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 const config = require('./../../config/config');
-const serverApp = require('../server');
-const debug = require('debug')('blog-server:server');
+const app = require('./../app');
+const debug = require('debug')('server:http');
 const http = require('http');
 
-serverApp.set('port', config.server.port);
-const server = http.createServer(serverApp);
+app.set('port', config.server.port);
+const server = http.createServer(app);
 server.listen(config.server.port);
 
 server.on('error', (error) => {
@@ -30,5 +30,5 @@ server.on('error', (error) => {
 });
 
 server.on('listening', () => {
-  debug('Listening on port' + server.address().port);
+  debug('Listening on port ' + server.address().port);
 });

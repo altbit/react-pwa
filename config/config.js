@@ -35,7 +35,8 @@ let serverConfig = Object.assign(
 
 module.exports = {
   env,
-  rootDir: path.join(__dirname, '../'),
+  root: path.join(__dirname, '../'),
+  public: path.join(__dirname, '../public'),
   app: appConfig,
   server: serverConfig,
 };

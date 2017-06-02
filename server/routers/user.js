@@ -1,5 +1,5 @@
 const config = require('./../../config/config');
-
+const debug = require('debug')('router:user');
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
@@ -10,21 +10,30 @@ var utils = require('../utils/index');
 var email = require('../utils/email');
 var expressJwt = require('express-jwt');
 
-var userSchema = mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
-  password: String,
-  avatar: String,
-  role: String,
-  isEmailVerified: Boolean,
-  verifyEmailToken: String,
-  verifyEmailTokenExpires: Date,
-});
+const UserService = require('./../services/user');
 
-userSchema.plugin(timestamps);
+const tokenMiddleware = (req, res, next) => {
+  debug('process request');
+  var token = req.headers['authorization'];
+  if (!token) return next();
 
-var User = mongoose.model('User', userSchema);
+  jwt.verify(token, config.server.jwt.secret, (err, user) => {
+    if (err) {
+      const error = new Error('Invalid credentials, please authorize');
+      error.status = 401;
+      next(error);
+    } else {
+      req.user = user;
+      next();
+    }
+  });
+};
+
+router.post('/users/signup/intro', UserService.signupIntro);
+
+// OLD code, has to be rewrote
+
+const User = require('./../models/user');
 
 //utility func
 function isUserUnique(reqBody, cb) {
@@ -128,9 +137,8 @@ router.post('/users/signin', function(req, res) {
 
 
 
-router.post('/users/signup', function(req, res, next) {
+router.post('/users/signup/complete', function(req, res, next) {
   var body = req.body;
-  console.log(body);
 
   var errors = utils.validateSignUpForm(body);
   if (errors) {
@@ -326,4 +334,7 @@ router.get('/validateEmail/:token', function(req, res, next) {
 });
 
 
-module.exports = router;
+module.exports = {
+  router,
+  tokenMiddleware,
+};

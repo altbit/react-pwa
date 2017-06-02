@@ -67,7 +67,6 @@
     "start": "node ./server/bin/http.js",
     "dev": "webpack-dev-server --env=development --progress --inline --colors",
     "build": "npm run clean && webpack --env=production && npm run favicon",
-    "build:dev": "webpack --env=development",
     "clean": "rm -rf public/js",
     "favicon": "real-favicon generate faviconDescription.json faviconData.json public && real-favicon inject faviconData.json public public/index.html"
   }

@@ -4,5 +4,6 @@
 /public
 /npm-debug.log
 /config/app.local.json
+/package-lock.json
 /config/server.local.json
 /faviconData.json

@@ -1,5 +1,6 @@
 {
   "port": 5000,
+  "origin": "*",
   "postmark": {
     "apiToken": "<type-your-postmark-token-here>",
     "templateId": "<paste-your-template-id-here>",
@@ -12,5 +13,6 @@
   },
   "mongo": {
     "uri": "mongodb://localhost/react-pwa"
-  }
+  },
+  "hideErrors": true
 }
