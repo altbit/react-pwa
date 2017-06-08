@@ -15,7 +15,7 @@ try {
 } catch (e) {}
 
 let appConfig = Object.assign(
-  {},
+  { env },
   appGlobalConfig,
   appEnvConfig,
   appLocalConfig

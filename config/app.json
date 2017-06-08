@@ -1,5 +1,5 @@
 {
   "appName": "React Progressive Web Application",
-  "ServerApi": "http://www.react-pwa.app",
+  "ServerApi": "http://www.react-pwa.app/api",
   "RESTApi": "http://rest.react-pwa.app"
 }

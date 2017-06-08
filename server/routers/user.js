@@ -10,7 +10,7 @@ var utils = require('../utils/index');
 var email = require('../utils/email');
 var expressJwt = require('express-jwt');
 
-const UserService = require('./../services/user');
+const UserController = require('./../controllers/user');
 
 const tokenMiddleware = (req, res, next) => {
   debug('process request');
@@ -29,7 +29,7 @@ const tokenMiddleware = (req, res, next) => {
   });
 };
 
-router.post('/users/signup/intro', UserService.signupIntro);
+router.post('/users/signup/intro', UserController.postSignupIntro);
 
 // OLD code, has to be rewrote
 

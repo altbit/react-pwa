@@ -47,8 +47,16 @@ class Response {
     return this.render();
   }
 
-  validation(errors) {
+  validationErrors(errors) {
     return this.error(errors, VALIDATION_ERROR_CODE);
+  }
+
+  validationError(param, msg, value) {
+    return this.validationErrors([{
+      param,
+      msg,
+      value,
+    }]);
   }
 
   render() {

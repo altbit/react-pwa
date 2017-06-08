@@ -11,13 +11,13 @@ const schema = mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    match: /^[\w\'\-]{2,}$/,
+    match: /^[\w\'\-]{1,}$/,
   },
   lastName: {
     type: String,
     required: true,
     trim: true,
-    match: /^[\w\'\-]{2,}$/,
+    match: /^[\w\'\-]{1,}$/,
   },
   email: {
     type: String,
