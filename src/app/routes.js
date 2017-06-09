@@ -6,7 +6,7 @@ import bundle from './bundle';
 
 import App from './components/App';
 import LandingLoader from 'bundle-loader?lazy&name=[name]!./components/Landing';
-import RegistrationLoader from 'bundle-loader?lazy&name=[name]!./../user/components/Registration';
+import RegistrationLoader from 'bundle-loader?lazy&name=[name]!./../user/containers/Registration';
 import LoginLoader from 'bundle-loader?lazy&name=[name]!./../user/components/Login';
 
 const AppRoutes = () => (

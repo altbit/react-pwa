@@ -4,19 +4,18 @@ import { REGISTRATION_INTRO_POST,
 
 const initialState = {
   isSubmitting: false,
-  data: null,
+  introSubmitted: false,
   error: null,
 };
 
 const reducers = (state = initialState, actionData = null) => {
   switch (actionData.type) {
     case REGISTRATION_INTRO_POST:
-      const data = Object.assign({}, state.data, actionData.data);
       return {
         ...state,
         success: actionData.success,
         isSubmitting: true,
-        data,
+        introSubmitted: false,
       };
 
     case REGISTRATION_INTRO_SUCCESS:
@@ -24,6 +23,8 @@ const reducers = (state = initialState, actionData = null) => {
         ...state,
         success: actionData.success,
         isSubmitting: false,
+        introSubmitted: true,
+        error: null,
       };
 
     case REGISTRATION_INTRO_FAIL:
@@ -32,6 +33,7 @@ const reducers = (state = initialState, actionData = null) => {
         ...state,
         success: actionData.success,
         isSubmitting: false,
+        introSubmitted: false,
         error,
       };
 

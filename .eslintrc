@@ -11,9 +11,7 @@
     "import"
   ],
   "rules": {
-    "import/no-unresolved": ["error", {
-      "ignore": ["AppConfig", "bundle-loader"]
-    }],
+    "import/no-unresolved": "off",
     "react/react-in-jsx-scope": "off",
     "comma-dangle": ["error", "always-multiline"],
     "no-underscore-dangle": "off",

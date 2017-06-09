@@ -15,14 +15,15 @@ export const postIntro = (formData) => (dispatch) => {
   return axios.post(`${AppConfig.ServerApi}/users/signup/intro`,
     formData,
     { headers: { 'Authorization': getToken() } })
-    .then(({ success, data }) => {
+    .then(({data: { success, data }}) => {
       dispatch({
         type: REGISTRATION_INTRO_SUCCESS,
         success,
         data,
       });
     })
-    .catch(({ success, error }) => {
+    .catch((res) => {
+      const { success, error } = (res instanceof Error) ? res.response.data : res;
       dispatch({
         type: REGISTRATION_INTRO_FAIL,
         success,

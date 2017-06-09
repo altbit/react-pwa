@@ -6,6 +6,11 @@ const fs = require('fs');
 
 const userRouter = require('./../routers/user');
 
+const guestRoutes = [
+  '/api/users/signup',
+  '/api/users/signin',
+];
+
 module.exports = (app) => {
   debug('adding routes');
 
@@ -18,7 +23,7 @@ module.exports = (app) => {
   });
   app.use(express.static(config.public));
 
-  app.use(userRouter.tokenMiddleware);
+  app.use(userRouter.tokenMiddleware(guestRoutes));
 
   app.use('/api/', userRouter.router);
 };
