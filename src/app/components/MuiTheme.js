@@ -9,6 +9,55 @@ const theme = createMuiTheme({
     accent: pink,
     error: red,
   }),
+  typography: {
+    fontSize: 14,
+    fontWeightLight: 250,
+    fontWeightRegular: 300,
+    fontWeightMedium: 400,
+    display4: {
+      fontSize: 40,
+      fontWeight: 400,
+    },
+    display3: {
+      fontSize: 36,
+      fontWeight: 300,
+    },
+    display2: {
+      fontSize: 30,
+      fontWeight: 300,
+    },
+    display1: {
+      fontSize: 26,
+      fontWeight: 300,
+    },
+    headline: {
+      fontWeight: 300,
+    },
+    title: {
+      fontSize: 18,
+      fontWeight: 400,
+    },
+    subheading: {
+      fontWeight: 300,
+    },
+    body2: {
+      fontWeight: 400,
+    },
+    body1: {
+      fontWeight: 300,
+    },
+    caption: {
+      fontWeight: 300,
+    },
+    button: {
+      fontWeight: 400,
+      fontSize: 14,
+    },
+  },
+  // Our own variables
+  content: {
+    padding: 16,
+  },
 });
 
 const MuiTheme = ({ children }) => (

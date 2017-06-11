@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
@@ -83,18 +84,18 @@ class RegistrationContainer extends Component {
   render() {
     const { error, introSubmitted } = this.props;
     return (
-      <div>
+      <ContentBlock md>
         <Typography type="display1" gutterBottom>
           Registration
         </Typography>
 
-        <ContentBlock>
-          {!introSubmitted
-            ? <RegistrationIntroForm onSubmit={this.onSubmit} submitError={error}/>
-            : <div>step 2</div>
-          }
-        </ContentBlock>
-      </div>
+        <Divider/>
+
+        {!introSubmitted
+          ? <RegistrationIntroForm onSubmit={this.onSubmit} submitError={error}/>
+          : <div>step 2</div>
+        }
+      </ContentBlock>
     );
   }
 }

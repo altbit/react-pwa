@@ -1,14 +1,15 @@
 import AppConfig from 'AppConfig';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
 
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { white } from 'material-ui/styles/colors';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import { Link } from 'react-router-dom';
 import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
+import MenuIcon from 'material-ui-icons/MoreVert';
 
 const styleSheet = createStyleSheet('Layout', (theme) => ({
   root: {
@@ -18,21 +19,24 @@ const styleSheet = createStyleSheet('Layout', (theme) => ({
   },
   content: {
     flex: '1 1 100%',
+    alignItems: 'flex-start',
+    display: 'flex',
     margin: '0 auto',
     maxWidth: '100%',
-    paddingLeft: '16px',
-    paddingRight: '16px',
-    paddingTop: '80px',
+    padding: theme.content.padding,
+    paddingTop: (56 + theme.content.padding),
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: '24px',
-      paddingRight: '24px',
-    },
-    [theme.breakpoints.up('md')]: {
-      maxWidth: theme.breakpoints.getWidth('md') + 'px',
+      padding: parseInt(theme.content.padding * 1.5),
+      paddingTop: (64 + parseInt(theme.content.padding * 1.5)),
     },
   },
   title: {
     textTransform: 'none',
+    color: white,
+    textDecoration: 'none',
+  },
+  menu: {
+    marginLeft: 'auto',
   },
 }));
 
@@ -41,12 +45,12 @@ const Layout = ({ children, classes }) => {
     <div className={classes.root}>
       <AppBar>
         <Toolbar>
-          <IconButton contrast>
+          <Link to="/" className={classes.title}>
+            <Typography type="title" colorInherit>{AppConfig.appName}</Typography>
+          </Link>
+          <IconButton contrast className={classes.menu}>
             <MenuIcon />
           </IconButton>
-          <Button contrast component={Link} to="/" className={classes.title}>
-            <Typography type="title" colorInherit>{AppConfig.appName}</Typography>
-          </Button>
         </Toolbar>
       </AppBar>
 
