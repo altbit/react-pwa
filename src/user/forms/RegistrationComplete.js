@@ -13,7 +13,6 @@ import { LabelCheckbox } from 'material-ui/Checkbox';
 import { FormGroup } from 'material-ui/Form';
 
 import TextField, { isRequired, parseValidationErrors } from './../../base/form/TextFieldWrapper';
-import switcherWrapper from './../../base/form/SwitcherWrapper';
 import ContentBlock from './../../base/components/ContentBlock';
 
 const styleSheet = createStyleSheet('RegistrationCompleteForm', (theme) => ({
