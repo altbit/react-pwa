@@ -38,36 +38,11 @@ const tokenMiddleware = (guestRoutes) => (req, res, next) => {
 };
 
 router.post('/users/signup/intro', UserController.postSignupIntro);
+router.post('/users/signup/complete', UserController.postSignupComplete);
 
 // OLD code, has to be rewrote
 
 const User = require('./../models/user');
-
-//utility func
-function isUserUnique(reqBody, cb) {
-  var email = reqBody.email ? reqBody.email.trim() : '';
-
-  User.findOne({
-    'email': new RegExp(["^", email, "$"].join(""), "i")
-  }, function(err, user) {
-    if (err)
-      throw err;
-
-    if (!user) {
-      cb();
-      return;
-    }
-
-    var err;
-    if (user.email === email) {
-      err = err ? err : {};
-      err.email = '"' + email + '" is not unique';
-    }
-
-    cb(err);
-  });
-}
-
 
 router.get('/users/?', function(req, res) {
 
@@ -144,65 +119,6 @@ router.post('/users/signin', function(req, res) {
 });
 
 
-
-router.post('/users/signup/complete', function(req, res, next) {
-  var body = req.body;
-
-  var errors = utils.validateSignUpForm(body);
-  if (errors) {
-    return res.status(403).json(errors);
-  }
-
-  isUserUnique(body, function(err) {
-    if (err) {
-      return res.status(403).json({ success: false, error: err });
-    }
-
-    var hash = bcrypt.hashSync(body.password.trim(), 10);
-    var user = new User({
-      firstName: body.firstName.trim(),
-      lastName: body.lastName.trim(),
-      email: body.email.trim(),
-      password: hash,
-      role: body.isCompany ? 'company' : 'person',
-      isEmailVerified: false
-    });
-
-
-    user.save(function(err, user) {
-      if (err)
-        throw err;
-
-      email.sendWelcomeEmail(user, req.headers.host); //send welcome email w/ verification token
-
-      var token = utils.generateToken(user);
-
-      user = utils.getCleanUser(user);
-
-      res.json({
-        user: user,
-        token: token
-      });
-    });
-
-  });
-});
-
-
-
-//currently validating uniqueness for username
-router.post('/users/validate/fields', function(req, res, next) {
-  var body = req.body;
-
-  isUserUnique(body, function(err) {
-    if (err) {
-      return res.status(403).json(err);
-    } else {
-      return res.json({});
-    }
-  });
-});
-
 //get current user from token
 router.get('/me/from/token', function(req, res, next) {
 
@@ -262,45 +178,6 @@ router.get('/resendValidationEmail', expressJwt({
     });
   });
 });
-
-
-router.post(
-  '/updateEmail', function(req, res, next) {
-    if (!req.user) {
-      return res.status(401).json({
-        message: 'Permission Denied!'
-      });
-    }
-
-    var newEmail = req.body.email && req.body.email.trim();
-
-    isUserUnique(req.body, function(err) {
-      if (err) {
-        return res.status(403).json(err);
-      }
-      User.findOneAndUpdate({
-        '_id': req.user._id
-      }, {
-        email: newEmail
-      }, {
-        new: true
-      }, function(err, user) {
-        if (err)
-          throw err;
-
-        //send welcome email w/ verification token
-        email.sendWelcomeEmail(user, req.headers.host);
-
-        res.json({
-          message: 'Email was updated'
-        });
-
-      });
-    });
-
-  });
-
-
 
 
 //get current user from email-token(from w/in welcome email)

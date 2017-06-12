@@ -33,6 +33,7 @@ const schema = mongoose.Schema({
   isEmailVerified: { type: Boolean, default: false },
   verifyEmailToken: String,
   verifyEmailTokenExpires: Date,
+  newsletter: { type: Boolean, default: false },
 });
 schema.plugin(timestamps);
 
