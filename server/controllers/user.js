@@ -100,12 +100,12 @@ class UserController {
       });
   }
 
-  generateTempToken = (done) => {
+  generateTempToken(done) {
     crypto.randomBytes(15, (err, buf) => {
       const token = buf.toString('hex');
       done(err, token);
     });
-  };
+  }
 }
 
 module.exports = new UserController();
