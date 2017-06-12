@@ -8,22 +8,34 @@ import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
-import NavigateNextIcon from 'material-ui-icons/NavigateNext';
+import CloudDoneIcon from 'material-ui-icons/CloudDone';
+import { LabelCheckbox } from 'material-ui/Checkbox';
+import { FormGroup } from 'material-ui/Form';
 
 import TextField, { isRequired, parseValidationErrors } from './../../base/form/TextFieldWrapper';
+import switcherWrapper from './../../base/form/SwitcherWrapper';
 import ContentBlock from './../../base/components/ContentBlock';
 
-const styleSheet = createStyleSheet('RegistrationIntroForm', (theme) => ({
+const styleSheet = createStyleSheet('RegistrationCompleteForm', (theme) => ({
   footer: {
     paddingTop: 16,
   },
+  icon: {
+    marginLeft: 8,
+  },
 }));
 
-class RegistrationIntroForm extends Component {
+class RegistrationCompleteForm extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
+    change: PropTypes.func,
     submitError: PropTypes.object,
+  };
+
+  onNewsletterSwitch = (event, checked) => {
+    const { change } = this.props;
+    change('newsletter', checked);
   };
 
   render() {
@@ -43,45 +55,48 @@ class RegistrationIntroForm extends Component {
             <Grid item xs={12}>
               <Field
                 component={TextField}
-                label="First Name"
-                name="firstName"
+                label="Password"
+                name="password"
                 required={true}
-                validate={isRequired('First Name')}
-                fieldError={errors.firstName}
-              />
+                validate={isRequired('Password')}
+                type='password'
+                fieldError={errors.password}
+                />
             </Grid>
 
             <Grid item xs={12}>
               <Field
                 component={TextField}
-                label="Last Name"
-                name="lastName"
+                label="Repeat password"
+                name="passwordRepeat"
                 required={true}
-                validate={isRequired('Last Name')}
-                fieldError={errors.lastName}
-              />
+                validate={isRequired('Password again')}
+                type='password'
+                fieldError={errors.passwordRepeat}
+                />
             </Grid>
 
             <Grid item xs={12}>
-              <Field
-                component={TextField}
-                label="E-mail"
-                name="email"
-                required={true}
-                validate={isRequired('E-mail')}
-                fieldError={errors.email}
-              />
+              <FormGroup row>
+                <LabelCheckbox
+                  name="newsletter"
+                  label="I would like to receive newsletter"
+                  onChange={this.onNewsletterSwitch}
+                />
+              </FormGroup>
             </Grid>
           </Grid>
+
+          <Divider/>
 
           <Grid container justify='space-between' align='center' className={classes.footer}>
             <Grid item>
               <Typography type='body2'>
-                Already have an account? <Link to='/login'>Login</Link>
+                By clicking submit you agree<br />to our <Link to='/terms'>Terms and Conditions</Link>
               </Typography>
             </Grid>
             <Grid item>
-              <Button raised primary type="submit">Continue <NavigateNextIcon /></Button>
+              <Button raised primary type="submit">Submit registration  <CloudDoneIcon  className={classes.icon}/></Button>
             </Grid>
           </Grid>
         </form>
@@ -91,5 +106,12 @@ class RegistrationIntroForm extends Component {
 }
 
 export default reduxForm({
-  form: 'registrationIntro',
-})(withStyles(styleSheet)(RegistrationIntroForm));
+  form: 'registrationComplete',
+  initialValues: {
+    newsletter: false,
+  },
+})(
+  withStyles(styleSheet)(
+    RegistrationCompleteForm
+  )
+);

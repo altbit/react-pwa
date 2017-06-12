@@ -4,35 +4,41 @@ import classNames from 'classnames';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 
-const styleSheet = createStyleSheet('ContentBlock', (theme) => ({
-  root: {
-    flex: '1 1 100%',
-    maxWidth: '100%',
-    margin: '0 auto',
-    padding: theme.content.padding,
-    [theme.breakpoints.up('sm')]: {
-      padding: parseInt(theme.content.padding * 1.5),
+const styleSheet = createStyleSheet('ContentBlock', (theme) => {
+  let styles = {
+    root: {
+      flex: '1 1 100%',
+        maxWidth: '100%',
+        margin: '0 auto',
+        padding: theme.content.padding,
+        [theme.breakpoints.up('sm')]: {
+          padding: parseInt(theme.content.padding * 1.5),
+        },
     },
-  },
-  'width-md': {
-    [theme.breakpoints.up('md')]: {
-      maxWidth: theme.breakpoints.getWidth('md'),
-    },
-  },
-  'width-sm': {
-    [theme.breakpoints.up('sm')]: {
-      maxWidth: theme.breakpoints.getWidth('sm'),
-    },
-  },
-}));
+  };
 
-const ContentBlock = ({ children, classes, md, sm }) => {
+  styles = theme.breakpoints.keys.reduce((styles, breakpoint) => {
+    styles[`width-${breakpoint}`] = {
+      [theme.breakpoints.up(breakpoint)]: {
+        maxWidth: theme.breakpoints.getWidth(breakpoint),
+      },
+    };
+    return styles;
+  }, styles);
+
+  return styles;
+});
+
+const ContentBlock = ({ children, classes, xs, sm, md, lg, xl }) => {
   const className = classNames(
     classes.root,
     {
-      [classes['width-md']]: md,
+      [classes['width-xs']]: xs,
       [classes['width-sm']]: sm,
-    },
+      [classes['width-md']]: md,
+      [classes['width-lg']]: lg,
+      [classes['width-xl']]: xl,
+    }
   );
 
   return (
@@ -45,13 +51,19 @@ const ContentBlock = ({ children, classes, md, sm }) => {
 ContentBlock.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
-  md: PropTypes.bool,
+  xs: PropTypes.bool,
   sm: PropTypes.bool,
+  md: PropTypes.bool,
+  lg: PropTypes.bool,
+  xl: PropTypes.bool,
 };
 
 ContentBlock.defaultProps = {
-  md: false,
+  xs: false,
   sm: false,
+  md: false,
+  lg: false,
+  xl: false,
 };
 
 export default withStyles(styleSheet)(ContentBlock);
