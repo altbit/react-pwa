@@ -1,6 +1,6 @@
 # React.js Progressive Web App #
 
-Webpack + React.js + Redux + REST api
+Webpack + React.js + Redux + Node REST api (Express, Mongoose)
 
 ### Install Node.js + NPM ###
 
@@ -12,4 +12,8 @@ $ npm install
 
 ### Build project ###
 
-$ npm run build:production
+$ npm run build
+
+### Run Server API ###
+
+$ DEBUG=server*,router*,controller*,service* npm start
