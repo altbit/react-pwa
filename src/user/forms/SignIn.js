@@ -44,7 +44,7 @@ class SignInForm extends Component {
 
     return (
       <Grid container align='center' justify='center'>
-        <Grid item>
+        <Grid item xs>
           <ContentBlock sm>
             <form onSubmit={handleSubmit}>
               <Typography type="display1" gutterBottom>

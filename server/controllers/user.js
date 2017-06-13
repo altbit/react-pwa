@@ -15,6 +15,8 @@ class UserController {
     this.postSignupIntro = this.postSignupIntro.bind(this);
     this.postSignupComplete = this.postSignupComplete.bind(this);
     this.postSignIn = this.postSignIn.bind(this);
+    this.getUser = this.getUser.bind(this);
+    this.confirmEmail = this.confirmEmail.bind(this);
     this.generateTempToken = this.generateTempToken.bind(this);
   }
 
@@ -133,6 +135,62 @@ class UserController {
               token,
             });
         });
+      })
+      .catch((mongoError) => {
+        return new Response(res)
+          .validationError('email', 'Email is not registered', body.email);
+      });
+  }
+
+  getUser(req, res) {
+    if (!req.user || !req.user._id) {
+      return new Response(res)
+        .error('Wrong user in token', 401);
+    }
+
+    return new Response(res)
+      .data({
+        user: utils.getCleanUser(user),
+      });
+  }
+
+  confirmEmail(req, res) {
+    const token = req.params.token;
+    if (!token) {
+      return new Response(res)
+        .error('Invalid token', 401);
+    }
+
+    UserModel
+      .findOne({
+        verifyEmailToken: token,
+        verifyEmailTokenExpires: {
+          $gt: Date.now(),
+        },
+      })
+      .then((user) => {
+        if (!user) {
+          return new Response(res)
+            .error('User not found', 401);
+        }
+
+        user.isEmailVerified = true;
+        user.verifyEmailToken = undefined;
+        user.verifyEmailTokenExpires = undefined;
+
+        user.save()
+          .then((user) => {
+            debug('User confirmed his email');
+
+            return new Response(res)
+              .data({
+                user: utils.getCleanUser(user),
+              });
+          })
+          .catch((mongoError) => {
+            return new Response(res)
+              .error(mongoError.message);
+          });
       })
       .catch((mongoError) => {
         return new Response(res)

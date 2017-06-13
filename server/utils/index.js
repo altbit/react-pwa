@@ -3,23 +3,20 @@ const config = require('./../../config/config');
 var jwt = require('jsonwebtoken');
 
 function generateToken(user) {
-  //Dont use password and other sensitive fields
-  //Use fields that are useful in other parts of the app/collections/models
   var u = {
     firstName: user.firstName,
     lastName: user.lastName,
     role: user.role,
     _id: user._id.toString(),
     avatar: user.avatar,
-    isEmailVerified: user.isEmailVerified //used to prevent creating posts w/o verifying emails
+    isEmailVerified: user.isEmailVerified,
   };
 
   return token = jwt.sign(u, config.server.jwt.secret, {
-    expiresIn: config.server.jwt.expire
+    expiresIn: config.server.jwt.expire,
   });
 }
 
-//strips internal fields like password and verifyEmailToken etc
 function getCleanUser(user) {
   if(!user) return {};
 
@@ -39,5 +36,5 @@ function getCleanUser(user) {
 
 module.exports = {
   getCleanUser: getCleanUser,
-  generateToken: generateToken
-}
+  generateToken: generateToken,
+};

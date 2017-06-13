@@ -1,6 +1,14 @@
-# React.js Progressive Web App #
+# React Progressive Web App #
 
-Webpack + React.js + Redux + Node REST api (Express, Mongoose)
+webpack 2.4+
+react 15.5+
+react-router 4.1+
+material-ui 1.0+ (alpha yet)
+redux
+redux-form
+express
+mongoose
+server node v6+ (ES6)
 
 ### Install Node.js + NPM ###
 
@@ -17,3 +25,7 @@ $ npm run build
 ### Run Server API ###
 
 $ DEBUG=server*,router*,controller*,service* npm start
+
+### Run dev server (development) ###
+
+$ npm run dev
