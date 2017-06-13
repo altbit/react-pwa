@@ -39,55 +39,11 @@ const tokenMiddleware = (guestRoutes) => (req, res, next) => {
 
 router.post('/users/signup/intro', UserController.postSignupIntro);
 router.post('/users/signup/complete', UserController.postSignupComplete);
+router.post('/users/signin', UserController.postSignIn);
 
 // OLD code, has to be rewrote
 
 const User = require('./../models/user');
-
-router.post('/users/signin', function(req, res) {
-  User
-    .findOne({
-      email: req.body.email
-    })
-    .select({
-      __v: 0,
-      updatedAt: 0,
-      createdAt: 0
-    }) //make sure to not return password (although it is hashed using bcrypt)
-    .exec(function(err, user) {
-      if (err)
-        throw err;
-
-      if (!user) {
-        return res.status(404).json({
-          error: true,
-          message: 'Email or Password is Wrong'
-        });
-      }
-
-
-      bcrypt.compare(req.body.password, user.password, function(err, valid) {
-        if (!valid) {
-          return res.status(404).json({
-            error: true,
-            message: 'Email or Password is Wrong'
-          });
-        }
-
-        //make sure to NOT pass password and anything sensitive inside token
-        //Pass anything tht might be used in other parts of the app
-        var token = utils.generateToken(user);
-
-        user = utils.getCleanUser(user);
-
-        res.json({
-          user: user,
-          token: token
-        });
-      });
-    });
-});
-
 
 //get current user from token
 router.get('/me/from/token', function(req, res, next) {

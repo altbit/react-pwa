@@ -14,6 +14,7 @@ class UserController {
   constructor() {
     this.postSignupIntro = this.postSignupIntro.bind(this);
     this.postSignupComplete = this.postSignupComplete.bind(this);
+    this.postSignIn = this.postSignIn.bind(this);
     this.generateTempToken = this.generateTempToken.bind(this);
   }
 
@@ -99,6 +100,45 @@ class UserController {
       .catch((mongoError) => {
         return new Response(res)
           .error(mongoError.message);
+      });
+  }
+
+  postSignIn(req, res) {
+    const validationErrors = userValidators.signIn(req);
+    if (validationErrors.length) {
+      return new Response(res)
+        .validationErrors(validationErrors);
+    }
+
+    const body = req.body;
+
+    UserModel
+      .findOne({
+        'email': new RegExp(["^", body.email, "$"].join(""), "i")
+      })
+      .then((user) => {
+        if (!user) {
+          return new Response(res)
+            .validationError('email', 'Email is not registered', body.email);
+        }
+
+        bcrypt.compare(body.password, user.password, (err, valid) => {
+          if (!valid) {
+            return new Response(res)
+              .validationError('password', 'Wrong password', body.password);
+          }
+
+          const token = utils.generateToken(user);
+          return new Response(res)
+            .data({
+              user: utils.getCleanUser(user),
+              token,
+            });
+        });
+      })
+      .catch((mongoError) => {
+        return new Response(res)
+          .validationError('email', 'Email is not registered', body.email);
       });
   }
 
