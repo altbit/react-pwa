@@ -1,6 +1,6 @@
 import AppConfig from 'AppConfig';
 import axios from 'axios';
-import { getToken } from './../jwt';
+import { getToken, setToken } from './../jwt';
 
 export const SIGNIN_POST = 'SIGNIN_POST';
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
@@ -16,6 +16,10 @@ export const postSignIn = (formData) => (dispatch) => {
     formData,
     { headers: { 'Authorization': getToken() } })
     .then(({data: { success, data }}) => {
+      if (data.token) {
+        setToken(data.token);
+      }
+
       dispatch({
         type: SIGNIN_SUCCESS,
         success,

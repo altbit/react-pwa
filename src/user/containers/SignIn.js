@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import SignInForm from './../forms/SignIn';
-
 import { postSignIn } from './../actions/signin';
 
 class SignInContainer extends Component {
@@ -35,7 +34,7 @@ const mapStateToProps = (state) => {
     authorised,
     user,
     error,
-    }} = state;
+  }} = state;
   return {
     isSubmitting,
     authorised,

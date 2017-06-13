@@ -12,7 +12,8 @@ import CloudDoneIcon from 'material-ui-icons/CloudDone';
 import { LabelCheckbox } from 'material-ui/Checkbox';
 import { FormGroup } from 'material-ui/Form';
 
-import TextField, { isRequired, parseValidationErrors } from './../../base/form/TextFieldWrapper';
+import TextField from './../../base/form/TextFieldWrapper';
+import { isRequired, parseValidationErrors } from './../../base/form/validation';
 import ContentBlock from './../../base/components/ContentBlock';
 
 const styleSheet = createStyleSheet('RegistrationCompleteForm', (theme) => ({

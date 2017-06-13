@@ -36,7 +36,7 @@ class BundleComponent extends Component {
   render() {
     return this.state.mod
       ? this.props.children(this.state.mod)
-      : (<CircularProgress />);
+      : <CircularProgress />;
   }
 }
 

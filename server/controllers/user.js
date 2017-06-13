@@ -85,11 +85,9 @@ class UserController {
 
             //email.sendWelcomeEmail(user, req.headers.host);
 
-            const token = utils.generateToken(user);
             return new Response(res)
               .data({
                 user: utils.getCleanUser(user),
-                token,
               });
           })
           .catch((mongoError) => {

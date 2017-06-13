@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import RegistrationIntroForm from './../forms/RegistrationIntro';
 import RegistrationCompleteForm from './../forms/RegistrationComplete';
 import RegistrationComplete from './../components/RegistrationComplete';
-
 import { postIntro, postComplete } from './../actions/registration';
 
 class RegistrationContainer extends Component {
