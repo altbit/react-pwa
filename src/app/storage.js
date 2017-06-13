@@ -5,6 +5,7 @@ import { createLogger } from 'redux-logger';
 import { reducer as formReducer } from 'redux-form';
 
 import registration from './../user/reducers/registration';
+import auth from './../user/reducers/auth';
 
 const storage = () => {
   const middlewares = [thunkMiddleware];
@@ -16,6 +17,7 @@ const storage = () => {
   const reducers = {
     form: formReducer,
     registration,
+    auth,
   };
 
   return createStore(

@@ -3,12 +3,12 @@ import { REGISTRATION_INTRO_POST,
   REGISTRATION_INTRO_FAIL,
   REGISTRATION_COMPLETE_POST,
   REGISTRATION_COMPLETE_SUCCESS,
-  REGISTRATION_COMPLETE_FAIL} from './../actions/registration';
+  REGISTRATION_COMPLETE_FAIL } from './../actions/registration';
 
 const initialState = {
   isSubmitting: false,
   introSubmitted: false,
-  completeSubmitted: true,
+  completeSubmitted: false,
   userData: null,
   error: null,
 };

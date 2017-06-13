@@ -44,36 +44,6 @@ router.post('/users/signup/complete', UserController.postSignupComplete);
 
 const User = require('./../models/user');
 
-router.get('/users/?', function(req, res) {
-
-  if (!req.user || req.user.role != 'admin')
-    return res.status(401).json({
-      error: 'You must be admin to access this route.'
-    });
-
-  User
-    .find({})
-    .select({
-      password: 0,
-      __v: 0,
-      updatedAt: 0,
-      createdAt: 0
-    }) //make sure to not return password (although it is hashed using bcrypt)
-    .limit(100)
-    .sort({
-      createdAt: -1
-    })
-    .exec(function(err, users) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          error: 'Could not retrieve users'
-        });
-      }
-      res.json(users);
-    });
-});
-
 router.post('/users/signin', function(req, res) {
   User
     .findOne({

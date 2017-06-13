@@ -60,7 +60,7 @@ const RegistrationComplete = (props) => {
     <Grid container justify='center' className={classes.footer}>
       <Grid item>
         <Button raised primary component={Link} to='/login'>
-          Log in  <TouchAppIcon  className={classes.icon}/>
+          Sign in <TouchAppIcon  className={classes.icon}/>
         </Button>
       </Grid>
     </Grid>
