@@ -6,13 +6,15 @@ const Response = require('./../models/response');
 const UserModel = require('./../models/user');
 const userValidators = require('./../validators/user');
 
-//delete it
+//get rid of it
 var utils = require('../utils/index');
 var email = require('../utils/email');
 
 class UserController {
-  constuctor() {
+  constructor() {
     this.postSignupIntro = this.postSignupIntro.bind(this);
+    this.postSignupComplete = this.postSignupComplete.bind(this);
+    this.generateTempToken = this.generateTempToken.bind(this);
   }
 
   postSignupIntro(req, res) {
@@ -31,8 +33,8 @@ class UserController {
     });
 
     this.generateTempToken((err, token) => {
-      if (!err) {
-        new Response(res)
+      if (err) {
+        return new Response(res)
           .error('Temp token generation error');
       }
 
@@ -42,7 +44,7 @@ class UserController {
       user.save()
         .then((user) => {
           debug('User created');
-          new Response(res)
+          return new Response(res)
             .data(user);
         })
         .catch((mongoError) => {
@@ -50,7 +52,7 @@ class UserController {
             return new Response(res)
               .validationError('email', 'Email is already in use', body.email);
           }
-          new Response(res)
+          return new Response(res)
             .error(mongoError.message);
         });
     });
@@ -70,7 +72,7 @@ class UserController {
         'email': new RegExp(["^", body.email, "$"].join(""), "i")
       })
       .then((user) => {
-        if (!user || !user.verifyEmailToken || user.verifyEmailToken != body.token) {
+        if (!user || !user.verifyEmailToken || user.verifyEmailToken != body.verifyEmailToken) {
           return new Response(res)
             .error('Wrong email temp token');
         }
@@ -83,19 +85,19 @@ class UserController {
             //email.sendWelcomeEmail(user, req.headers.host);
 
             const token = utils.generateToken(user);
-            new Response(res)
+            return new Response(res)
               .data({
                 user: utils.getCleanUser(user),
                 token,
               });
           })
           .catch((mongoError) => {
-            new Response(res)
+            return new Response(res)
               .error(mongoError.message);
           });
       })
       .catch((mongoError) => {
-        new Response(res)
+        return new Response(res)
           .error(mongoError.message);
       });
   }

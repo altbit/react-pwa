@@ -29,6 +29,7 @@ class RegistrationCompleteForm extends Component {
     classes: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     change: PropTypes.func,
+    userData: PropTypes.object,
     submitError: PropTypes.object,
   };
 
@@ -38,14 +39,17 @@ class RegistrationCompleteForm extends Component {
   };
 
   render() {
-    const { classes, handleSubmit, submitError } = this.props;
+    const { classes, handleSubmit, userData, submitError } = this.props;
     const errors = parseValidationErrors(submitError);
 
     return (
       <ContentBlock sm>
         <form onSubmit={handleSubmit}>
-          <Typography type="display1" gutterBottom>
-            Registration
+          <Typography type="display1">
+            Complete registration
+          </Typography>
+          <Typography type="subheading" gutterBottom>
+            Hi {userData.firstName}, please set up your password
           </Typography>
 
           <Divider/>
@@ -90,12 +94,12 @@ class RegistrationCompleteForm extends Component {
 
           <Grid container justify='space-between' align='center' className={classes.footer}>
             <Grid item>
-              <Typography type='body2'>
+              <Typography type='body1'>
                 By clicking submit you agree<br />to our <Link to='/terms'>Terms and Conditions</Link>
               </Typography>
             </Grid>
             <Grid item>
-              <Button raised primary type="submit">Submit registration  <CloudDoneIcon  className={classes.icon}/></Button>
+              <Button raised primary type="submit">Complete registration  <CloudDoneIcon  className={classes.icon}/></Button>
             </Grid>
           </Grid>
         </form>

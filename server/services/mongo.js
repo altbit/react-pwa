@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 class MongoService {
 
-  constuctor() {
+  constructor() {
     this.connection = null;
   }
 

@@ -15,22 +15,23 @@ const theme = createMuiTheme({
     fontWeightRegular: 300,
     fontWeightMedium: 400,
     display4: {
-      fontSize: 40,
-      fontWeight: 400,
+      fontSize: 50,
+      fontWeight: 300,
     },
     display3: {
-      fontSize: 36,
+      fontSize: 40,
       fontWeight: 300,
     },
     display2: {
-      fontSize: 30,
+      fontSize: 32,
       fontWeight: 300,
     },
     display1: {
-      fontSize: 26,
+      fontSize: 28,
       fontWeight: 300,
     },
     headline: {
+      fontSize: 22,
       fontWeight: 300,
     },
     title: {
@@ -38,12 +39,15 @@ const theme = createMuiTheme({
       fontWeight: 400,
     },
     subheading: {
+      fontSize: 14,
       fontWeight: 300,
     },
     body2: {
+      fontSize: 16,
       fontWeight: 400,
     },
     body1: {
+      fontSize: 15,
       fontWeight: 300,
     },
     caption: {

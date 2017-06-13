@@ -33,7 +33,7 @@ module.exports = {
     req.sanitize('email').escape();
     req.sanitize('email').trim();
     req.sanitize('newsletter').escape();
-    req.sanitize('token').escape();
+    req.sanitize('verifyEmailToken').escape();
 
     return req.validationErrors();
   },

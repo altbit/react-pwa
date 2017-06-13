@@ -1,10 +1,15 @@
 import { REGISTRATION_INTRO_POST,
   REGISTRATION_INTRO_SUCCESS,
-  REGISTRATION_INTRO_FAIL } from './../actions/registration';
+  REGISTRATION_INTRO_FAIL,
+  REGISTRATION_COMPLETE_POST,
+  REGISTRATION_COMPLETE_SUCCESS,
+  REGISTRATION_COMPLETE_FAIL} from './../actions/registration';
 
 const initialState = {
   isSubmitting: false,
   introSubmitted: false,
+  completeSubmitted: true,
+  userData: null,
   error: null,
 };
 
@@ -22,19 +27,46 @@ const reducers = (state = initialState, actionData = null) => {
       return {
         ...state,
         success: actionData.success,
+        userData: actionData.data,
         isSubmitting: false,
         introSubmitted: true,
         error: null,
       };
 
     case REGISTRATION_INTRO_FAIL:
-      const error = Object.assign({}, state.error, actionData.error);
       return {
         ...state,
         success: actionData.success,
         isSubmitting: false,
         introSubmitted: false,
-        error,
+        error: Object.assign({}, state.error, actionData.error),
+      };
+
+    case REGISTRATION_COMPLETE_POST:
+      return {
+        ...state,
+        success: actionData.success,
+        isSubmitting: true,
+        completeSubmitted: false,
+      };
+
+    case REGISTRATION_COMPLETE_SUCCESS:
+      return {
+        ...state,
+        success: actionData.success,
+        userData: actionData.data,
+        isSubmitting: false,
+        completeSubmitted: true,
+        error: null,
+      };
+
+    case REGISTRATION_COMPLETE_FAIL:
+      return {
+        ...state,
+        success: actionData.success,
+        isSubmitting: false,
+        completeSubmitted: false,
+        error: Object.assign({}, state.error, actionData.error),
       };
 
     default:

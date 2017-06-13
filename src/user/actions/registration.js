@@ -5,6 +5,9 @@ import { getToken } from './../jwt';
 export const REGISTRATION_INTRO_POST = 'REGISTRATION_INTRO_POST';
 export const REGISTRATION_INTRO_SUCCESS = 'REGISTRATION_INTRO_SUCCESS';
 export const REGISTRATION_INTRO_FAIL = 'REGISTRATION_INTRO_FAIL';
+export const REGISTRATION_COMPLETE_POST = 'REGISTRATION_COMPLETE_POST';
+export const REGISTRATION_COMPLETE_SUCCESS = 'REGISTRATION_COMPLETE_SUCCESS';
+export const REGISTRATION_COMPLETE_FAIL = 'REGISTRATION_COMPLETE_FAIL';
 
 export const postIntro = (formData) => (dispatch) => {
   dispatch({
@@ -26,6 +29,32 @@ export const postIntro = (formData) => (dispatch) => {
       const { success, error } = (res instanceof Error) ? res.response.data : res;
       dispatch({
         type: REGISTRATION_INTRO_FAIL,
+        success,
+        error,
+      });
+    });
+};
+
+export const postComplete = (formData, userData) => (dispatch) => {
+  dispatch({
+    type: REGISTRATION_COMPLETE_POST,
+    data: formData,
+  });
+
+  return axios.post(`${AppConfig.ServerApi}/users/signup/complete`,
+    { ...formData, ...userData },
+    { headers: { 'Authorization': getToken() } })
+    .then(({data: { success, data }}) => {
+      dispatch({
+        type: REGISTRATION_COMPLETE_SUCCESS,
+        success,
+        data,
+      });
+    })
+    .catch((res) => {
+      const { success, error } = (res instanceof Error) ? res.response.data : res;
+      dispatch({
+        type: REGISTRATION_COMPLETE_FAIL,
         success,
         error,
       });
