@@ -1,14 +1,14 @@
 # React Progressive Web App #
 
-webpack 2.4+
-react 15.5+
-react-router 4.1+
-material-ui 1.0+ (alpha yet)
-redux
-redux-form
-express
-mongoose
-server node v6+ (ES6)
+* webpack 2.4+
+* react 15.5+
+* react-router 4.1+
+* material-ui 1.0+ (alpha yet)
+* redux
+* redux-form
+* express
+* mongoose
+* server node v6+ (ES6)
 
 ### Install Node.js + NPM ###
 
