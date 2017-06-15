@@ -3,6 +3,7 @@ const debug = require('debug')('server:init');
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const AuthService = require('./../services/Auth');
 
 const userRouter = require('./../routers/user');
 
@@ -23,7 +24,7 @@ module.exports = (app) => {
   });
   app.use(express.static(config.public));
 
-  app.use(userRouter.tokenMiddleware(guestRoutes));
+  app.use(AuthService.tokenMiddleware(guestRoutes));
 
-  app.use('/api/', userRouter.router);
+  app.use('/api/', userRouter);
 };

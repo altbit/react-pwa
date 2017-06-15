@@ -1,41 +1,41 @@
 const config = require('./../../config/config');
-const debug = require('debug')('server:response');
+const debug = require('debug')('server:jsonResponse');
 
 const VALIDATION_ERROR_CODE = 412;
 
-class Response {
-  constructor(response, success = true) {
-    this.response = response;
+class ResponseJson {
+  constructor(res, success = true) {
+    this.res = res;
     this.isSuccess = success;
     this.responseData = null;
     this.responseError = null;
   }
 
-  success() {
+  asSuccess() {
     this.isSuccess = true;
     return this;
   }
 
-  fail() {
+  asFail() {
     this.isSuccess = false;
     return this;
   }
 
-  code(code) {
-    this.response.status(code);
+  withCode(code) {
+    this.res.status(code);
     return this;
   }
 
-  data(data) {
+  withData(data) {
     debug('[OK]', data);
     this.responseData = data;
     return this.render();
   }
 
-  error(message, code = 500) {
+  withError(message, code = 500) {
     debug('[FAIL]', message);
-    this.fail();
-    this.response.status(code);
+    this.asFail();
+    this.withCode(code);
     this.responseError = {
       code,
       message,
@@ -47,12 +47,12 @@ class Response {
     return this.render();
   }
 
-  validationErrors(errors) {
-    return this.error(errors, VALIDATION_ERROR_CODE);
+  withValidationErrors(errors) {
+    return this.withError(errors, VALIDATION_ERROR_CODE);
   }
 
-  validationError(param, msg, value) {
-    return this.validationErrors([{
+  withValidationError(param, msg, value) {
+    return this.withValidationErrors([{
       param,
       msg,
       value,
@@ -69,8 +69,8 @@ class Response {
       responseData.data = this.responseData;
     }
 
-    return this.response.json(responseData);
+    return this.res.json(responseData);
   }
 }
 
-module.exports = Response;
+module.exports = ResponseJson;
