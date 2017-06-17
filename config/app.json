@@ -1,5 +1,7 @@
 {
   "appName": "React Progressive Web Application",
   "ServerApi": "http://www.react-pwa.app/api",
-  "RESTApi": "http://rest.react-pwa.app"
+  "RESTApi": "http://rest.react-pwa.app",
+  "AddressLine1": "New Cross Road",
+  "AddressLine2": "London"
 }
