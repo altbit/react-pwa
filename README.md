@@ -48,11 +48,11 @@ npm run build
 Run Server API
 
 ```
-DEBUG=server*,router*,controller*,service* npm start`
+DEBUG=server*,router*,controller*,service* npm start
 ```
 
 Run dev server (only for development)
 
 ```
-npm run dev`
+npm run dev
 ```
