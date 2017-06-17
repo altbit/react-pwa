@@ -1,8 +1,5 @@
-const config = require('./../../config/config');
-const debug = require('debug')('router:user');
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
 
 const UserController = require('./../controllers/User');
 

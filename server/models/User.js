@@ -1,3 +1,6 @@
+const config = require('./../../config/config');
+
+var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 var timestamps = require('mongoose-timestamp');
 
@@ -5,6 +8,37 @@ const ROLE_PERSON = 'person';
 const ROLE_COMPANY = 'company';
 const ROLE_MANAGER = 'manager';
 const ROLE_ADMIN = 'admin';
+
+class UserModel {
+  getTokenData() {
+    return {
+      _id: this._id,
+      email: this.email,
+    }
+  }
+
+  getClean() {
+    // cripple spread operator analog
+    const cleanUser = Object.assign({}, this.toJSON());
+    delete cleanUser.__v;
+    delete cleanUser.updatedAt;
+    delete cleanUser.password;
+    delete cleanUser.verifyEmailToken;
+    delete cleanUser.verifyEmailTokenExpires;
+
+    return cleanUser;
+  }
+
+  generateToken() {
+    return jwt.sign(
+      this.getTokenData(),
+      config.server.jwt.secret,
+      {
+        expiresIn: config.server.jwt.expire,
+      }
+    );
+  }
+}
 
 const schema = mongoose.Schema({
   firstName: {
@@ -36,6 +70,7 @@ const schema = mongoose.Schema({
   newsletter: { type: Boolean, default: false },
 });
 schema.plugin(timestamps);
+schema.loadClass(UserModel);
 
 const model = mongoose.model('User', schema);
 model.ROLE_PERSON = ROLE_PERSON;

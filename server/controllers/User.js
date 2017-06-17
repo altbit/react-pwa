@@ -1,16 +1,14 @@
 const config = require('./../../config/config');
-const crypto = require('crypto');
-const bcrypt = require('bcrypt');
 const debug = require('debug')('controller:user');
+const bcrypt = require('bcrypt');
+
+const AuthService = require('./../services/Auth');
+const MailService = require('./../services/Mail');
 const JsonController = require('./Json');
 const UserModel = require('./../models/User');
 const signupIntroValidator = require('./../validators/user/signupIntro');
 const signupCompleteValidator = require('./../validators/user/signupComplete');
 const signInValidator = require('./../validators/user/signIn');
-
-//get rid of it
-var utils = require('../utils/index');
-var email = require('../utils/email');
 
 class UserController extends JsonController {
   constructor() {
@@ -20,7 +18,6 @@ class UserController extends JsonController {
     this.postSignIn = this.postSignIn.bind(this);
     this.getUser = this.getUser.bind(this);
     this.confirmEmail = this.confirmEmail.bind(this);
-    this.generateTempToken = this.generateTempToken.bind(this);
   }
 
   postSignupIntro(req, res) {
@@ -38,7 +35,7 @@ class UserController extends JsonController {
       email: body.email,
     });
 
-    this.generateTempToken((err, token) => {
+    AuthService.generateTempToken((err, token) => {
       if (err) {
         return this.Response(res)
           .withError('Temp token generation error');
@@ -58,8 +55,7 @@ class UserController extends JsonController {
             return this.Response(res)
               .withValidationError('email', 'Email is already in use', body.email);
           }
-          return this.Response(res)
-            .withError(mongoError.message);
+          return this.onMongoError(mongoError);
         });
     });
   }
@@ -88,22 +84,16 @@ class UserController extends JsonController {
           .then((user) => {
             debug('User creation complete');
 
-            //email.sendWelcomeEmail(user, req.headers.host);
+            MailService.sendWelcome(user);
 
             return this.Response(res)
               .withData({
-                user: utils.getCleanUser(user),
+                user: user.getClean(),
               });
           })
-          .catch((mongoError) => {
-            return this.Response(res)
-              .withError(mongoError.message);
-          });
+          .catch(this.onMongoError(res));
       })
-      .catch((mongoError) => {
-        return this.Response(res)
-          .withError(mongoError.message);
-      });
+      .catch(this.onMongoError(res));
   }
 
   postSignIn(req, res) {
@@ -131,30 +121,33 @@ class UserController extends JsonController {
               .withValidationError('password', 'Wrong password', body.password);
           }
 
-          const token = utils.generateToken(user);
           return this.Response(res)
             .withData({
-              user: utils.getCleanUser(user),
-              token,
+              user: user.getClean(),
+              token: user.generateToken(),
             });
         });
       })
-      .catch((mongoError) => {
-        return this.Response(res)
-          .withValidationError('email', 'Email is not registered', body.email);
-      });
+      .catch(this.onMongoError(res));
   }
 
   getUser(req, res) {
-    if (!req.user || !req.user._id) {
-      return this.Response(res)
-        .withError('Wrong user in token', 401);
-    }
+    UserModel
+      .findOne({
+        _id: req.user._id,
+      })
+      .then((user) => {
+        if (!user) {
+          return this.Response(res)
+            .withError('User is not found', 401);
+        }
 
-    return this.Response(res)
-      .withData({
-        user: utils.getCleanUser(user),
-      });
+        return this.Response(res)
+          .withData({
+            user: user.getClean(),
+          });
+      })
+      .catch(this.onMongoError(res));
   }
 
   confirmEmail(req, res) {
@@ -187,25 +180,12 @@ class UserController extends JsonController {
 
             return this.Response(res)
               .withData({
-                user: utils.getCleanUser(user),
+                user: user.getClean(),
               });
           })
-          .catch((mongoError) => {
-            return this.Response(res)
-              .withError(mongoError.message);
-          });
+          .catch(this.onMongoError(res));
       })
-      .catch((mongoError) => {
-        return this.Response(res)
-          .withValidationError('email', 'Email is not registered', body.email);
-      });
-  }
-
-  generateTempToken(done) {
-    crypto.randomBytes(15, (err, buf) => {
-      const token = buf.toString('hex');
-      done(err, token);
-    });
+      .catch(this.onMongoError(res));
   }
 }
 

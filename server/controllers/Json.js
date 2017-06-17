@@ -9,6 +9,13 @@ class JsonController {
   Response(res) {
     return new ResponseJson(res);
   }
+
+  onMongoError(res) {
+      return (mongoError) => (
+        this.Response(res)
+          .withError(mongoError.message)
+      );
+  }
 }
 
 module.exports = JsonController;
