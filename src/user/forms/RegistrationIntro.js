@@ -78,11 +78,11 @@ class RegistrationIntroForm extends Component {
           <Grid container justify='space-between' align='center' className={classes.footer}>
             <Grid item>
               <Typography type='body1'>
-                Already have an account? <Link to='/login'>Login</Link>
+                Already have an account? <Link to='/login'>Sign In</Link>
               </Typography>
             </Grid>
             <Grid item>
-              <Button raised primary type="submit">Continue <NavigateNextIcon /></Button>
+              <Button raised color='primary' type="submit">Continue <NavigateNextIcon /></Button>
             </Grid>
           </Grid>
         </form>

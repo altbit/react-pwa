@@ -100,7 +100,7 @@ class RegistrationCompleteForm extends Component {
               </Typography>
             </Grid>
             <Grid item>
-              <Button raised primary type="submit">Complete registration  <CloudDoneIcon  className={classes.icon}/></Button>
+              <Button raised color='primary' type="submit">Complete registration  <CloudDoneIcon  className={classes.icon}/></Button>
             </Grid>
           </Grid>
         </form>

@@ -46,9 +46,9 @@ const Layout = ({ children, classes }) => {
       <AppBar>
         <Toolbar>
           <Link to="/" className={classes.title}>
-            <Typography type="title" colorInherit>{AppConfig.appName}</Typography>
+            <Typography type="title" color='inherit'>{AppConfig.appName}</Typography>
           </Link>
-          <IconButton contrast className={classes.menu}>
+          <IconButton color='contrast' className={classes.menu}>
             <MenuIcon />
           </IconButton>
         </Toolbar>

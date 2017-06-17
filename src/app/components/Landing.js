@@ -1,22 +1,29 @@
+import AppConfig from 'AppConfig';
 import { Link } from 'react-router-dom';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 
+import Auth from './../../user/containers/Auth';
+import ContentBlock from './../../base/components/ContentBlock';
+
 const Landing = () => (
-  <div>
+  <ContentBlock md>
     <Typography type="display1" gutterBottom>
-      Welcome!
+      Welcome to {AppConfig.appName}
     </Typography>
 
-    <Grid container gutter={24}>
-      <Grid item>
-        <Button raised component={Link} to="/register" primary>Register</Button>
-      </Grid>
-      <Grid item>
-        <Button raised component={Link} to="/login" accent>Login</Button>
-      </Grid>
-    </Grid>
-  </div>
+    <Auth guest>
+      <Typography type="body1">
+        Please <Link to="/register">Register</Link> or <Link to="/login">Sign In</Link>
+      </Typography>
+    </Auth>
+
+    <Auth user>
+      <Typography type="body1">
+        You are successfully authorised to the system
+      </Typography>
+    </Auth>
+  </ContentBlock>
 );
 export default Landing;

@@ -29,6 +29,7 @@ class SignInForm extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
+    isSubmitting: PropTypes.bool.isRequired,
     change: PropTypes.func,
     submitError: PropTypes.object,
   };
@@ -39,7 +40,7 @@ class SignInForm extends Component {
   };
 
   render() {
-    const { classes, handleSubmit, submitError } = this.props;
+    const { classes, handleSubmit, submitError, isSubmitting } = this.props;
     const errors = parseValidationErrors(submitError);
 
     return (
@@ -97,7 +98,7 @@ class SignInForm extends Component {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Button raised primary type="submit">
+                  <Button raised color='primary' type="submit">
                     Sign In <TouchAppIcon  className={classes.icon}/>
                   </Button>
                 </Grid>

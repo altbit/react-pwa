@@ -1,10 +1,13 @@
 import { SIGNIN_POST,
   SIGNIN_SUCCESS,
-  SIGNIN_FAIL } from './../actions/signin';
+  SIGNIN_FAIL,
+  AUTH_USERBYTOKEN_GET,
+  AUTH_USERBYTOKEN_SUCCESS,
+  AUTH_USERBYTOKEN_FAIL } from './../actions/signin';
 
 const initialState = {
   isSubmitting: false,
-  authorised: false,
+  isAuthorised: false,
   user: null,
   error: null,
 };
@@ -16,7 +19,8 @@ const reducers = (state = initialState, actionData = null) => {
         ...state,
         success: actionData.success,
         isSubmitting: true,
-        authorised: false,
+        isAuthorised: false,
+        user: null,
       };
 
     case SIGNIN_SUCCESS:
@@ -25,7 +29,7 @@ const reducers = (state = initialState, actionData = null) => {
         success: actionData.success,
         user: actionData.data.user,
         isSubmitting: false,
-        authorised: true,
+        isAuthorised: true,
         error: null,
       };
 
@@ -34,7 +38,37 @@ const reducers = (state = initialState, actionData = null) => {
         ...state,
         success: actionData.success,
         isSubmitting: false,
-        authorised: false,
+        isAuthorised: false,
+        user: null,
+        error: Object.assign({}, state.error, actionData.error),
+      };
+
+    case AUTH_USERBYTOKEN_GET:
+      return {
+        ...state,
+        success: actionData.success,
+        isSubmitting: true,
+        isAuthorised: false,
+        user: null,
+      };
+
+    case AUTH_USERBYTOKEN_SUCCESS:
+      return {
+        ...state,
+        success: actionData.success,
+        user: actionData.data.user,
+        isSubmitting: false,
+        isAuthorised: true,
+        error: null,
+      };
+
+    case AUTH_USERBYTOKEN_FAIL:
+      return {
+        ...state,
+        success: actionData.success,
+        isSubmitting: false,
+        isAuthorised: false,
+        user: null,
         error: Object.assign({}, state.error, actionData.error),
       };
 

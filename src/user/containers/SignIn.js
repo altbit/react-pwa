@@ -9,7 +9,6 @@ class SignInContainer extends Component {
   static propTypes = {
     onPostSignIn: PropTypes.func.isRequired,
     isSubmitting: PropTypes.bool.isRequired,
-    authorised: PropTypes.bool.isRequired,
     error: PropTypes.object,
   };
 
@@ -19,11 +18,12 @@ class SignInContainer extends Component {
   };
 
   render() {
-    const { error } = this.props;
+    const { error, isSubmitting } = this.props;
 
     return <SignInForm
       onSubmit={this.onSubmit}
       submitError={error}
+      isSubmitting={isSubmitting}
     />;
   }
 }
@@ -31,14 +31,10 @@ class SignInContainer extends Component {
 const mapStateToProps = (state) => {
   const { auth: {
     isSubmitting,
-    authorised,
-    user,
     error,
   }} = state;
   return {
     isSubmitting,
-    authorised,
-    user,
     error,
   };
 };
