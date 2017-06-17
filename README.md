@@ -1,4 +1,19 @@
-# React Progressive Web App #
+# React from scratch
+
+Complete example of React Progressive Web Application.
+
+## Motivation
+
+Recent years front-end development become so versatile. It is no more a JavaScript language with jQuery library. 
+Modern web application is a complex system included many components. 
+
+When developers started to build their first front-end application they faced many manuals for 
+particular components. And when they try to bundle them together things could get very hard.
+
+This project is here to help developers build modern progressive web application. Live example, 
+what could be better? ^_^
+
+Here you can find newest versions of components bundled to a complete working system:
 
 * webpack 2.4+
 * react 15.5+
@@ -10,22 +25,34 @@
 * mongoose
 * server node v6+ (ES6)
 
-### Install Node.js + NPM ###
+## Installation
 
-https://nodejs.org/en/download/
+Install [Node.js](https://nodejs.org/en/download/)
 
-### Install Node modules ###
+Install [MongoDB Community Edition](https://docs.mongodb.com/manual/installation/)
 
-$ npm install
+Install Node modules: 
 
-### Build project ###
+```
+npm install
+```
 
-$ npm run build
+## Building
 
-### Run Server API ###
+Build project 
 
-$ DEBUG=server*,router*,controller*,service* npm start
+```
+npm run build
+```
 
-### Run dev server (development) ###
+Run Server API
 
-$ npm run dev
+```
+DEBUG=server*,router*,controller*,service* npm start`
+```
+
+Run dev server (only for development)
+
+```
+npm run dev`
+```
