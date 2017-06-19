@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import TextField from 'material-ui/TextField';
 
 const TextFieldWrapper = (props) => {

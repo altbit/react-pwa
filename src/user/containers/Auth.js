@@ -3,30 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 
-import { CircularProgress } from 'material-ui/Progress';
-
 import { getToken } from './../jwt';
 import { getUser } from './../actions/signin';
 
 class AuthContainer extends Component {
   static propTypes = {
-    children: PropTypes.any,
+    children: PropTypes.node.isRequired,
     onGetUser: PropTypes.func.isRequired,
     isSubmitting: PropTypes.bool.isRequired,
     isAuthorised: PropTypes.bool.isRequired,
-    userData: PropTypes.object,
-    error: PropTypes.object,
     user: PropTypes.bool,
     guest: PropTypes.bool,
-    redirect: PropTypes.bool,
-    loader: PropTypes.bool,
+    redirect: PropTypes.any,
   };
 
   static defaultProps = {
     user: false,
     guest: false,
-    redirect: false,
-    loader: false,
   };
 
   componentWillMount() {
@@ -47,38 +40,22 @@ class AuthContainer extends Component {
 
   awaitingUserData() {
     const token = getToken();
-    console.log(token);
-    const hasToken = token && token.length > 10;
-    const { isAuthorised, userData } = this.props;
+    const hasToken = token && token.length > 16;
+    const { isAuthorised } = this.props;
 
-    return hasToken && !(isAuthorised && userData);
+    return hasToken && !isAuthorised;
   }
 
   render() {
-    const { error, isSubmitting, isAuthorised, loader,
-      user: userRequired, guest: guestRequired } = this.props;
-
-    if (error) {
-      console.error(error);
-      // todo: Modal error
-      return <div>
-        Authorisation error
-      </div>;
-    }
-
-    if (isSubmitting || this.awaitingUserData()) {
-      if (loader) {
-        return <CircularProgress />;
-      } else {
-        return null;
-      }
-    }
+    const { children, isAuthorised, user: userRequired, guest: guestRequired } = this.props;
 
     if ((userRequired && !isAuthorised) || (guestRequired && isAuthorised)) {
       return this.renderFail();
     }
 
-    return this.props.children;
+    return children.length
+      ? <span>{children}</span>
+      : children;
   }
 
   renderFail() {
@@ -89,25 +66,18 @@ class AuthContainer extends Component {
     }
 
     if (userRequired) {
-      return <Redirect to='/login' />;
+      return <Redirect to={redirect !== true ? redirect : '/login'} />;
     }
 
-    return <Redirect to='/'/>;
+    return <Redirect to={redirect !== true ? redirect : '/'} />;
   }
 }
 
 const mapStateToProps = (state) => {
-  const { auth: {
-    isSubmitting,
-    isAuthorised,
-    user: userData,
-    error,
-  }} = state;
+  const { auth: { isSubmitting, isAuthorised } } = state;
   return {
     isSubmitting,
     isAuthorised,
-    userData,
-    error,
   };
 };
 

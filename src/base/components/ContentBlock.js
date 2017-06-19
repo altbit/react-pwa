@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
+import Fade from 'material-ui/transitions/Fade';
 
 const styleSheet = createStyleSheet('ContentBlock', (theme) => {
   let styles = {
@@ -42,9 +43,11 @@ const ContentBlock = ({ children, classes, xs, sm, md, lg, xl }) => {
   );
 
   return (
-    <Paper className={className}>
-      {children}
-    </Paper>
+    <Fade in={true} enterTransitionDuration={350} leaveTransitionDuration={200}>
+      <Paper className={className}>
+        {children}
+      </Paper>
+    </Fade>
   );
 };
 
