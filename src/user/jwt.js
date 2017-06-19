@@ -5,5 +5,9 @@ export const getToken = () => {
 };
 
 export const setToken = (token) => {
+  if (!token) {
+    return sessionStorage.removeItem(TOKEN_SESSION_KEY);
+  }
+
   return sessionStorage.setItem(TOKEN_SESSION_KEY, token);
 };

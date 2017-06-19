@@ -5,6 +5,7 @@ import { getToken, setToken } from './../jwt';
 export const SIGNIN_POST = 'SIGNIN_POST';
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 export const SIGNIN_FAIL = 'SIGNIN_FAIL';
+export const SIGNOUT_SUCCESS = 'SIGNOUT_SUCCESS';
 export const AUTH_USERBYTOKEN_GET = 'AUTH_USERBYTOKEN_GET';
 export const AUTH_USERBYTOKEN_SUCCESS = 'AUTH_USERBYTOKEN_SUCCESS';
 export const AUTH_USERBYTOKEN_FAIL = 'AUTH_USERBYTOKEN_FAIL';
@@ -37,6 +38,14 @@ export const postSignIn = (formData) => (dispatch) => {
         error,
       });
     });
+};
+
+export const signOut = () => (dispatch) => {
+  setToken(null);
+
+  dispatch({
+    type: SIGNOUT_SUCCESS,
+  });
 };
 
 export const getUser = () => (dispatch) => {

@@ -27,7 +27,7 @@ const reducers = (state = initialState, actionData = null) => {
       return {
         ...state,
         success: actionData.success,
-        userData: actionData.data,
+        userData: actionData.data.user,
         isSubmitting: false,
         introSubmitted: true,
         error: null,
@@ -54,7 +54,7 @@ const reducers = (state = initialState, actionData = null) => {
       return {
         ...state,
         success: actionData.success,
-        userData: actionData.data,
+        userData: actionData.data.user,
         isSubmitting: false,
         completeSubmitted: true,
         error: null,

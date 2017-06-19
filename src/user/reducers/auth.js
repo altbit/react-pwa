@@ -1,6 +1,7 @@
 import { SIGNIN_POST,
   SIGNIN_SUCCESS,
   SIGNIN_FAIL,
+  SIGNOUT_SUCCESS,
   AUTH_USERBYTOKEN_GET,
   AUTH_USERBYTOKEN_SUCCESS,
   AUTH_USERBYTOKEN_FAIL } from './../actions/signin';
@@ -41,6 +42,16 @@ const reducers = (state = initialState, actionData = null) => {
         isAuthorised: false,
         user: null,
         error: Object.assign({}, state.error, actionData.error),
+      };
+
+    case SIGNOUT_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        user: null,
+        isSubmitting: false,
+        isAuthorised: false,
+        error: null,
       };
 
     case AUTH_USERBYTOKEN_GET:

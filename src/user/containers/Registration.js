@@ -6,6 +6,7 @@ import RegistrationIntroForm from './../forms/RegistrationIntro';
 import RegistrationCompleteForm from './../forms/RegistrationComplete';
 import RegistrationComplete from './../components/RegistrationComplete';
 import { postIntro, postComplete } from './../actions/registration';
+import Auth from './Auth';
 
 class RegistrationContainer extends Component {
   static propTypes = {
@@ -24,29 +25,35 @@ class RegistrationContainer extends Component {
   };
 
   onSubmitComplete = (values) => {
-    const { onPostComplete, userData: { verifyEmailToken, email } } = this.props;
-    onPostComplete(values, { verifyEmailToken, email });
+    const { onPostComplete, userData: { tempPassword, email } } = this.props;
+    onPostComplete(values, { tempPassword, email });
   };
 
   render() {
     const { error, introSubmitted, completeSubmitted, userData } = this.props;
 
     if (completeSubmitted) {
-      return <RegistrationComplete
-        userData={userData}
-      />;
+      return <RegistrationComplete userData={userData} />;
     }
 
-    return !introSubmitted
-      ? <RegistrationIntroForm
-          onSubmit={this.onSubmitIntro}
-          submitError={error}
-        />
-      : <RegistrationCompleteForm
+    if (introSubmitted) {
+      return (
+        <RegistrationCompleteForm
           onSubmit={this.onSubmitComplete}
           userData={userData}
           submitError={error}
-        />;
+        />
+      );
+    }
+
+    return (
+      <Auth guest redirect='/'>
+        <RegistrationIntroForm
+          onSubmit={this.onSubmitIntro}
+          submitError={error}
+        />
+      </Auth>
+    );
   }
 }
 

@@ -1,5 +1,6 @@
 import AppConfig from 'AppConfig';
 import { Link } from 'react-router-dom';
+
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
@@ -15,7 +16,12 @@ const Landing = () => (
 
     <Auth guest>
       <Typography type="body1">
-        Please <Link to="/register">Register</Link> or <Link to="/login">Sign In</Link>
+        Please <Link
+          to={{
+            pathname: '/login',
+            state: { from: '/' },
+          }}
+        >Sign In</Link> or <Link to="/register">Register</Link>
       </Typography>
     </Auth>
 

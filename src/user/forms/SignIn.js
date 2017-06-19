@@ -44,69 +44,65 @@ class SignInForm extends Component {
     const errors = parseValidationErrors(submitError);
 
     return (
-      <Grid container align='center' justify='center'>
-        <Grid item xs>
-          <ContentBlock sm>
-            <form onSubmit={handleSubmit}>
-              <Typography type="display1" gutterBottom>
-                Sign In
+      <ContentBlock sm>
+        <form onSubmit={handleSubmit}>
+          <Typography type="display1" gutterBottom>
+            Sign In
+          </Typography>
+
+          <Divider/>
+
+          <Grid container>
+            <Grid item xs={12}>
+              <Field
+                component={TextField}
+                label="Email"
+                name="email"
+                required={true}
+                validate={isRequired('Email')}
+                fieldError={errors.email}
+                />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Field
+                component={TextField}
+                label="Password"
+                name="password"
+                required={true}
+                validate={isRequired('Password')}
+                type='password'
+                fieldError={errors.password}
+                />
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormGroup row>
+                <LabelCheckbox
+                  name="rememberMe"
+                  label="Remember Me"
+                  onChange={this.onRememberMeSwitch}
+                  />
+              </FormGroup>
+            </Grid>
+          </Grid>
+
+          <Divider/>
+
+          <Grid container justify='space-between' align='center' className={classes.footer}>
+            <Grid item>
+              <Typography type='body1'>
+                Don't have an account? <Link to='/register'>Register</Link>
               </Typography>
-
-              <Divider/>
-
-              <Grid container>
-                <Grid item xs={12}>
-                  <Field
-                    component={TextField}
-                    label="Email"
-                    name="email"
-                    required={true}
-                    validate={isRequired('Email')}
-                    fieldError={errors.email}
-                    />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Field
-                    component={TextField}
-                    label="Password"
-                    name="password"
-                    required={true}
-                    validate={isRequired('Password')}
-                    type='password'
-                    fieldError={errors.password}
-                    />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <FormGroup row>
-                    <LabelCheckbox
-                      name="rememberMe"
-                      label="Remember Me"
-                      onChange={this.onRememberMeSwitch}
-                      />
-                  </FormGroup>
-                </Grid>
-              </Grid>
-
-              <Divider/>
-
-              <Grid container justify='space-between' align='center' className={classes.footer}>
-                <Grid item>
-                  <Typography type='body1'>
-                    Don't have an account? <Link to='/register'>Register</Link>
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Button raised color='primary' type="submit">
-                    Sign In <TouchAppIcon  className={classes.icon}/>
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </ContentBlock>
-        </Grid>
-      </Grid>
+            </Grid>
+            <Grid item>
+              <Button raised color='primary' type="submit" disabled={isSubmitting}>
+                Sign In <TouchAppIcon  className={classes.icon}/>
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </ContentBlock>
     );
   }
 }
