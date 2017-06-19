@@ -13,7 +13,7 @@ module.exports = (req) => {
   req.sanitize('email').escape();
   req.sanitize('email').trim();
   req.sanitize('newsletter').escape();
-  req.sanitize('verifyEmailToken').escape();
+  req.sanitize('tempPassword').escape();
 
   return req.validationErrors();
 };

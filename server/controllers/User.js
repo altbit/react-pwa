@@ -41,14 +41,15 @@ class UserController extends JsonController {
           .withError('Temp token generation error');
       }
 
-      user.verifyEmailToken = token;
-      user.verifyEmailTokenExpires = Date.now() + 3600000 * 24 * config.server.postmark.signupTokenExpireDays;
+      user.password = token;
       user.isEmailVerified = false;
       user.save()
         .then((user) => {
           debug('User created');
           return this.Response(res)
-            .withData(user);
+            .withData({
+              user: Object.assign({}, user.getClean(), { tempPassword: user.password }),
+            });
         })
         .catch((mongoError) => {
           if (mongoError.name === 'MongoError' && mongoError.code === 11000) {
@@ -74,24 +75,34 @@ class UserController extends JsonController {
         'email': new RegExp(["^", body.email, "$"].join(""), "i"),
       })
       .then((user) => {
-        if (!user || !user.verifyEmailToken || user.verifyEmailToken != body.verifyEmailToken) {
+        if (!user || !user.password || user.password != body.tempPassword) {
           return this.Response(res)
-            .withError('Wrong email temp token');
+            .withError('Wrong email temp password');
         }
 
-        user.password = bcrypt.hashSync(body.password, 10);
-        user.save()
-          .then((user) => {
-            debug('User creation complete');
-
-            MailService.sendWelcome(user);
-
+        AuthService.generateTempToken((err, token) => {
+          if (err) {
             return this.Response(res)
-              .withData({
-                user: user.getClean(),
-              });
-          })
-          .catch(this.onMongoError(res));
+              .withError('Temp token generation error');
+          }
+
+          user.verifyEmailToken = token;
+          user.verifyEmailTokenExpires = Date.now() + 3600000 * 24 * config.server.postmark.signupTokenExpireDays;
+          user.isEmailVerified = false;
+          user.password = bcrypt.hashSync(body.password, 10);
+          user.save()
+            .then((user) => {
+              debug('User creation complete');
+
+              MailService.sendWelcome(user);
+
+              return this.Response(res)
+                .withData({
+                  user: user.getClean(),
+                });
+            })
+            .catch(this.onMongoError(res));
+        });
       })
       .catch(this.onMongoError(res));
   }
