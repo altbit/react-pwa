@@ -46,10 +46,10 @@ class RegistrationCompleteForm extends Component {
     return (
       <ContentBlock sm>
         <form onSubmit={handleSubmit}>
-          <Typography type="display1">
+          <Typography type='display1'>
             Complete registration
           </Typography>
-          <Typography type="subheading" gutterBottom>
+          <Typography type='subheading' gutterBottom>
             Hi {userData.firstName}, please set up your password
           </Typography>
 
@@ -59,8 +59,8 @@ class RegistrationCompleteForm extends Component {
             <Grid item xs={12}>
               <Field
                 component={TextField}
-                label="Password"
-                name="password"
+                label='Password'
+                name='password'
                 required={true}
                 validate={isRequired('Password')}
                 type='password'
@@ -71,8 +71,8 @@ class RegistrationCompleteForm extends Component {
             <Grid item xs={12}>
               <Field
                 component={TextField}
-                label="Repeat password"
-                name="passwordRepeat"
+                label='Repeat password'
+                name='passwordRepeat'
                 required={true}
                 validate={isRequired('Password again')}
                 type='password'
@@ -83,8 +83,8 @@ class RegistrationCompleteForm extends Component {
             <Grid item xs={12}>
               <FormGroup row>
                 <LabelCheckbox
-                  name="newsletter"
-                  label="I would like to receive newsletter"
+                  name='newsletter'
+                  label='I would like to receive newsletter'
                   onChange={this.onNewsletterSwitch}
                 />
               </FormGroup>
@@ -100,7 +100,7 @@ class RegistrationCompleteForm extends Component {
               </Typography>
             </Grid>
             <Grid item>
-              <Button raised color='primary' type="submit">Complete registration  <CloudDoneIcon  className={classes.icon}/></Button>
+              <Button raised color='primary' type='submit'>Complete registration  <CloudDoneIcon  className={classes.icon}/></Button>
             </Grid>
           </Grid>
         </form>

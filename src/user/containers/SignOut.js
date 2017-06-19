@@ -22,7 +22,7 @@ class SignOutContainer extends Component {
     return <Grid container align='center' justify='center'>
       <Grid item xs>
         <Auth user redirect='/'>
-          <Typography type="body2">
+          <Typography type='body2'>
             Signing out...
           </Typography>
         </Auth>

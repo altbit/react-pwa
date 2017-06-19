@@ -33,7 +33,7 @@ const RegistrationComplete = (props) => {
   const { userData, classes } = props;
 
   return <ContentBlock sm>
-    <Typography type="display1" gutterBottom>
+    <Typography type='display1' gutterBottom>
       Complete registration
     </Typography>
 
@@ -45,10 +45,10 @@ const RegistrationComplete = (props) => {
       </Grid>
 
       <Grid item className={classes.content}>
-        <Typography type="body2" gutterBottom>
+        <Typography type='body2' gutterBottom>
           Welcome, {userData.firstName}!
         </Typography>
-        <Typography type="body1">
+        <Typography type='body1'>
           Thank you for trying<br />
           {AppConfig.appName}
         </Typography>

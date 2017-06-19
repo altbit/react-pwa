@@ -10,23 +10,23 @@ import ContentBlock from './../../base/components/ContentBlock';
 
 const Landing = () => (
   <ContentBlock md>
-    <Typography type="display1" gutterBottom>
+    <Typography type='display1' gutterBottom>
       Welcome to {AppConfig.appName}
     </Typography>
 
     <Auth guest>
-      <Typography type="body1">
+      <Typography type='body1'>
         Please <Link
           to={{
             pathname: '/login',
             state: { from: '/' },
           }}
-        >Sign In</Link> or <Link to="/register">Register</Link>
+        >Sign In</Link> or <Link to='/register'>Register</Link>
       </Typography>
     </Auth>
 
     <Auth user>
-      <Typography type="body1">
+      <Typography type='body1'>
         You are successfully authorised to the system
       </Typography>
     </Auth>

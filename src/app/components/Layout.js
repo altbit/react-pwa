@@ -50,8 +50,8 @@ const Layout = ({ children, classes }) => {
         <Grid container justify='space-between' align='center'>
           <Grid item>
             <Toolbar>
-              <Link to="/" className={classes.title}>
-                <Typography type="title" color='inherit'>{AppConfig.appName}</Typography>
+              <Link to='/' className={classes.title}>
+                <Typography type='title' color='inherit'>{AppConfig.appName}</Typography>
               </Link>
             </Toolbar>
           </Grid>
@@ -60,7 +60,7 @@ const Layout = ({ children, classes }) => {
             <Toolbar className={classes.menu}>
               <AppBarUser />
 
-              <IconButton color='contrast' title="App menu">
+              <IconButton color='contrast' title='App menu'>
                 <MenuIcon />
               </IconButton>
             </Toolbar>

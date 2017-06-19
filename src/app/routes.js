@@ -14,10 +14,10 @@ import SignOutLoader from 'bundle-loader?lazy&name=[name]!./../user/containers/S
 const AppRoutes = () => (
   <Router>
     <App>
-      <Route exact path="/" component={bundle(LandingLoader)} />
-      <Route path="/register" component={bundle(RegistrationLoader)} />
-      <Route path="/login" component={bundle(SignInLoader)} />
-      <Route path="/logout" component={bundle(SignOutLoader)} />
+      <Route exact path='/' component={bundle(LandingLoader)} />
+      <Route path='/register' component={bundle(RegistrationLoader)} />
+      <Route path='/login' component={bundle(SignInLoader)} />
+      <Route path='/logout' component={bundle(SignOutLoader)} />
     </App>
   </Router>
 );

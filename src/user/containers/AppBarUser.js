@@ -46,7 +46,7 @@ class AppBarUserContainer extends Component {
           state: { from: location },
         }}
         disabled={isSubmitting}
-        title="Sign In"
+        title='Sign In'
       >
         <TouchAppIcon />
       </IconButton>;
@@ -57,7 +57,7 @@ class AppBarUserContainer extends Component {
         <Avatar className={classes.avatar}>{user.firstName[0] + user.lastName[0]}</Avatar>
       </Grid>
       <Grid item>
-        <Typography type="body2" color='inherit'>
+        <Typography type='body2' color='inherit'>
           {user.firstName} {user.lastName}
         </Typography>
       </Grid>
@@ -65,8 +65,8 @@ class AppBarUserContainer extends Component {
         <IconButton
           color='contrast'
           component={Link}
-          to="/logout"
-          title="Sign Out"
+          to='/logout'
+          title='Sign Out'
         >
           <ExitToAppIcon />
         </IconButton>

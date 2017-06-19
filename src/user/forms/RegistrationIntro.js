@@ -34,7 +34,7 @@ class RegistrationIntroForm extends Component {
     return (
       <ContentBlock sm>
         <form onSubmit={handleSubmit}>
-          <Typography type="display1" gutterBottom>
+          <Typography type='display1' gutterBottom>
             Registration
           </Typography>
 
@@ -44,8 +44,8 @@ class RegistrationIntroForm extends Component {
             <Grid item xs={12}>
               <Field
                 component={TextField}
-                label="First Name"
-                name="firstName"
+                label='First Name'
+                name='firstName'
                 required={true}
                 validate={isRequired('First Name')}
                 fieldError={errors.firstName}
@@ -55,8 +55,8 @@ class RegistrationIntroForm extends Component {
             <Grid item xs={12}>
               <Field
                 component={TextField}
-                label="Last Name"
-                name="lastName"
+                label='Last Name'
+                name='lastName'
                 required={true}
                 validate={isRequired('Last Name')}
                 fieldError={errors.lastName}
@@ -66,8 +66,8 @@ class RegistrationIntroForm extends Component {
             <Grid item xs={12}>
               <Field
                 component={TextField}
-                label="E-mail"
-                name="email"
+                label='E-mail'
+                name='email'
                 required={true}
                 validate={isRequired('E-mail')}
                 fieldError={errors.email}
@@ -87,7 +87,7 @@ class RegistrationIntroForm extends Component {
               </Typography>
             </Grid>
             <Grid item>
-              <Button raised color='primary' type="submit">Continue <NavigateNextIcon /></Button>
+              <Button raised color='primary' type='submit'>Continue <NavigateNextIcon /></Button>
             </Grid>
           </Grid>
         </form>

@@ -46,7 +46,7 @@ class SignInForm extends Component {
     return (
       <ContentBlock sm>
         <form onSubmit={handleSubmit}>
-          <Typography type="display1" gutterBottom>
+          <Typography type='display1' gutterBottom>
             Sign In
           </Typography>
 
@@ -56,8 +56,8 @@ class SignInForm extends Component {
             <Grid item xs={12}>
               <Field
                 component={TextField}
-                label="Email"
-                name="email"
+                label='Email'
+                name='email'
                 required={true}
                 validate={isRequired('Email')}
                 fieldError={errors.email}
@@ -67,8 +67,8 @@ class SignInForm extends Component {
             <Grid item xs={12}>
               <Field
                 component={TextField}
-                label="Password"
-                name="password"
+                label='Password'
+                name='password'
                 required={true}
                 validate={isRequired('Password')}
                 type='password'
@@ -79,8 +79,8 @@ class SignInForm extends Component {
             <Grid item xs={12}>
               <FormGroup row>
                 <LabelCheckbox
-                  name="rememberMe"
-                  label="Remember Me"
+                  name='rememberMe'
+                  label='Remember Me'
                   onChange={this.onRememberMeSwitch}
                   />
               </FormGroup>
@@ -96,7 +96,7 @@ class SignInForm extends Component {
               </Typography>
             </Grid>
             <Grid item>
-              <Button raised color='primary' type="submit" disabled={isSubmitting}>
+              <Button raised color='primary' type='submit' disabled={isSubmitting}>
                 Sign In <TouchAppIcon  className={classes.icon}/>
               </Button>
             </Grid>
