@@ -1,4 +1,4 @@
-# React from scratch
+# React Progressive Web Application
 
 Complete example of React Progressive Web Application.
 
