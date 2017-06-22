@@ -20,6 +20,9 @@ const styleSheet = createStyleSheet('SignInForm', (theme) => ({
   footer: {
     paddingTop: 16,
   },
+  content: {
+    paddingTop: 16,
+  },
   icon: {
     marginLeft: 8,
   },
@@ -52,7 +55,7 @@ class SignInForm extends Component {
 
           <Divider/>
 
-          <Grid container>
+          <Grid container className={classes.content}>
             <Grid item xs={12}>
               <Field
                 component={TextField}

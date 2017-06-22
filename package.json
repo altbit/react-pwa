@@ -14,7 +14,7 @@
     "fs": "0.0.1-security",
     "history": "^4.6.2",
     "jsonwebtoken": "^7.4.1",
-    "material-ui": "^1.0.0-alpha.14",
+    "material-ui": "^1.0.0-alpha.19",
     "material-ui-icons": "^1.0.0-alpha.3",
     "modernizr": "^3.5.0",
     "mongoose": "^4.10.2",

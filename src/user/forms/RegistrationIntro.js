@@ -15,6 +15,9 @@ import { isRequired, parseValidationErrors } from './../../base/form/validation'
 import ContentBlock from './../../base/components/ContentBlock';
 
 const styleSheet = createStyleSheet('RegistrationIntroForm', (theme) => ({
+  content: {
+    paddingTop: 16,
+  },
   footer: {
     paddingTop: 16,
   },
@@ -40,7 +43,7 @@ class RegistrationIntroForm extends Component {
 
           <Divider/>
 
-          <Grid container>
+          <Grid container className={classes.content}>
             <Grid item xs={12}>
               <Field
                 component={TextField}
