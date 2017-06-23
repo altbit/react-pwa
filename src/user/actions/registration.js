@@ -18,18 +18,16 @@ export const postIntro = (formData) => (dispatch) => {
   return axios.post(`${AppConfig.ServerApi}/users/signup/intro`,
     formData,
     { headers: { 'Authorization': getToken() } })
-    .then(({data: { success, data }}) => {
+    .then(({data: { data }}) => {
       dispatch({
         type: REGISTRATION_INTRO_SUCCESS,
-        success,
         data,
       });
     })
     .catch((res) => {
-      const { success, error } = (res instanceof Error) ? res.response.data : res;
+      const { error } = (res instanceof Error) ? res.response.data : res;
       dispatch({
         type: REGISTRATION_INTRO_FAIL,
-        success,
         error,
       });
     });
@@ -44,18 +42,16 @@ export const postComplete = (formData, userData) => (dispatch) => {
   return axios.post(`${AppConfig.ServerApi}/users/signup/complete`,
     { ...formData, ...userData },
     { headers: { 'Authorization': getToken() } })
-    .then(({data: { success, data }}) => {
+    .then(({data: { data }}) => {
       dispatch({
         type: REGISTRATION_COMPLETE_SUCCESS,
-        success,
         data,
       });
     })
     .catch((res) => {
-      const { success, error } = (res instanceof Error) ? res.response.data : res;
+      const { error } = (res instanceof Error) ? res.response.data : res;
       dispatch({
         type: REGISTRATION_COMPLETE_FAIL,
-        success,
         error,
       });
     });

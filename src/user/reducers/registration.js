@@ -18,7 +18,6 @@ const reducers = (state = initialState, actionData = null) => {
     case REGISTRATION_INTRO_POST:
       return {
         ...state,
-        success: actionData.success,
         isSubmitting: true,
         introSubmitted: false,
       };
@@ -26,7 +25,6 @@ const reducers = (state = initialState, actionData = null) => {
     case REGISTRATION_INTRO_SUCCESS:
       return {
         ...state,
-        success: actionData.success,
         userData: actionData.data.user,
         isSubmitting: false,
         introSubmitted: true,
@@ -36,7 +34,6 @@ const reducers = (state = initialState, actionData = null) => {
     case REGISTRATION_INTRO_FAIL:
       return {
         ...state,
-        success: actionData.success,
         isSubmitting: false,
         introSubmitted: false,
         error: Object.assign({}, state.error, actionData.error),
@@ -45,7 +42,6 @@ const reducers = (state = initialState, actionData = null) => {
     case REGISTRATION_COMPLETE_POST:
       return {
         ...state,
-        success: actionData.success,
         isSubmitting: true,
         completeSubmitted: false,
       };
@@ -53,7 +49,6 @@ const reducers = (state = initialState, actionData = null) => {
     case REGISTRATION_COMPLETE_SUCCESS:
       return {
         ...state,
-        success: actionData.success,
         userData: actionData.data.user,
         isSubmitting: false,
         completeSubmitted: true,
@@ -63,7 +58,6 @@ const reducers = (state = initialState, actionData = null) => {
     case REGISTRATION_COMPLETE_FAIL:
       return {
         ...state,
-        success: actionData.success,
         isSubmitting: false,
         completeSubmitted: false,
         error: Object.assign({}, state.error, actionData.error),

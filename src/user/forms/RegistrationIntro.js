@@ -11,7 +11,7 @@ import Button from 'material-ui/Button';
 import NavigateNextIcon from 'material-ui-icons/NavigateNext';
 
 import TextField from './../../base/form/TextFieldWrapper';
-import { isRequired, parseValidationErrors } from './../../base/form/validation';
+import { isRequired } from './../../base/form/validation';
 import ContentBlock from './../../base/components/ContentBlock';
 
 const styleSheet = createStyleSheet('RegistrationIntroForm', (theme) => ({
@@ -27,12 +27,11 @@ class RegistrationIntroForm extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    submitError: PropTypes.object,
+    validationErrors: PropTypes.object,
   };
 
   render() {
-    const { classes, handleSubmit, submitError } = this.props;
-    const errors = parseValidationErrors(submitError);
+    const { classes, handleSubmit, validationErrors } = this.props;
 
     return (
       <ContentBlock sm>
@@ -51,7 +50,7 @@ class RegistrationIntroForm extends Component {
                 name='firstName'
                 required={true}
                 validate={isRequired('First Name')}
-                fieldError={errors.firstName}
+                fieldError={validationErrors.firstName}
               />
             </Grid>
 
@@ -62,7 +61,7 @@ class RegistrationIntroForm extends Component {
                 name='lastName'
                 required={true}
                 validate={isRequired('Last Name')}
-                fieldError={errors.lastName}
+                fieldError={validationErrors.lastName}
               />
             </Grid>
 
@@ -73,7 +72,7 @@ class RegistrationIntroForm extends Component {
                 name='email'
                 required={true}
                 validate={isRequired('E-mail')}
-                fieldError={errors.email}
+                fieldError={validationErrors.email}
               />
             </Grid>
           </Grid>

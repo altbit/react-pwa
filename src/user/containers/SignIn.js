@@ -8,6 +8,8 @@ import { postSignIn } from './../actions/signin';
 import Auth from './../../user/containers/Auth';
 import Grid from 'material-ui/Grid';
 
+import { parseValidationErrors } from './../../base/form/validation';
+
 class SignInContainer extends Component {
   static propTypes = {
     location: PropTypes.object,
@@ -17,6 +19,7 @@ class SignInContainer extends Component {
   };
 
   onSubmit = (values) => {
+    this.values = values;
     const { onPostSignIn } = this.props;
     onPostSignIn(values);
   };
@@ -30,7 +33,7 @@ class SignInContainer extends Component {
         <Auth guest redirect={from}>
           <SignInForm
             onSubmit={this.onSubmit}
-            submitError={error}
+            validationErrors={parseValidationErrors(error, this.values)}
             isSubmitting={isSubmitting}
           />
         </Auth>

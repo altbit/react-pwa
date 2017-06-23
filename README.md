@@ -1,6 +1,6 @@
-# React Progressive Web Application
+# React Material Design skeleton application
 
-Complete example of React Progressive Web Application.
+Complete example of React Material Design Progressive Web Application built from scratch.
 
 ## Motivation
 
@@ -10,8 +10,8 @@ Modern web application is a complex system included many components.
 When developers started to build their first front-end application they faced many manuals for 
 particular components. And when they try to bundle them together things could get very hard.
 
-This project is here to help developers build modern progressive web application. Live example, 
-what could be better? ^_^
+This project is here to help developers build react progressive web application. Live example, 
+what could be better?
 
 Here you can find newest versions of components bundled to a complete working system:
 

@@ -41,8 +41,8 @@ const Landing = ({ classes }) => (
       When developers started to build their first front-end application they faced many manuals for
       particular components. And when they try to bundle them together things could get very hard.
       <br /><br />
-      This project is here to help developers build modern progressive web application. Live example,
-      what could be better? ^_^
+      This project is here to help developers build react progressive web application. Live example,
+      what could be better?
     </Typography>
 
     <Divider />

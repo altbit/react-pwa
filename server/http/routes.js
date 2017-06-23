@@ -10,6 +10,7 @@ const userRouter = require('./../routers/user');
 const guestRoutes = [
   '/api/users/signup',
   '/api/users/signin',
+  '/api/user/confirmEmail',
 ];
 
 module.exports = (app) => {

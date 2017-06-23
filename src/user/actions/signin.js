@@ -17,24 +17,25 @@ export const postSignIn = (formData) => (dispatch) => {
   });
 
   return axios.post(`${AppConfig.ServerApi}/users/signin`,
-    formData,
-    { headers: { 'Authorization': getToken() } })
-    .then(({data: { success, data }}) => {
-      if (data.token) {
-        setToken(data.token);
+    formData)
+    .then(({data: { data }}) => {
+      if (!data.token) {
+        return dispatch({
+          type: SIGNIN_FAIL,
+          error: 'No authorisation token',
+        });
       }
 
+      setToken(data.token);
       dispatch({
         type: SIGNIN_SUCCESS,
-        success,
         data,
       });
     })
     .catch((res) => {
-      const { success, error } = (res instanceof Error) ? res.response.data : res;
+      const { error } = (res instanceof Error) ? res.response.data : res;
       dispatch({
         type: SIGNIN_FAIL,
-        success,
         error,
       });
     });
@@ -55,26 +56,30 @@ export const getUser = () => (dispatch) => {
 
   return axios.get(`${AppConfig.ServerApi}/user`,
     { headers: { 'Authorization': getToken() } })
-    .then(({data: { success, data }}) => {
+    .then(({data: { data }}) => {
       if (!data.user) {
+        // If we cannot get user with current token - reset token to sign in again
+        setToken(null);
+
         return dispatch({
           type: AUTH_USERBYTOKEN_FAIL,
-          success: false,
           error: 'Wrong authorisation token',
         });
       }
 
       dispatch({
         type: AUTH_USERBYTOKEN_SUCCESS,
-        success,
         data,
       });
     })
     .catch((res) => {
-      const { success, error } = (res instanceof Error) ? res.response.data : res;
+      const { error } = (res instanceof Error) ? res.response.data : res;
+
+      // If we cannot get user with current token - reset token to sign in again
+      setToken(null);
+
       dispatch({
         type: AUTH_USERBYTOKEN_FAIL,
-        success,
         error,
       });
     });

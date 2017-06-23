@@ -8,6 +8,7 @@ class MailService {
   }
 
   sendWelcome(user, done) {
+    debug('sending email to', user.email, '...');
     postmark.sendEmailWithTemplate({
       From: config.server.postmark.mailFrom,
       To: user.email,
@@ -15,11 +16,21 @@ class MailService {
       TemplateModel: {
         productName: config.app.appName,
         firstName: user.firstName,
-        action_url: config.app.ServerApi + '/confirmEmail/' + user.verifyEmailToken,
-        productAddressLine1: config.app.AddressLine1,
-        productAddressLine2: config.app.AddressLine2,
+        action_url: config.app.ServerApi + '/user/confirmEmail/' + user.verifyEmailToken,
+        productAddressLine1: config.server.postmark.AddressLine1,
+        productAddressLine2: config.server.postmark.AddressLine2,
       },
-    }, done);
+    }, (err, res) => {
+      if (err) {
+        debug('email sending error', err);
+      } else {
+        debug('email sent', res);
+      }
+
+      if (done) {
+        done();
+      }
+    });
   }
 }
 

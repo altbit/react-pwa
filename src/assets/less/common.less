@@ -8,27 +8,9 @@ body {
   line-height: @line-height;
   margin: 0;
   -webkit-font-smoothing: antialiased;
-
-  &.loading {
-    overflow: hidden;
-
-    .app-loader {
-      display: block;
-    }
-  }
-
-  &.loader-fade-out {
-    .app-loader {
-      opacity: 0.01;
-    }
-  }
 }
 a {
   color: #2196f3;
-}
-.app {
-  opacity: 1;
-  transition: opacity @transition-duration-loader-fade-out ease @transition-duration-loader-fade-out;
 }
 *, *:before, *:after {
   box-sizing: inherit;

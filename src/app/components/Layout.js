@@ -9,10 +9,10 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/MoreVert';
 import Grid from 'material-ui/Grid';
 
 import AppBarUser from './../../user/containers/AppBarUser';
+import MenuDrawer from './MenuDrawer';
 
 const styleSheet = createStyleSheet('Layout', (theme) => ({
   root: {
@@ -50,6 +50,8 @@ const Layout = ({ children, classes }) => {
         <Grid container justify='space-between' align='center'>
           <Grid item>
             <Toolbar>
+              <MenuDrawer />
+
               <Link to='/' className={classes.title}>
                 <Typography type='title' color='inherit'>{AppConfig.appName}</Typography>
               </Link>
@@ -59,10 +61,6 @@ const Layout = ({ children, classes }) => {
           <Grid item>
             <Toolbar className={classes.menu}>
               <AppBarUser />
-
-              <IconButton color='contrast' title='App menu'>
-                <MenuIcon />
-              </IconButton>
             </Toolbar>
           </Grid>
         </Grid>

@@ -18,7 +18,6 @@ const reducers = (state = initialState, actionData = null) => {
     case SIGNIN_POST:
       return {
         ...state,
-        success: actionData.success,
         isSubmitting: true,
         isAuthorised: false,
         user: null,
@@ -27,7 +26,6 @@ const reducers = (state = initialState, actionData = null) => {
     case SIGNIN_SUCCESS:
       return {
         ...state,
-        success: actionData.success,
         user: actionData.data.user,
         isSubmitting: false,
         isAuthorised: true,
@@ -37,7 +35,6 @@ const reducers = (state = initialState, actionData = null) => {
     case SIGNIN_FAIL:
       return {
         ...state,
-        success: actionData.success,
         isSubmitting: false,
         isAuthorised: false,
         user: null,
@@ -47,7 +44,6 @@ const reducers = (state = initialState, actionData = null) => {
     case SIGNOUT_SUCCESS:
       return {
         ...state,
-        success: true,
         user: null,
         isSubmitting: false,
         isAuthorised: false,
@@ -57,7 +53,6 @@ const reducers = (state = initialState, actionData = null) => {
     case AUTH_USERBYTOKEN_GET:
       return {
         ...state,
-        success: actionData.success,
         isSubmitting: true,
         isAuthorised: false,
         user: null,
@@ -66,7 +61,6 @@ const reducers = (state = initialState, actionData = null) => {
     case AUTH_USERBYTOKEN_SUCCESS:
       return {
         ...state,
-        success: actionData.success,
         user: actionData.data.user,
         isSubmitting: false,
         isAuthorised: true,
@@ -76,7 +70,6 @@ const reducers = (state = initialState, actionData = null) => {
     case AUTH_USERBYTOKEN_FAIL:
       return {
         ...state,
-        success: actionData.success,
         isSubmitting: false,
         isAuthorised: false,
         user: null,

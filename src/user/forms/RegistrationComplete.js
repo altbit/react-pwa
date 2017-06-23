@@ -13,7 +13,7 @@ import { LabelCheckbox } from 'material-ui/Checkbox';
 import { FormGroup } from 'material-ui/Form';
 
 import TextField from './../../base/form/TextFieldWrapper';
-import { isRequired, parseValidationErrors } from './../../base/form/validation';
+import { isRequired } from './../../base/form/validation';
 import ContentBlock from './../../base/components/ContentBlock';
 
 const styleSheet = createStyleSheet('RegistrationCompleteForm', (theme) => ({
@@ -34,7 +34,7 @@ class RegistrationCompleteForm extends Component {
     handleSubmit: PropTypes.func.isRequired,
     change: PropTypes.func,
     userData: PropTypes.object,
-    submitError: PropTypes.object,
+    validationErrors: PropTypes.object,
   };
 
   onNewsletterSwitch = (event, checked) => {
@@ -43,8 +43,7 @@ class RegistrationCompleteForm extends Component {
   };
 
   render() {
-    const { classes, handleSubmit, userData, submitError } = this.props;
-    const errors = parseValidationErrors(submitError);
+    const { classes, handleSubmit, userData, validationErrors } = this.props;
 
     return (
       <ContentBlock sm>
@@ -67,7 +66,7 @@ class RegistrationCompleteForm extends Component {
                 required={true}
                 validate={isRequired('Password')}
                 type='password'
-                fieldError={errors.password}
+                fieldError={validationErrors.password}
                 />
             </Grid>
 
@@ -79,7 +78,7 @@ class RegistrationCompleteForm extends Component {
                 required={true}
                 validate={isRequired('Password again')}
                 type='password'
-                fieldError={errors.passwordRepeat}
+                fieldError={validationErrors.passwordRepeat}
                 />
             </Grid>
 

@@ -11,6 +11,8 @@ import RegistrationLoader from 'bundle-loader?lazy&name=[name]!./../user/contain
 import SignInLoader from 'bundle-loader?lazy&name=[name]!./../user/containers/SignIn';
 import SignOutLoader from 'bundle-loader?lazy&name=[name]!./../user/containers/SignOut';
 
+import RestListLoader from 'bundle-loader?lazy&name=[name]!./../rest/containers/List';
+
 const AppRoutes = () => (
   <Router>
     <App>
@@ -18,6 +20,8 @@ const AppRoutes = () => (
       <Route path='/register' component={bundle(RegistrationLoader)} />
       <Route path='/login' component={bundle(SignInLoader)} />
       <Route path='/logout' component={bundle(SignOutLoader)} />
+
+      <Route path='/rest/list' component={bundle(RestListLoader)} />
     </App>
   </Router>
 );

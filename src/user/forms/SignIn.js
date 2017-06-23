@@ -8,19 +8,16 @@ import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
-import TouchAppIcon from 'material-ui-icons/TouchApp';
+import TouchAppIcon from 'material-ui-icons/Portrait';
 import { LabelCheckbox } from 'material-ui/Checkbox';
 import { FormGroup } from 'material-ui/Form';
 
 import TextField from './../../base/form/TextFieldWrapper';
-import { isRequired, parseValidationErrors } from './../../base/form/validation';
+import { isRequired } from './../../base/form/validation';
 import ContentBlock from './../../base/components/ContentBlock';
 
 const styleSheet = createStyleSheet('SignInForm', (theme) => ({
   footer: {
-    paddingTop: 16,
-  },
-  content: {
     paddingTop: 16,
   },
   icon: {
@@ -33,18 +30,11 @@ class SignInForm extends Component {
     classes: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     isSubmitting: PropTypes.bool.isRequired,
-    change: PropTypes.func,
-    submitError: PropTypes.object,
-  };
-
-  onRememberMeSwitch = (event, checked) => {
-    const { change } = this.props;
-    change('newsletter', checked);
+    validationErrors: PropTypes.object,
   };
 
   render() {
-    const { classes, handleSubmit, submitError, isSubmitting } = this.props;
-    const errors = parseValidationErrors(submitError);
+    const { classes, handleSubmit, validationErrors, isSubmitting } = this.props;
 
     return (
       <ContentBlock sm>
@@ -55,7 +45,7 @@ class SignInForm extends Component {
 
           <Divider/>
 
-          <Grid container className={classes.content}>
+          <Grid container>
             <Grid item xs={12}>
               <Field
                 component={TextField}
@@ -63,7 +53,7 @@ class SignInForm extends Component {
                 name='email'
                 required={true}
                 validate={isRequired('Email')}
-                fieldError={errors.email}
+                fieldError={validationErrors.email}
                 />
             </Grid>
 
@@ -75,22 +65,10 @@ class SignInForm extends Component {
                 required={true}
                 validate={isRequired('Password')}
                 type='password'
-                fieldError={errors.password}
+                fieldError={validationErrors.password}
                 />
             </Grid>
-
-            <Grid item xs={12}>
-              <FormGroup row>
-                <LabelCheckbox
-                  name='rememberMe'
-                  label='Remember Me'
-                  onChange={this.onRememberMeSwitch}
-                  />
-              </FormGroup>
-            </Grid>
           </Grid>
-
-          <Divider/>
 
           <Grid container justify='space-between' align='center' className={classes.footer}>
             <Grid item>
@@ -112,9 +90,6 @@ class SignInForm extends Component {
 
 export default reduxForm({
   form: 'signIn',
-  initialValues: {
-    rememberMe: false,
-  },
 })(
   withStyles(styleSheet)(
     SignInForm

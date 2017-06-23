@@ -8,6 +8,8 @@ import RegistrationComplete from './../components/RegistrationComplete';
 import { postIntro, postComplete } from './../actions/registration';
 import Auth from './Auth';
 
+import { parseValidationErrors } from './../../base/form/validation';
+
 class RegistrationContainer extends Component {
   static propTypes = {
     onPostIntro: PropTypes.func.isRequired,
@@ -20,11 +22,13 @@ class RegistrationContainer extends Component {
   };
 
   onSubmitIntro = (values) => {
+    this.values = values;
     const { onPostIntro } = this.props;
     onPostIntro(values);
   };
 
   onSubmitComplete = (values) => {
+    this.values = values;
     const { onPostComplete, userData: { tempPassword, email } } = this.props;
     onPostComplete(values, { tempPassword, email });
   };
@@ -41,7 +45,7 @@ class RegistrationContainer extends Component {
         <RegistrationCompleteForm
           onSubmit={this.onSubmitComplete}
           userData={userData}
-          submitError={error}
+          validationErrors={parseValidationErrors(error, this.values)}
         />
       );
     }
@@ -50,7 +54,7 @@ class RegistrationContainer extends Component {
       <Auth guest redirect='/'>
         <RegistrationIntroForm
           onSubmit={this.onSubmitIntro}
-          submitError={error}
+          validationErrors={parseValidationErrors(error, this.values)}
         />
       </Auth>
     );

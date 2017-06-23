@@ -90,6 +90,7 @@ class UserController extends JsonController {
           user.verifyEmailTokenExpires = Date.now() + 3600000 * 24 * config.server.postmark.signupTokenExpireDays;
           user.isEmailVerified = false;
           user.password = bcrypt.hashSync(body.password, 10);
+          user.newsletter = body.newsletter;
           user.save()
             .then((user) => {
               debug('User creation complete');

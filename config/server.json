@@ -5,7 +5,9 @@
     "apiToken": "<type-your-postmark-token-here>",
     "templateId": "<paste-your-template-id-here>",
     "signupTokenExpireDays": 3,
-    "mailFrom": "Webmaster <webmaster@test.com>"
+    "mailFrom": "Webmaster <webmaster@test.com>",
+    "AddressLine1": "New Cross Road",
+    "AddressLine2": "London"
   },
   "jwt": {
     "secret": "react-pwa-jwt",

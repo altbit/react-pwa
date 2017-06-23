@@ -12,6 +12,7 @@ class AuthContainer extends Component {
     onGetUser: PropTypes.func.isRequired,
     isSubmitting: PropTypes.bool.isRequired,
     isAuthorised: PropTypes.bool.isRequired,
+    userData: PropTypes.object,
     user: PropTypes.bool,
     guest: PropTypes.bool,
     redirect: PropTypes.any,
@@ -41,9 +42,9 @@ class AuthContainer extends Component {
   awaitingUserData() {
     const token = getToken();
     const hasToken = token && token.length > 16;
-    const { isAuthorised } = this.props;
+    const { isAuthorised, userData } = this.props;
 
-    return hasToken && !isAuthorised;
+    return hasToken && !(isAuthorised && userData);
   }
 
   render() {
@@ -74,10 +75,11 @@ class AuthContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { auth: { isSubmitting, isAuthorised } } = state;
+  const { auth: { isSubmitting, isAuthorised, user: userData } } = state;
   return {
     isSubmitting,
     isAuthorised,
+    userData,
   };
 };
 

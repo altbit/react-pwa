@@ -9,6 +9,26 @@
   overflow: hidden;
 }
 
+body {
+  &.loading {
+    overflow: hidden;
+
+    .app-loader {
+      display: block;
+      opacity: 1;
+      transition: opacity @transition-duration-loader-fade-in ease @transition-duration-loader-fade-in-delay;
+    }
+  }
+
+  &.loader-fade-out {
+    .app-loader {
+      display: block;
+      opacity: 0.01;
+      transition: opacity @transition-duration-loader-fade-out;
+    }
+  }
+}
+
 .app-loader {
   display: none;
   position: absolute;
@@ -17,7 +37,7 @@
   bottom: 0;
   left: 0;
   z-index: 1000;
-  transition: opacity @transition-duration-loader-fade-out;
+  opacity: 0.01;
 
   div {
     text-align: center;
@@ -37,4 +57,9 @@
   span {
     .loader-icon();
   }
+}
+
+.app {
+  opacity: 1;
+  transition: opacity @transition-duration-app-fade-in ease @transition-duration-loader-fade-out;
 }
