@@ -1,6 +1,6 @@
 # React Material Design skeleton application
 
-Complete example of React Material Design Progressive Web Application built from scratch.
+Complete example of React Material Design application built from scratch.
 
 ## Motivation
 
