@@ -95,7 +95,11 @@ const webpackPlugins = [
     filename: 'js/vendor.[chunkhash].js',
     minChunks: Infinity,
   }),
-  new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'js/meta.[hash].js' }),
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'meta',
+    chunks: ['vendor'],
+    filename: 'js/meta.[hash].js'
+  }),
   new webpack.NamedModulesPlugin(),
   new HtmlWebpackPlugin({
     title: config.app.appName,
@@ -146,7 +150,7 @@ switch (config.env) {
           asset: "[path].gz[query]",
           algorithm: "gzip",
           test: /\.(js|html|css)$/,
-          threshold: 10240,
+          threshold: 1240,
           minRatio: 0.8,
         }),
       ],

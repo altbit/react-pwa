@@ -15,7 +15,7 @@ what could be better?
 
 Here you can find newest versions of components bundled to a complete working system:
 
-* webpack 2.4+
+* webpack 3.0+
 * react 15.5+
 * react-router 4.1+
 * material-ui 1.0+ (alpha yet)
