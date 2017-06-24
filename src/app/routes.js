@@ -6,7 +6,7 @@ import bundle from './bundle';
 
 import App from './components/App';
 
-import LandingLoader from 'bundle-loader?lazy&name=[name]!./components/Landing';
+import Landing from './components/Landing';
 import RegistrationLoader from 'bundle-loader?lazy&name=[name]!./../user/containers/Registration';
 import SignInLoader from 'bundle-loader?lazy&name=[name]!./../user/containers/SignIn';
 import SignOutLoader from 'bundle-loader?lazy&name=[name]!./../user/containers/SignOut';
@@ -16,7 +16,7 @@ import RestListLoader from 'bundle-loader?lazy&name=[name]!./../rest/containers/
 const AppRoutes = () => (
   <Router>
     <App>
-      <Route exact path='/' component={bundle(LandingLoader)} />
+      <Route exact path='/' component={Landing} />
       <Route path='/register' component={bundle(RegistrationLoader)} />
       <Route path='/login' component={bundle(SignInLoader)} />
       <Route path='/logout' component={bundle(SignOutLoader)} />

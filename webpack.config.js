@@ -23,6 +23,8 @@ let webpackConfig = {
       'redux-thunk',
       'react-router-dom',
       'prop-types',
+      'jss',
+      'axios',
     ],
   },
 

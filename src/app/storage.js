@@ -10,7 +10,7 @@ const storage = () => {
   const middlewares = [thunkMiddleware];
 
   if (AppConfig.env !== 'production') {
-    const { createLogger } =require('redux-logger');
+    const { createLogger } = require('redux-logger');
     middlewares.push(createLogger());
   }
 
