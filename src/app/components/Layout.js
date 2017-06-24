@@ -1,18 +1,13 @@
 import AppConfig from 'AppConfig';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import bundle from './../bundle';
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import { white } from 'material-ui/styles/colors';
 import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import Grid from 'material-ui/Grid';
 
-import AppBarUser from './../../user/containers/AppBarUser';
-import MenuDrawer from './MenuDrawer';
+import AppBarContentLoader from 'bundle-loader?lazy&name=[name]!./AppBarContent';
+const AppBarContent = bundle(AppBarContentLoader);
 
 const styleSheet = createStyleSheet('Layout', (theme) => ({
   root: {
@@ -33,37 +28,13 @@ const styleSheet = createStyleSheet('Layout', (theme) => ({
       paddingTop: (64 + parseInt(theme.content.padding * 1.5)),
     },
   },
-  title: {
-    textTransform: 'none',
-    color: white,
-    textDecoration: 'none',
-  },
-  menu: {
-    marginLeft: 'auto',
-  },
 }));
 
 const Layout = ({ children, classes }) => {
   return (
     <div className={classes.root}>
       <AppBar>
-        <Grid container justify='space-between' align='center'>
-          <Grid item>
-            <Toolbar>
-              <MenuDrawer />
-
-              <Link to='/' className={classes.title}>
-                <Typography type='title' color='inherit'>{AppConfig.appName}</Typography>
-              </Link>
-            </Toolbar>
-          </Grid>
-
-          <Grid item>
-            <Toolbar className={classes.menu}>
-              <AppBarUser />
-            </Toolbar>
-          </Grid>
-        </Grid>
+        <AppBarContent />
       </AppBar>
 
       <div className={classes.content}>
