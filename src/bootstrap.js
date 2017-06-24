@@ -12,17 +12,20 @@ const onDOMLoaded = () => {
   document.removeEventListener('DOMContentLoaded', onDOMLoaded, false);
 
   document.body.classList.add('loader-fade-out');
-  setTimeout(() => {
-    document.body.classList.remove('loader-fade-out');
-    document.body.classList.remove('loading');
 
+  setTimeout(() => {
     ReactDom.render(
       <Provider store={storage()}>
         <AppRoutes />
       </Provider>,
       document.querySelector('#app')
     );
-  }, 500);
+  }, 10);
+
+  setTimeout(() => {
+    document.body.classList.remove('loader-fade-out');
+    document.body.classList.remove('loading');
+  }, 1500);
 };
 
 export const bootstrap = () => {
