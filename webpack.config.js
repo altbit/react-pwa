@@ -17,12 +17,10 @@ let webpackConfig = {
   entry: {
     'app': ['./src/bootstrap.js'],
     vendor: [
-      'babel-polyfill',
       'react',
       'react-dom',
       'react-router-dom',
       'prop-types',
-      'material-ui/Progress',
     ],
   },
 
