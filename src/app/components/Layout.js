@@ -29,9 +29,9 @@ const styleSheet = createStyleSheet('Layout', (theme) => ({
     },
   },
   appBar: {
-    height: 56,
+    minHeight: 56,
     [theme.breakpoints.up('sm')]: {
-      height: 64,
+      minHeight: 64,
     },
   },
 }));

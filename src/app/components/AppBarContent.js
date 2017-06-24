@@ -16,6 +16,9 @@ const styleSheet = createStyleSheet('AppBarContent', (theme) => ({
     textTransform: 'none',
     color: white,
     textDecoration: 'none',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   menu: {
     marginLeft: 'auto',

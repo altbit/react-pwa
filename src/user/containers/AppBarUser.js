@@ -16,6 +16,11 @@ const styleSheet = createStyleSheet('AppBarUserContainer', theme => ({
     color: white,
     backgroundColor: green[400],
   },
+  userName: {
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+  },
 }));
 
 class AppBarUserContainer extends Component {
@@ -39,7 +44,7 @@ class AppBarUserContainer extends Component {
               <Avatar className={classes.avatar}>{user.firstName[0] + user.lastName[0]}</Avatar>
             </Grid>
 
-            <Grid item>
+            <Grid item className={classes.userName}>
               <Typography type='body2' color='inherit'>
                 {user.firstName} {user.lastName}
               </Typography>
