@@ -4,7 +4,6 @@ const path = require('path');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ModernizrWebpackPlugin = require('modernizr-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -103,11 +102,6 @@ const webpackPlugins = [
     inject: true,
   }),
   extractLess,
-  new ModernizrWebpackPlugin({
-    options: ['setClasses'],
-    'feature-detects': ['svg'],
-    filename: 'js/modernizr.js',
-  }),
   new CopyWebpackPlugin([
     {
       from: path.join(__dirname, '/src/assets/html/.htaccess'),

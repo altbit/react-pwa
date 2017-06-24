@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { CircularProgress } from 'material-ui/Progress';
 
 class BundleComponent extends Component {
   static propTypes = {
@@ -36,7 +35,7 @@ class BundleComponent extends Component {
   render() {
     return this.state.mod
       ? this.props.children(this.state.mod)
-      : <CircularProgress />;
+      : <span />;
   }
 }
 

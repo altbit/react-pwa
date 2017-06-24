@@ -28,12 +28,18 @@ const styleSheet = createStyleSheet('Layout', (theme) => ({
       paddingTop: (64 + parseInt(theme.content.padding * 1.5)),
     },
   },
+  appBar: {
+    height: 56,
+    [theme.breakpoints.up('sm')]: {
+      height: 64,
+    },
+  },
 }));
 
 const Layout = ({ children, classes }) => {
   return (
     <div className={classes.root}>
-      <AppBar>
+      <AppBar className={classes.appBar}>
         <AppBarContent />
       </AppBar>
 
