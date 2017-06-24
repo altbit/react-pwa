@@ -1,5 +1,6 @@
 const config = require('./../../config/config');
 const debug = require('debug')('server:init');
+const path = require('path');
 
 module.exports = (app) => {
   debug('setting up error handling');

@@ -3,10 +3,14 @@
 const config = require('./../../config/config');
 const app = require('./../app');
 const debug = require('debug')('server:http');
-const http = require('http');
+const http2 = require('spdy');
+const fs = require('fs');
 
 app.set('port', config.server.port);
-const server = http.createServer(app);
+const server = http2.createServer({
+  key: fs.readFileSync(__dirname + '/../keys/server.key'),
+  cert:  fs.readFileSync(__dirname + '/../keys/server.crt'),
+}, app);
 server.listen(config.server.port);
 
 server.on('error', (error) => {

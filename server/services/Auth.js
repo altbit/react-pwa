@@ -11,7 +11,7 @@ class AuthService {
 
   tokenMiddleware(guestRoutes) {
     return (req, res, next) => {
-      if (req.method === 'OPTIONS') {
+      if (req.method === 'OPTIONS' || req.url.indexOf('/api/') === -1) {
         return next();
       }
       var token = req.headers['authorization'];
