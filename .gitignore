@@ -7,3 +7,5 @@
 /package-lock.json
 /config/server.local.json
 /faviconData.json
+/server/keys/server.crt
+/server/keys/server.key
