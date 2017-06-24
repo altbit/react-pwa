@@ -7,10 +7,12 @@ let env = args.env
     ? process.env.NODE_ENV
     : 'development'
 );
+
 const appGlobalConfig = require('./app.json');
-const appEnvConfig = require(`./app.env.${env}.json`);
+let appEnvConfig = null;
 let appLocalConfig = null;
 try {
+  appEnvConfig = require(`./app.env.${env}.json`);
   appLocalConfig = require('./app.local.json');
 } catch (e) {}
 

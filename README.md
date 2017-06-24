@@ -33,7 +33,7 @@ Install [MongoDB Community Edition](https://docs.mongodb.com/manual/installation
 
 Install Node modules: 
 
-```
+```sh
 npm install
 ```
 
@@ -41,18 +41,18 @@ npm install
 
 Build project 
 
-```
+```sh
 npm run build
 ```
 
 Run Server API
 
-```
+```sh
 DEBUG=server*,router*,controller*,service* npm start
 ```
 
 Run dev server (only for development)
 
-```
+```sh
 npm run dev
 ```
