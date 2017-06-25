@@ -1,5 +1,12 @@
 {
-  "port": 5000,
+  "http": {
+    "version": 1,
+    "port": 5000,
+    "ssl" : {
+      "keyFile": "server/keys/server.key",
+      "certFile": "server/keys/server.crt"
+    }
+  },
   "origin": "*",
   "postmark": {
     "apiToken": "<type-your-postmark-token-here>",

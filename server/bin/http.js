@@ -3,22 +3,30 @@
 const config = require('./../../config/config');
 const app = require('./../app');
 const debug = require('debug')('server:http');
-const http2 = require('spdy');
 const fs = require('fs');
+const path = require('path');
 
-app.set('port', config.server.port);
-const server = http2.createServer({
-  key: fs.readFileSync(__dirname + '/../keys/server.key'),
-  cert:  fs.readFileSync(__dirname + '/../keys/server.crt'),
-}, app);
-server.listen(config.server.port);
+app.set('port', config.server.http.port);
+
+let server = null;
+if (config.server.http.version === 2) {
+  const http = require('spdy');
+  server = http.createServer({
+    key: fs.readFileSync(path.join(config.root, config.server.http.ssl.keyFile)),
+    cert:  fs.readFileSync(path.join(config.root, config.server.http.ssl.certFile)),
+  }, app);
+} else {
+  const http = require('http');
+  server = http.createServer(app);
+}
+server.listen(config.server.http.port);
 
 server.on('error', (error) => {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  const bind = 'Port ' + config.server.port;
+  const bind = 'Port ' + config.server.http.port;
   switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');

@@ -24,33 +24,35 @@ fs.readdir(path.join(config.public, 'js'), (err, items) => {
 });
 
 module.exports = (app) => {
-  initDebug('enabling js files push');
+  initDebug('enabling js files processing');
 
-  app.get('/', (req, res, next) => {
-    debug('js files to push', pushedJs);
-    pushedJs.forEach(jsFile => {
-      let pushingStream = res.push(jsFile, {
-        status: 200,
-        method: 'GET',
-        request: {
-          accept: '*/*',
-        },
-        response: {
-          'content-type': 'application/javascript',
-          'content-encoding': 'gzip',
-        },
+  if (config.server.http.version === 2) {
+    app.get('/', (req, res, next) => {
+      debug('js files to push', pushedJs);
+      pushedJs.forEach(jsFile => {
+        let pushingStream = res.push(jsFile, {
+          status: 200,
+          method: 'GET',
+          request: {
+            accept: '*/*',
+          },
+          response: {
+            'content-type': 'application/javascript',
+            'content-encoding': 'gzip',
+          },
+        });
+        pushingStream.on('error', err => {
+          debug('push error', err);
+        });
+        const readStream = fs.createReadStream(
+          path.join(config.public, jsFile + '.gz')
+        );
+        readStream.pipe(pushingStream);
+        debug('pushed', jsFile);
       });
-      pushingStream.on('error', err => {
-        debug('push error', err);
-      });
-      const readStream = fs.createReadStream(
-        path.join(config.public, jsFile + '.gz')
-      );
-      readStream.pipe(pushingStream);
-      debug('pushed', jsFile);
+      next();
     });
-    next();
-  });
+  }
 
   app.get('*.js', (req, res, next) => {
     if (jsList.indexOf(req.url + '.gz') !== -1) {
