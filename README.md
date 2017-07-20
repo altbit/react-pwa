@@ -31,10 +31,16 @@ Install [Node.js](https://nodejs.org/en/download/)
 
 Install [MongoDB Community Edition](https://docs.mongodb.com/manual/installation/)
 
+Install Yarn (globally):
+
+```sh
+sudo npm install -g yarn
+```
+
 Install Node modules: 
 
 ```sh
-npm install
+yarn install
 ```
 
 ## Building
@@ -55,4 +61,45 @@ Run dev server (only for development)
 
 ```sh
 npm run dev
+```
+
+## Production
+
+Build project as before.
+
+Install PM2 (globally):
+
+```sh
+sudo npm install -g pm2
+```
+
+Run Server API
+
+```sh
+pm2 start server/bin/http.js
+```
+
+Config nginx
+
+```
+server {
+    listen 80;
+
+    root /var/www/react-pwa/public;
+    index index.html;
+    server_name react-pwa.io;
+
+    access_log /var/log/nginx/react-pwa-access.log;
+    error_log /var/log/nginx/react-pwa-error.log;
+
+    location / {
+        proxy_pass http://localhost:5000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
 ```

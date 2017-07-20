@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import { white } from 'material-ui/styles/colors';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
@@ -14,7 +13,7 @@ import MenuDrawer from './MenuDrawer';
 const styleSheet = createStyleSheet('AppBarContent', (theme) => ({
   title: {
     textTransform: 'none',
-    color: white,
+    color: theme.palette.getContrastText(theme.palette.primary[500]),
     textDecoration: 'none',
     [theme.breakpoints.down('sm')]: {
       display: 'none',

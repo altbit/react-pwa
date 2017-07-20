@@ -8,7 +8,7 @@ import { postSignIn } from './../actions/signin';
 import Auth from './../../user/containers/Auth';
 import Grid from 'material-ui/Grid';
 
-import { parseValidationErrors } from './../../base/form/validation';
+import { parseValidationErrors } from './../../base/form/Field/validation';
 
 class SignInContainer extends Component {
   static propTypes = {

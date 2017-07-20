@@ -10,8 +10,8 @@ import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import NavigateNextIcon from 'material-ui-icons/NavigateNext';
 
-import TextField from './../../base/form/TextFieldWrapper';
-import { isRequired } from './../../base/form/validation';
+import TextField from './../../base/form/Field/TextField';
+import { isRequired } from './../../base/form/Field/validation';
 import ContentBlock from './../../base/components/ContentBlock';
 
 const styleSheet = createStyleSheet('RegistrationIntroForm', (theme) => ({

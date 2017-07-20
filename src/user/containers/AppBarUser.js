@@ -6,14 +6,14 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
 import Grid from 'material-ui/Grid';
-import { green, white } from 'material-ui/styles/colors';
+import { green } from 'material-ui/colors';
 
 import Auth from './Auth';
 import AppBarMenu from './../../app/containers/AppBarMenu';
 
 const styleSheet = createStyleSheet('AppBarUserContainer', theme => ({
   avatar: {
-    color: white,
+    color: theme.palette.getContrastText(theme.palette.primary[500]),
     backgroundColor: green[400],
   },
   userName: {

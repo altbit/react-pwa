@@ -21,11 +21,11 @@ const styleSheet = createStyleSheet('Layout', (theme) => ({
     display: 'flex',
     margin: '0 auto',
     maxWidth: '100%',
-    padding: theme.content.padding,
-    paddingTop: (56 + theme.content.padding),
+    padding: theme.content.gutter.nm,
+    paddingTop: (56 + theme.content.gutter.nm),
     [theme.breakpoints.up('sm')]: {
-      padding: parseInt(theme.content.padding * 1.5),
-      paddingTop: (64 + parseInt(theme.content.padding * 1.5)),
+      padding: theme.content.gutter.lg,
+      paddingTop: (64 + theme.content.gutter.lg),
     },
   },
   appBar: {
@@ -51,7 +51,7 @@ const Layout = ({ children, classes }) => {
 };
 
 Layout.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
   classes: PropTypes.object.isRequired,
 };
 

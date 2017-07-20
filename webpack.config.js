@@ -1,6 +1,7 @@
 const config = require('./config/config');
 const webpack = require('webpack');
 const path = require('path');
+const fs = require('fs');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -12,9 +13,40 @@ const extractLess = new ExtractTextPlugin({
   filename: "styles/[name].[contenthash].css",
 });
 
+const injectHashedFiles = function() {
+  this.plugin("done", function(statsData) {
+    const stats = statsData.toJson();
+    if (!stats.errors.length) {
+      const swFilename = 'worker.js';
+      const content = fs.readFileSync(path.join(config.public, swFilename), "utf8");
+      let contentOutput = content.replace('{hash}', stats.hash);
+      contentOutput = contentOutput.replace('{hostname}', config.app.hostname);
+      contentOutput = contentOutput.replace('{api_hostname}', config.app.ServerApi);
+      let filesToCache = [];
+      Object.keys(stats.assetsByChunkName).map(entry => {
+        if (['app', 'vendor', 'meta'].includes(entry)) {
+          if (Array.isArray(stats.assetsByChunkName[entry])) {
+            stats.assetsByChunkName[entry].map(assetFile => {
+              if (!assetFile.includes('.map')) {
+                filesToCache.push(stats.publicPath + assetFile);
+              }
+            });
+          } else {
+            if (!stats.assetsByChunkName[entry].includes('.map')) {
+              filesToCache.push(stats.publicPath + stats.assetsByChunkName[entry]);
+            }
+          }
+        }
+      });
+      contentOutput = contentOutput.replace('{files_to_cache}', filesToCache.join('\',\''));
+      fs.writeFileSync(path.join(config.public, swFilename), contentOutput);
+    }
+  });
+};
+
 let webpackConfig = {
   entry: {
-    'app': ['./src/bootstrap.js'],
+    app: ['./src/bootstrap.js'],
     vendor: [
       'react',
       'react-dom',
@@ -30,8 +62,8 @@ let webpackConfig = {
 
   output: {
     path: path.join(__dirname, '/public/'),
-    filename: 'js/[name].[hash].js',
-    chunkFilename: 'js/[name].[hash].js',
+    filename: 'js/[name].[chunkhash].js',
+    chunkFilename: 'js/[name].[chunkhash].js',
     publicPath: '/',
   },
 
@@ -98,7 +130,7 @@ const webpackPlugins = [
   new webpack.optimize.CommonsChunkPlugin({
     name: 'meta',
     chunks: ['vendor'],
-    filename: 'js/meta.[hash].js'
+    filename: 'js/meta.[chunkhash].js'
   }),
   new webpack.NamedModulesPlugin(),
   new HtmlWebpackPlugin({
@@ -108,9 +140,14 @@ const webpackPlugins = [
     inject: true,
   }),
   extractLess,
+  injectHashedFiles,
   new CopyWebpackPlugin([
     {
       from: path.join(__dirname, '/src/assets/html/.htaccess'),
+      to: path.join(__dirname, '/public/'),
+    },
+    {
+      from: path.join(__dirname, '/src/assets/serviceWorkers'),
       to: path.join(__dirname, '/public/'),
     },
   ], {

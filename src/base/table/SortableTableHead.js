@@ -7,14 +7,27 @@ import {
   TableSortLabel,
 } from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-export default class SortableTableHead extends Component {
+const styleSheet = createStyleSheet('SortableTableHead', theme => ({
+  cell: {
+    padding: 3,
+    whiteSpace: 'normal',
+  },
+  checkbox: {
+    width: 28,
+    height: 28,
+  },
+}));
+
+class SortableTableHead extends Component {
   static propTypes = {
+    classes: PropTypes.object.isRequired,
     onRequestSort: PropTypes.func.isRequired,
     onSelectAllClick: PropTypes.func.isRequired,
     order: PropTypes.string.isRequired,
     orderBy: PropTypes.string.isRequired,
-    columnData: PropTypes.array.isRequired,
+    columns: PropTypes.array.isRequired,
   };
 
   createSortHandler = property => event => {
@@ -23,20 +36,21 @@ export default class SortableTableHead extends Component {
   };
 
   render() {
-    const { onSelectAllClick, order, orderBy, columnData } = this.props;
+    const { classes, onSelectAllClick, order, orderBy, columns } = this.props;
 
     return (
       <TableHead>
         <TableRow>
-          <TableCell checkbox>
-            <Checkbox onChange={onSelectAllClick} />
+          <TableCell checkbox disablePadding className={classes.cell}>
+            <Checkbox onChange={onSelectAllClick} className={classes.checkbox} />
           </TableCell>
-          {columnData.map(column => {
+          {columns.map(column => {
             return (
               <TableCell
                 key={column.id}
                 numeric={column.numeric}
-                disablePadding={column.disablePadding}
+                disablePadding
+                className={classes.cell}
               >
                 <TableSortLabel
                   active={orderBy === column.id}
@@ -53,3 +67,5 @@ export default class SortableTableHead extends Component {
     );
   }
 }
+
+export default withStyles(styleSheet)(SortableTableHead);

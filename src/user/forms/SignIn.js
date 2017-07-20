@@ -12,8 +12,8 @@ import TouchAppIcon from 'material-ui-icons/Portrait';
 import { LabelCheckbox } from 'material-ui/Checkbox';
 import { FormGroup } from 'material-ui/Form';
 
-import TextField from './../../base/form/TextFieldWrapper';
-import { isRequired } from './../../base/form/validation';
+import TextField from './../../base/form/Field/TextField';
+import { isRequired } from './../../base/form/Field/validation';
 import ContentBlock from './../../base/components/ContentBlock';
 
 const styleSheet = createStyleSheet('SignInForm', (theme) => ({

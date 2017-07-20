@@ -8,7 +8,7 @@ import RegistrationComplete from './../components/RegistrationComplete';
 import { postIntro, postComplete } from './../actions/registration';
 import Auth from './Auth';
 
-import { parseValidationErrors } from './../../base/form/validation';
+import { parseValidationErrors } from './../../base/form/Field/validation';
 
 class RegistrationContainer extends Component {
   static propTypes = {

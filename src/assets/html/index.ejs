@@ -6,8 +6,6 @@
   <title><%= htmlWebpackPlugin.options.title %></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 <body class="loading">
   <!--[if lt IE 10]>
@@ -30,5 +28,14 @@
 
     <div id="app" class="app"></div>
   <!--<![endif]-->
+  <script>
+      if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+              navigator.serviceWorker.register('/worker.js').then(function(registration) {}, function(err) {
+                  console.log('SW reg failed: ', err);
+              });
+          });
+      }
+  </script>
 </body>
 </html>
