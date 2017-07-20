@@ -9,12 +9,12 @@ const styleSheet = createStyleSheet('ContentBlock', (theme) => {
   let styles = {
     root: {
       flex: '1 1 100%',
-        maxWidth: '100%',
-        margin: '0 auto',
-        padding: theme.content.padding,
-        [theme.breakpoints.up('sm')]: {
-          padding: parseInt(theme.content.padding * 1.5),
-        },
+      maxWidth: '100%',
+      margin: '0 auto',
+      padding: theme.content.gutter.nm,
+      [theme.breakpoints.up('sm')]: {
+        padding: theme.content.gutter.lg,
+      },
     },
   };
 

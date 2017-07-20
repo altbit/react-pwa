@@ -8,7 +8,7 @@ import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
 import VerifiedUserIcon from 'material-ui-icons/VerifiedUser';
-import { green, white } from 'material-ui/styles/colors';
+import { green } from 'material-ui/colors';
 
 import Auth from './../../user/containers/Auth';
 import ContentBlock from './../../base/components/ContentBlock';

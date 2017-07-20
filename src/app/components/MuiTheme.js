@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import createPalette from 'material-ui/styles/palette';
-import { blue, pink, red } from 'material-ui/styles/colors';
+import { blue, pink, red } from 'material-ui/colors';
 
 const theme = createMuiTheme({
   palette: createPalette({
@@ -60,7 +60,13 @@ const theme = createMuiTheme({
   },
   // Our own variables
   content: {
-    padding: 16,
+    gutter: {
+      xs: 4,
+      sm: 8,
+      nm: 16,
+      lg: 24,
+      xl: 40,
+    },
   },
 });
 

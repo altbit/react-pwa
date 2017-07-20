@@ -4,20 +4,22 @@ import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 import ContentBlock from './../../base/components/ContentBlock';
-import SortableTable, { TableData } from './../../base/table/SortableTable';
+import SortableTable from './../../base/table/SortableTable';
 
-const tableData = new TableData();
-tableData.addColumn('name', 'Dessert', false, true);
-tableData.addColumn('calories', 'Calories', true, false);
-tableData.addColumn('fat', 'Fat (g)', true, false);
-tableData.addColumn('carbs', 'Carbs (g)', true, false);
-tableData.addColumn('protein', 'Protein (g)', true, false);
-
-tableData.addData({ name: 'Frozen yoghurt', calories: 159, fat: 6.0, carbs: 24, protein: 4.0 });
-tableData.addData({ name: 'Ice cream sandwich', calories: 237, fat: 9.0, carbs: 37, protein: 4.3 });
-tableData.addData({ name: 'Eclair', calories: 262, fat: 16.0, carbs: 26, protein: 6.0 });
-tableData.addData({ name: 'Cupcake', calories: 305, fat: 3.7, carbs: 67, protein: 8.0 });
-tableData.addData({ name: 'Gingerbread', calories: 356, fat: 16.0, carbs: 49, protein: 3.8 });
+const columns = [
+  {id: 'name', label: 'Dessert', numeric: false},
+  {id: 'calories', label: 'Calories', numeric: true},
+  {id: 'fat', label: 'Fat (g)', numeric: true},
+  {id: 'carbs', label: 'Carbs (g)', numeric: true},
+  {id: 'protein', label: 'Protein (g)', numeric: true},
+];
+const data = [
+  { name: 'Frozen yoghurt', calories: 159, fat: 6.0, carbs: 24, protein: 4.0 },
+  { name: 'Ice cream sandwich', calories: 237, fat: 9.0, carbs: 37, protein: 4.3 },
+  { name: 'Eclair', calories: 262, fat: 16.0, carbs: 26, protein: 6.0 },
+  { name: 'Cupcake', calories: 305, fat: 3.7, carbs: 67, protein: 8.0 },
+  { name: 'Gingerbread', calories: 356, fat: 16.0, carbs: 49, protein: 3.8 },
+];
 
 const styleSheet = createStyleSheet('RestListTable', theme => ({
   root: {},
@@ -28,9 +30,10 @@ class RestListTable extends Component {
     return (
       <ContentBlock md>
         <SortableTable
+          name='Calories'
           orderBy='calories'
-          columnData={tableData.getColumns()}
-          data={tableData.getData()}
+          columns={columns}
+          data={data}
         />
       </ContentBlock>
     );
