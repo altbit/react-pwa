@@ -68,10 +68,11 @@
   "scripts": {
     "start": "node ./server/bin/http.js",
     "dev": "webpack-dev-server --env=development --progress --inline --colors",
-    "build": "npm run clean && webpack --env=production && npm run favicon",
+    "build": "npm run clean && npm run favicon:generate && webpack --env=production && npm run favicon:inject",
     "build:dev": "npm run clean && webpack --env=development",
     "analyze": "webpack --env=analyze",
     "clean": "rm -rf public/js && rm -rf public/styles",
-    "favicon": "real-favicon generate faviconDescription.json faviconData.json public && real-favicon inject faviconData.json public public/index.html"
+    "favicon:generate": "real-favicon generate faviconDescription.json faviconData.json public",
+    "favicon:inject": "real-favicon inject faviconData.json public public/index.html"
   }
 }

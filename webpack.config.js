@@ -44,6 +44,23 @@ const injectHashedFiles = function() {
   });
 };
 
+const injectManifestData = function() {
+  this.plugin("done", function(statsData) {
+    const stats = statsData.toJson();
+    if (!stats.errors.length) {
+      const manifestFilename = 'manifest.json';
+      const content = fs.readFileSync(path.join(config.public, manifestFilename), "utf8");
+      let contentOutput = content.replace(
+        /"name":\s+"[^"]+"/i,
+        `"name": "${config.app.appName}",
+    "short_name": "${config.app.appShortName}",
+    "start_url": "${config.app.hostname}"`
+      );
+      fs.writeFileSync(path.join(config.public, manifestFilename), contentOutput);
+    }
+  });
+};
+
 let webpackConfig = {
   entry: {
     app: ['./src/bootstrap.js'],
@@ -141,6 +158,7 @@ const webpackPlugins = [
   }),
   extractLess,
   injectHashedFiles,
+  injectManifestData,
   new CopyWebpackPlugin([
     {
       from: path.join(__dirname, '/src/assets/html/.htaccess'),

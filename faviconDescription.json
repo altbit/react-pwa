@@ -1,21 +1,23 @@
-
 {
   "masterPicture": "src/assets/images/favicon.png",
   "iconsPath": "/",
   "design": {
     "ios": {
-      "pictureAspect": "noChange",
+      "pictureAspect": "backgroundAndMargin",
+      "backgroundColor": "#ffffff",
+      "margin": "0%",
       "assets": {
-        "ios6AndPriorIcons": false,
-        "ios7AndLaterIcons": false,
+        "ios6AndPriorIcons": true,
+        "ios7AndLaterIcons": true,
         "precomposedIcons": false,
         "declareOnlyDefaultIcon": true
-      }
+      },
+      "appName": "React PWA"
     },
     "desktopBrowser": {},
     "windows": {
       "pictureAspect": "noChange",
-      "backgroundColor": "#2d89ef",
+      "backgroundColor": "#00aba9",
       "onConflict": "override",
       "assets": {
         "windows80Ie10Tile": false,
@@ -25,13 +27,15 @@
           "big": false,
           "rectangle": false
         }
-      }
+      },
+      "appName": "React PWA"
     },
     "androidChrome": {
-      "pictureAspect": "noChange",
+      "pictureAspect": "shadow",
       "themeColor": "#ffffff",
       "manifest": {
-        "display": "standalone",
+        "name": "React PWA",
+        "display": "browser",
         "orientation": "notSet",
         "onConflict": "override",
         "declared": true
@@ -43,11 +47,12 @@
     },
     "safariPinnedTab": {
       "pictureAspect": "blackAndWhite",
-      "threshold": 63.28125,
-      "themeColor": "#5bbad5"
+      "threshold": 77.03125,
+      "themeColor": "#4dbcdb"
     }
   },
   "settings": {
+    "compression": 5,
     "scalingAlgorithm": "Mitchell",
     "errorOnImageTooSmall": false
   }

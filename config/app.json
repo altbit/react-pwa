@@ -1,5 +1,6 @@
 {
   "appName": "React Progressive Web Application",
+  "appShortName": "React PWA",
   "hostname": "https://www.react-pwa.app",
   "ServerApi": "https://www.react-pwa.app/api",
   "GitHubLink": "https://github.com/altbit/react-pwa"
