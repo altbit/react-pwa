@@ -35,7 +35,7 @@
       "themeColor": "#ffffff",
       "manifest": {
         "name": "React PWA",
-        "display": "browser",
+        "display": "standalone",
         "orientation": "notSet",
         "onConflict": "override",
         "declared": true
