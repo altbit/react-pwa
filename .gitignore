@@ -1,11 +1,9 @@
-/yarn.lock
 /.idea
 /build
 /node_modules
 /public
 /npm-debug.log
 /config/app.local.json
-/package-lock.json
 /config/server.local.json
 /faviconData.json
 /server/keys/server.crt

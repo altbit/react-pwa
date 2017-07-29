@@ -3,8 +3,7 @@ var PERM_CACHE_NAME = 'react-pwa-perm';
 var TEMP_CACHE_NAME = 'react-pwa-temp';
 var permUrlTemplates = [
   '/js/',
-  '/styles/',
-  '/fonts/'
+  '/styles/'
 ];
 var urlsToInstall = ['{files_to_cache}'];
 var hostnameToCache = '{hostname}';
@@ -87,4 +86,8 @@ self.addEventListener('fetch', function(event) {
         );
       })
   );
+});
+
+self.addEventListener('activate', function(event) {
+  console.log('new SW activated');
 });

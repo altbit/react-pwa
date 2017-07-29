@@ -8,58 +8,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const InjectAssetsWebpackPlugin = require('inject-assets-webpack-plugin');
 
 const extractLess = new ExtractTextPlugin({
   filename: "styles/[name].[contenthash].css",
 });
-
-const injectHashedFiles = function() {
-  this.plugin("done", function(statsData) {
-    const stats = statsData.toJson();
-    if (!stats.errors.length) {
-      const swFilename = 'worker.js';
-      const content = fs.readFileSync(path.join(config.public, swFilename), "utf8");
-      let contentOutput = content.replace('{hash}', stats.hash);
-      contentOutput = contentOutput.replace('{hostname}', config.app.hostname);
-      contentOutput = contentOutput.replace('{api_hostname}', config.app.ServerApi);
-      let filesToCache = [];
-      Object.keys(stats.assetsByChunkName).map(entry => {
-        if (['app', 'vendor', 'meta'].includes(entry)) {
-          if (Array.isArray(stats.assetsByChunkName[entry])) {
-            stats.assetsByChunkName[entry].map(assetFile => {
-              if (!assetFile.includes('.map')) {
-                filesToCache.push(stats.publicPath + assetFile);
-              }
-            });
-          } else {
-            if (!stats.assetsByChunkName[entry].includes('.map')) {
-              filesToCache.push(stats.publicPath + stats.assetsByChunkName[entry]);
-            }
-          }
-        }
-      });
-      contentOutput = contentOutput.replace('{files_to_cache}', filesToCache.join('\',\''));
-      fs.writeFileSync(path.join(config.public, swFilename), contentOutput);
-    }
-  });
-};
-
-const injectManifestData = function() {
-  this.plugin("done", function(statsData) {
-    const stats = statsData.toJson();
-    if (!stats.errors.length) {
-      const manifestFilename = 'manifest.json';
-      const content = fs.readFileSync(path.join(config.public, manifestFilename), "utf8");
-      let contentOutput = content.replace(
-        /"name":\s+"[^"]+"/i,
-        `"name": "${config.app.appName}",
-    "short_name": "${config.app.appShortName}",
-    "start_url": "${config.app.hostname}"`
-      );
-      fs.writeFileSync(path.join(config.public, manifestFilename), contentOutput);
-    }
-  });
-};
 
 let webpackConfig = {
   entry: {
@@ -147,7 +100,7 @@ const webpackPlugins = [
   new webpack.optimize.CommonsChunkPlugin({
     name: 'meta',
     chunks: ['vendor'],
-    filename: 'js/meta.[chunkhash].js'
+    filename: 'js/meta.[chunkhash].js',
   }),
   new webpack.NamedModulesPlugin(),
   new HtmlWebpackPlugin({
@@ -157,8 +110,32 @@ const webpackPlugins = [
     inject: true,
   }),
   extractLess,
-  injectHashedFiles,
-  injectManifestData,
+  new InjectAssetsWebpackPlugin({
+    filename: 'public/worker.js',
+  },[
+    { pattern: '{hash}', type: 'hash' },
+    { pattern: '{hostname}', type: 'value', value: config.app.hostname },
+    { pattern: '{api_hostname}', type: 'value', value: config.app.ServerApi },
+    {
+      pattern: '{files_to_cache}',
+      type: 'chunks',
+      chunks: ['app', 'vendor', 'meta', 'AppBarContent'],
+      files: ['.js', '.css'],
+      excludeFiles: ['.map'],
+      decorator: fileNames => fileNames.join('\', \''),
+    },
+  ]),
+  new InjectAssetsWebpackPlugin({
+    filename: 'public/manifest.json',
+  },[
+    {
+      pattern: /"name":\s+"[^"]+"/i,
+      type: 'value',
+      value: `"name": "${config.app.appName}",
+    "short_name": "${config.app.appShortName}",
+    "start_url": "${config.app.hostname}"`,
+    },
+  ]),
   new CopyWebpackPlugin([
     {
       from: path.join(__dirname, '/src/assets/html/.htaccess'),
