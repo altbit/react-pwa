@@ -1,6 +1,4 @@
-import AppConfig from 'AppConfig';
-import axios from 'axios';
-import { getToken } from './../jwt';
+import { getRequest, postRequest } from './../../base/api/requests';
 
 export const REGISTRATION_INTRO_POST = 'REGISTRATION_INTRO_POST';
 export const REGISTRATION_INTRO_SUCCESS = 'REGISTRATION_INTRO_SUCCESS';
@@ -15,17 +13,14 @@ export const postIntro = (formData) => (dispatch) => {
     data: formData,
   });
 
-  return axios.post(`${AppConfig.ServerApi}/users/signup/intro`,
-    formData,
-    { headers: { 'Authorization': getToken() } })
-    .then(({data: { data }}) => {
+  return postRequest('users/signup/intro', formData)
+    .then(data => {
       dispatch({
         type: REGISTRATION_INTRO_SUCCESS,
         data,
       });
     })
-    .catch((res) => {
-      const { error } = (res instanceof Error) ? res.response.data : res;
+    .catch(error => {
       dispatch({
         type: REGISTRATION_INTRO_FAIL,
         error,
@@ -39,17 +34,14 @@ export const postComplete = (formData, userData) => (dispatch) => {
     data: formData,
   });
 
-  return axios.post(`${AppConfig.ServerApi}/users/signup/complete`,
-    { ...formData, ...userData },
-    { headers: { 'Authorization': getToken() } })
-    .then(({data: { data }}) => {
+  return postRequest('users/signup/complete', { ...formData, ...userData })
+    .then(data => {
       dispatch({
         type: REGISTRATION_COMPLETE_SUCCESS,
         data,
       });
     })
-    .catch((res) => {
-      const { error } = (res instanceof Error) ? res.response.data : res;
+    .catch(error => {
       dispatch({
         type: REGISTRATION_COMPLETE_FAIL,
         error,

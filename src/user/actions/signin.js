@@ -1,6 +1,5 @@
-import AppConfig from 'AppConfig';
-import axios from 'axios';
-import { getToken, setToken } from './../jwt';
+import { getRequest, postRequest } from './../../base/api/requests';
+import { setToken } from './../jwt';
 
 export const SIGNIN_POST = 'SIGNIN_POST';
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
@@ -16,9 +15,8 @@ export const postSignIn = (formData) => (dispatch) => {
     data: formData,
   });
 
-  return axios.post(`${AppConfig.ServerApi}/users/signin`,
-    formData)
-    .then(({data: { data }}) => {
+  return postRequest('users/signin', formData)
+    .then(data => {
       if (!data.token) {
         return dispatch({
           type: SIGNIN_FAIL,
@@ -32,8 +30,7 @@ export const postSignIn = (formData) => (dispatch) => {
         data,
       });
     })
-    .catch((res) => {
-      const { error } = (res instanceof Error) ? res.response.data : res;
+    .catch(error => {
       dispatch({
         type: SIGNIN_FAIL,
         error,
@@ -54,9 +51,8 @@ export const getUser = () => (dispatch) => {
     type: AUTH_USERBYTOKEN_GET,
   });
 
-  return axios.get(`${AppConfig.ServerApi}/user`,
-    { headers: { 'Authorization': getToken() } })
-    .then(({data: { data }}) => {
+  return getRequest('user')
+    .then(data => {
       if (!data.user) {
         // If we cannot get user with current token - reset token to sign in again
         setToken(null);
@@ -72,9 +68,7 @@ export const getUser = () => (dispatch) => {
         data,
       });
     })
-    .catch((res) => {
-      const { error } = (res instanceof Error) ? res.response.data : res;
-
+    .catch(error => {
       // If we cannot get user with current token - reset token to sign in again
       setToken(null);
 
