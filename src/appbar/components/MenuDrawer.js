@@ -48,14 +48,7 @@ class MenuDrawer extends Component {
           <ListItemIcon>
             <ListIcon />
           </ListItemIcon>
-          <ListItemText primary="REST list Example" />
-        </ListItem>
-
-        <ListItem button>
-          <ListItemIcon>
-            <ReceiptIcon />
-          </ListItemIcon>
-          <ListItemText primary="REST form Example" />
+          <ListItemText primary="Table list Example" />
         </ListItem>
       </div>
     );

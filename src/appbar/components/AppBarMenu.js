@@ -30,7 +30,7 @@ const styleSheet = createStyleSheet('AppBarMenuContainer', theme => ({
   },
 }));
 
-class AppBarMenuContainer extends Component {
+class AppBarMenuComponent extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     location: PropTypes.object,
@@ -128,4 +128,4 @@ class AppBarMenuContainer extends Component {
   }
 }
 
-export default withStyles(styleSheet)(AppBarMenuContainer);
+export default withStyles(styleSheet)(AppBarMenuComponent);

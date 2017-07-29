@@ -6,7 +6,7 @@ import bundle from './../bundle';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 
-import AppBarContentLoader from 'bundle-loader?lazy&name=[name]!./AppBarContent';
+import AppBarContentLoader from 'bundle-loader?lazy&name=[name]!./../../appbar/components/AppBarContent';
 const AppBarContent = bundle(AppBarContentLoader);
 
 const styleSheet = createStyleSheet('Layout', (theme) => ({

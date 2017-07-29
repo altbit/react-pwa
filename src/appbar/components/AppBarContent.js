@@ -7,7 +7,7 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 
-import AppBarUser from './../../user/containers/AppBarUser';
+import AppBarUser from './../containers/AppBarUser';
 import MenuDrawer from './MenuDrawer';
 
 const styleSheet = createStyleSheet('AppBarContent', (theme) => ({

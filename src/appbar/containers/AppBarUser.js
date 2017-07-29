@@ -8,8 +8,8 @@ import Avatar from 'material-ui/Avatar';
 import Grid from 'material-ui/Grid';
 import { green } from 'material-ui/colors';
 
-import Auth from './Auth';
-import AppBarMenu from './../../app/containers/AppBarMenu';
+import Auth from './../../user/containers/Auth';
+import AppBarMenu from './../components/AppBarMenu';
 
 const styleSheet = createStyleSheet('AppBarUserContainer', theme => ({
   avatar: {
