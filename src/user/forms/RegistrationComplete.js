@@ -9,8 +9,8 @@ import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import CloudDoneIcon from 'material-ui-icons/CloudDone';
-import { LabelCheckbox } from 'material-ui/Checkbox';
-import { FormGroup } from 'material-ui/Form';
+import Checkbox from 'material-ui/Checkbox';
+import { FormGroup, FormControlLabel } from 'material-ui/Form';
 
 import TextField from './../../base/form/Field/TextField';
 import { isRequired } from './../../base/form/Field/validation';
@@ -84,10 +84,14 @@ class RegistrationCompleteForm extends Component {
 
             <Grid item xs={12}>
               <FormGroup row>
-                <LabelCheckbox
-                  name='newsletter'
-                  label='I would like to receive newsletter'
-                  onChange={this.onNewsletterSwitch}
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={this.onNewsletterSwitch}
+                      value="newsletter"
+                    />
+                  }
+                  label="I would like to receive newsletter"
                 />
               </FormGroup>
             </Grid>

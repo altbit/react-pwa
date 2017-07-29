@@ -9,8 +9,6 @@ import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import TouchAppIcon from 'material-ui-icons/Portrait';
-import { LabelCheckbox } from 'material-ui/Checkbox';
-import { FormGroup } from 'material-ui/Form';
 
 import TextField from './../../base/form/Field/TextField';
 import { isRequired } from './../../base/form/Field/validation';
@@ -39,13 +37,14 @@ class SignInForm extends Component {
     return (
       <ContentBlock sm>
         <form onSubmit={handleSubmit}>
-          <Typography type='display1' gutterBottom>
-            Sign In
-          </Typography>
-
-          <Divider/>
-
           <Grid container>
+            <Grid item xs={12}>
+              <Typography type='display1' gutterBottom>
+                Sign In
+              </Typography>
+              <Divider/>
+            </Grid>
+
             <Grid item xs={12}>
               <Field
                 component={TextField}
@@ -54,7 +53,7 @@ class SignInForm extends Component {
                 required={true}
                 validate={isRequired('Email')}
                 fieldError={validationErrors.email}
-                />
+              />
             </Grid>
 
             <Grid item xs={12}>
@@ -68,18 +67,20 @@ class SignInForm extends Component {
                 fieldError={validationErrors.password}
                 />
             </Grid>
-          </Grid>
 
-          <Grid container justify='space-between' align='center' className={classes.footer}>
-            <Grid item>
-              <Typography type='body1'>
-                Don't have an account? <Link to='/register'>Register</Link>
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Button raised color='primary' type='submit' disabled={isSubmitting}>
-                Sign In <TouchAppIcon  className={classes.icon}/>
-              </Button>
+            <Grid item xs={12}>
+              <Grid container justify='space-between' align='center' className={classes.footer}>
+                <Grid item>
+                  <Typography type='body1'>
+                    Don't have an account? <Link to='/register'>Register</Link>
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button raised color='primary' type='submit' disabled={isSubmitting}>
+                    Sign In <TouchAppIcon  className={classes.icon}/>
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </form>
