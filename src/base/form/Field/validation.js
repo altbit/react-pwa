@@ -12,17 +12,11 @@ export const parseValidationErrors = (error, formValues = {}) => {
     error.message &&
     typeof error.message == 'object'
   ) {
-    return Object.keys(error.message).reduce((errors, fieldName) => {
-      if (!errors[fieldName]) {
-        let message = error.message[fieldName];
-        if (typeof message == 'object') {
-          message = Object.keys(message).reduce((result, key) => {
-            return `${result}${message[key]}`;
-          }, "");
-        }
-        errors[fieldName] = {
-          message,
-          value: formValues[fieldName],
+    return error.message.reduce((errors, current) => {
+      if (current.param && !errors[current.param]) {
+        errors[current.param] = {
+          message: current.msg,
+          value: current.value || formValues[current.param],
         };
       }
       return errors;

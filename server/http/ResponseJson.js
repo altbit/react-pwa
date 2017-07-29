@@ -1,7 +1,10 @@
 const config = require('./../../config/config');
 const debug = require('debug')('server:jsonResponse');
 
-const VALIDATION_ERROR_CODE = 412;
+const VALIDATION_ERROR_HTTP_CODE = 412;
+
+const DEFAULT_ERROR = 'ERROR';
+const VALIDATION_ERROR = 'ERROR_VALIDATION';
 
 class ResponseJson {
   constructor(res, success = true) {
@@ -32,23 +35,23 @@ class ResponseJson {
     return this.render();
   }
 
-  withError(message, code = 500) {
+  withError(message, httpCode = 500, code = DEFAULT_ERROR) {
     debug('[FAIL]', message);
     this.asFail();
-    this.withCode(code);
+    this.withCode(httpCode);
     this.responseError = {
       code,
       message,
     };
 
-    if (config.server.hideErrors && code != VALIDATION_ERROR_CODE) {
+    if (config.server.hideErrors && code != VALIDATION_ERROR) {
       this.responseError.message = 'Server Error';
     }
     return this.render();
   }
 
   withValidationErrors(errors) {
-    return this.withError(errors, VALIDATION_ERROR_CODE);
+    return this.withError(errors, VALIDATION_ERROR_HTTP_CODE, VALIDATION_ERROR);
   }
 
   withValidationError(param, msg, value) {
