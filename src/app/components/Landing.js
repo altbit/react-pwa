@@ -3,7 +3,6 @@ import AppConfig from 'AppConfig';
 import { Link } from 'react-router-dom';
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';

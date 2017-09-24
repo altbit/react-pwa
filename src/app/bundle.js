@@ -39,8 +39,8 @@ class BundleComponent extends Component {
   }
 }
 
-export default (BundleLoader) => (props) => (
+export default BundleLoader => props => (
   <BundleComponent loader={BundleLoader}>
-    {(LoadedComponent) => <LoadedComponent {...props}/>}
+    {LoadedComponent => <LoadedComponent {...props} />}
   </BundleComponent>
 );

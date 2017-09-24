@@ -99,8 +99,8 @@ const webpackPlugins = [
   }),
   new webpack.optimize.CommonsChunkPlugin({
     name: 'meta',
-    chunks: ['vendor'],
     filename: 'js/meta.[chunkhash].js',
+    minChunks: 2,
   }),
   new webpack.NamedModulesPlugin(),
   new HtmlWebpackPlugin({
