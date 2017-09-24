@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import createPalette from 'material-ui/styles/palette';
 import { blue, pink, red } from 'material-ui/colors';
 
 const theme = createMuiTheme({
-  palette: createPalette({
+  palette: {
     primary: blue,
     accent: pink,
     error: red,
-  }),
+  },
   typography: {
     fontSize: 14,
     fontWeightLight: 250,

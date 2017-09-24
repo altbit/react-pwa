@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import bundle from './../bundle';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 
 import AppBarContentLoader from 'bundle-loader?lazy&name=[name]!./../../appbar/components/AppBarContent';
 const AppBarContent = bundle(AppBarContentLoader);
 
-const styleSheet = createStyleSheet('Layout', (theme) => ({
+const styleSheet = theme => ({
   root: {
     display: 'flex',
     minHeight: '100vh',
@@ -34,7 +34,7 @@ const styleSheet = createStyleSheet('Layout', (theme) => ({
       minHeight: 64,
     },
   },
-}));
+});
 
 const Layout = ({ children, classes }) => {
   return (

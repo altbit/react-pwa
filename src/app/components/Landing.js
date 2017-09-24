@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import AppConfig from 'AppConfig';
 import { Link } from 'react-router-dom';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
@@ -12,7 +12,7 @@ import { green } from 'material-ui/colors';
 import Auth from './../../user/containers/Auth';
 import ContentBlock from './../../base/components/ContentBlock';
 
-const styleSheet = createStyleSheet('Landing', (theme) => ({
+const styleSheet = theme => ({
   icon: {
     color: green[500],
   },
@@ -23,7 +23,7 @@ const styleSheet = createStyleSheet('Landing', (theme) => ({
     paddingTop: 32,
     paddingBottom: 32,
   },
-}));
+});
 
 const Landing = ({ classes }) => (
   <ContentBlock md>

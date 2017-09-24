@@ -3,7 +3,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import { withRouter } from 'react-router'
 
 import IconButton from 'material-ui/IconButton';
@@ -13,7 +13,7 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 
 import Auth from './../../user/containers/Auth';
 
-const styleSheet = createStyleSheet('AppBarMenuContainer', theme => ({
+const styleSheet = theme => ({
   menu: {
     marginTop: 8,
     marginLeft: -52,
@@ -28,7 +28,7 @@ const styleSheet = createStyleSheet('AppBarMenuContainer', theme => ({
       background: theme.palette.text.divider,
     },
   },
-}));
+});
 
 class AppBarMenuComponent extends Component {
   static propTypes = {

@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
@@ -13,7 +13,7 @@ import ReceiptIcon from 'material-ui-icons/Receipt';
 import ListIcon from 'material-ui-icons/List';
 import GroupIcon from 'material-ui-icons/Group';
 
-const styleSheet = createStyleSheet('MenuDrawer', theme => ({
+const styleSheet = theme => ({
   list: {
     width: 250,
     flex: 'initial',
@@ -28,7 +28,7 @@ const styleSheet = createStyleSheet('MenuDrawer', theme => ({
       background: theme.palette.text.divider,
     },
   },
-}));
+});
 
 class MenuDrawer extends Component {
   state = {

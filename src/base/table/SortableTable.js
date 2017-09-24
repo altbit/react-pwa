@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import keycode from 'keycode';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Table, {
   TableBody,
   TableCell,
@@ -19,7 +19,7 @@ export const ORDER_DESC = 'desc';
 export const DEFAULT_ORDER = ORDER_ASC;
 const INDEX_NAME = 'rowIndex';
 
-const styleSheet = createStyleSheet('SortableTable', theme => ({
+const styleSheet = theme => ({
   root: {
     width: '100%',
     overflowX: 'auto',
@@ -32,7 +32,7 @@ const styleSheet = createStyleSheet('SortableTable', theme => ({
     width: 28,
     height: 28,
   },
-}));
+});
 
 class SortableTable extends Component {
   static propTypes = {

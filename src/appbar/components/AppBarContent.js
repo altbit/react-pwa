@@ -2,7 +2,7 @@ import AppConfig from 'AppConfig';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
@@ -10,7 +10,7 @@ import Grid from 'material-ui/Grid';
 import AppBarUser from './../containers/AppBarUser';
 import MenuDrawer from './MenuDrawer';
 
-const styleSheet = createStyleSheet('AppBarContent', (theme) => ({
+const styleSheet = theme => ({
   title: {
     textTransform: 'none',
     color: theme.palette.getContrastText(theme.palette.primary[500]),
@@ -22,7 +22,7 @@ const styleSheet = createStyleSheet('AppBarContent', (theme) => ({
   menu: {
     marginLeft: 'auto',
   },
-}));
+});
 
 const AppBarContent = ({ classes }) => {
   return (

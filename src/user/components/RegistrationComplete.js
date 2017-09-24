@@ -2,7 +2,7 @@ import AppConfig from 'AppConfig';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
@@ -12,7 +12,7 @@ import Icon from 'material-ui/Icon';
 
 import ContentBlock from './../../base/components/ContentBlock';
 
-const styleSheet = createStyleSheet('RegistrationComplete', (theme) => ({
+const styleSheet = theme => ({
   footer: {
     paddingTop: 16,
   },
@@ -27,7 +27,7 @@ const styleSheet = createStyleSheet('RegistrationComplete', (theme) => ({
   icon: {
     marginLeft: 8,
   },
-}));
+});
 
 const RegistrationComplete = (props) => {
   const { userData, classes } = props;

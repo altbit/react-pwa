@@ -7,9 +7,9 @@ import {
   TableSortLabel,
 } from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('SortableTableHead', theme => ({
+const styleSheet = theme => ({
   cell: {
     padding: 3,
     whiteSpace: 'normal',
@@ -18,7 +18,7 @@ const styleSheet = createStyleSheet('SortableTableHead', theme => ({
     width: 28,
     height: 28,
   },
-}));
+});
 
 class SortableTableHead extends Component {
   static propTypes = {

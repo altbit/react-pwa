@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 import ContentBlock from './../../base/components/ContentBlock';
 import SortableTable from './../../base/table/SortableTable';
@@ -21,9 +21,9 @@ const data = [
   { name: 'Gingerbread', calories: 356, fat: 16.0, carbs: 49, protein: 3.8 },
 ];
 
-const styleSheet = createStyleSheet('RestListTable', theme => ({
+const styleSheet = theme => ({
   root: {},
-}));
+});
 
 class RestListTable extends Component {
   render() {

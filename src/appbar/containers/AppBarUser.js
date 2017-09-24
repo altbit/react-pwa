@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
@@ -11,7 +11,7 @@ import { green } from 'material-ui/colors';
 import Auth from './../../user/containers/Auth';
 import AppBarMenu from './../components/AppBarMenu';
 
-const styleSheet = createStyleSheet('AppBarUserContainer', theme => ({
+const styleSheet = theme => ({
   avatar: {
     color: theme.palette.getContrastText(theme.palette.primary[500]),
     backgroundColor: green[400],
@@ -21,7 +21,7 @@ const styleSheet = createStyleSheet('AppBarUserContainer', theme => ({
       display: 'none',
     },
   },
-}));
+});
 
 class AppBarUserContainer extends Component {
   static propTypes = {

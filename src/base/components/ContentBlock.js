@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Fade from 'material-ui/transitions/Fade';
 
-const styleSheet = createStyleSheet('ContentBlock', (theme) => {
+const styleSheet = theme => {
   let styles = {
     root: {
       flex: '1 1 100%',
@@ -28,7 +28,7 @@ const styleSheet = createStyleSheet('ContentBlock', (theme) => {
   }, styles);
 
   return styles;
-});
+};
 
 const ContentBlock = ({ children, classes, xs, sm, md, lg, xl }) => {
   const className = classNames(

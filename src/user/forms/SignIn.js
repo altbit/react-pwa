@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
@@ -14,14 +14,14 @@ import TextField from './../../base/form/Field/TextField';
 import { isRequired } from './../../base/form/Field/validation';
 import ContentBlock from './../../base/components/ContentBlock';
 
-const styleSheet = createStyleSheet('SignInForm', (theme) => ({
+const styleSheet = theme => ({
   footer: {
     paddingTop: 16,
   },
   icon: {
     marginLeft: 8,
   },
-}));
+});
 
 class SignInForm extends Component {
   static propTypes = {

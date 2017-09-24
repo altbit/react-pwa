@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
@@ -10,12 +10,12 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import FilterListIcon from 'material-ui-icons/FilterList';
 import Grid from 'material-ui/Grid';
 
-const toolbarStyleSheet = createStyleSheet('SortableTableToolbar', theme => ({
+const toolbarStyleSheet = theme => ({
   highlight: {
     color: theme.palette.primary[900],
     backgroundColor: theme.palette.primary[100],
   },
-}));
+});
 
 let SortableTableToolbar = props => {
   const { numSelected, classes, name, onDelete, onEdit } = props;
